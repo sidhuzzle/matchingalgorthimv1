@@ -5,7 +5,8 @@ import numpy as np
 engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
 df_goals = pd.read_sql('select * from goals', con=engine)
 Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
-df_tags = pd.read_sql('select * from tags', con=engine)
+engine_1 = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
+df_tags = pd.read_sql('select * from tags', con=engine_1)
 Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
 weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,1]
 Weight = st.multiselect('Enter the weight',weight,key = "three")
