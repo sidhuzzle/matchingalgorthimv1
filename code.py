@@ -53,7 +53,7 @@ Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'f
 Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
 year = ['First Year ','Second Year','Third Year','Final Year']
 Year = st.selectbox('Enter the year',year,key = 'seven')
-if st.button( 'Submit') or st.session_state.load_state:
+if st.button('Submit',key = 'eight') or st.session_state.load_state:
   st.session_state.load_state == True
   if len(Goals) != 0:
     goals_1 =  pd.DataFrame(Goals,columns =['Goals'])
