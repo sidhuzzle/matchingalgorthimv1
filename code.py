@@ -52,13 +52,13 @@ if "one" not in st.session_state:
 if "two" not in st.session_state:
   interest = []
   interest = st.session_state.two
+  Interest = pd.DataFrame(interest,columns = ['Interest'])
 if "three" not in st.session_state:
   Weight = st.session_state["three"]
+  Weight = pd.DataFrame(Weight,columns = ['Weight'])
   if len(interest) > 0:
     group_7 = df.groupby(df.type)
     df_I = group_7.get_group("Topic")
-    Interest = pd.DataFrame(interest,columns = ['Interest'])
-    Weight = pd.DataFrame(Weight,columns = ['Weight'])
     df_interest = pd.concat([Interest,Weight],axis = 1)
     df_I =  pd.merge(df_I, df_interest, left_on='name',right_on='Interest',suffixes=('', '_x'),how = 'inner')
     df_I = df_I.loc[:,~df_I.columns.duplicated()]
@@ -69,10 +69,6 @@ if "three" not in st.session_state:
     df_I['Weight'] = df_I[col_list].sum(axis=1)
     df_I = pd.merge(df, df_I, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
     df_I = df_I.loc[:,~df_I.columns.duplicated()]
-  
-  
-  
-  
   if len(interest) == 0:
     df_I = df
     df_I['Weight'] = 0
