@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import psycopg2 as pg
 import numpy as np
-st.cache(ttl=24*3600)
 engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
 df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
 df_tags = pd.read_sql('select * from tags', con=engine)
@@ -53,7 +52,7 @@ Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'f
 Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
 year = ['First Year ','Second Year','Third Year','Final Year']
 Year = st.selectbox('Enter the year',year,key = 'seven')
-if st.button('Submit',key = 'eight')or st.session_state.load_state:
+if st.button('Submit',key = 'eight') or st.session_state.load_state:
   st.session_state.load_state == True
   if len(Goals) != 0:
     goals_1 =  pd.DataFrame(Goals,columns =['Goals'])
