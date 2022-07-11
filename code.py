@@ -55,10 +55,4 @@ Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six
 year = ['First Year ','Second Year','Third Year','Final Year']
 Year = st.selectbox('Enter the year',year,key = 'seven')
 if st.button('Submit',key = 'eight'): 
-  if len(Goals) != 0:
-    goals_1 =  pd.DataFrame(Goals,columns =['Goals'])
-    df_goals = pd.merge(df_goals, goals_1, left_on='goal',right_on='Goals',suffixes=('', '_x'),how = 'inner')
-    df_goals = df_goals.loc[:,~df_goals.columns.duplicated()]
-    df =  pd.merge(df, df_goals, left_on='kind',right_on='touchpointable_kind',suffixes=('', '_x'),how = 'inner')
-    df = df.loc[:,~df.columns.duplicated()]
-    st.write(df)
+  st.write(df)
