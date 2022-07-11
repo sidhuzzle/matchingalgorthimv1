@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import psycopg2 as pg
 import numpy as np
-
 engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
 df_goals = pd.read_sql('select * from goals', con=engine)
 Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
