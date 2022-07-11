@@ -5,19 +5,8 @@ import numpy as np
 engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
 df_goals = pd.read_sql('select * from goals', con=engine)
 Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
-df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
-grouped_1 = df_touchpoints.groupby(df_touchpoints.state)
-df_touchpoints = grouped_1.get_group(1)
 df_tags = pd.read_sql('select * from tags', con=engine)
-df_tagging = pd.read_sql('select * from taggings', con=engine)
-df_touchpoints = grouped_1.get_group(1)
-df_touchpoints =  pd.merge(df_touchpoints, df_tagging, left_on='id',right_on='taggable_id',suffixes=('', '_x'))
-df_touchpoints = df_touchpoints.loc[:,~df_touchpoints.columns.duplicated()]
-df = pd.merge(df_touchpoints,df_tags,left_on='tag_id',right_on='id',suffixes=('', '_x'))
-df = df.loc[:,~df.columns.duplicated()]
-group_6 = df.groupby(df.type)
-df_T = group_6.get_group("Topic")
-Interest = st.multiselect('Enter the interest',df_T['name'].unique(),key = "two")
+Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
 weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,1]
 Weight = st.multiselect('Enter the weight',weight,key = "three")
 df_universities = pd.read_sql('select * from universities', con=engine)
@@ -31,6 +20,16 @@ Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six
 year = ['First Year ','Second Year','Third Year','Final Year']
 Year = st.selectbox('Enter the year',year,key = 'seven')
 df_goal_weights = pd.read_sql('select * from matching_goal_weights', con=engine)
+df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
+grouped_1 = df_touchpoints.groupby(df_touchpoints.state)
+df_touchpoints = grouped_1.get_group(1)
+df_tags = pd.read_sql('select * from tags', con=engine)
+df_tagging = pd.read_sql('select * from taggings', con=engine)
+df_touchpoints = grouped_1.get_group(1)
+df_touchpoints =  pd.merge(df_touchpoints, df_tagging, left_on='id',right_on='taggable_id',suffixes=('', '_x'))
+df_touchpoints = df_touchpoints.loc[:,~df_touchpoints.columns.duplicated()]
+df = pd.merge(df_touchpoints,df_tags,left_on='tag_id',right_on='id',suffixes=('', '_x'))
+df = df.loc[:,~df.columns.duplicated()]
 df_goals = pd.merge(df_goals, df_goal_weights, left_on='id',right_on='goal_id',suffixes=('', '_x'),how = 'inner')
 df_goals = df_goals.loc[:,~df_goals.columns.duplicated()]
 df_goals = df_goals[['id','title','touchpointable_kind','value']].copy()
