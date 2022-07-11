@@ -121,18 +121,18 @@ if "seven" not in st.session_state:
   df = df_A.sort_values(by='matching score',ascending=False)
   goals = ['Start my Career with a Spring Week','Get a Summer Internship','Get an Internship alongside my Studies', 'Land a Placement Year','Win Awards & Competitions','Secure a Graduate Job','Find a Co-founder & Start a Business', 'Meet Like-minded Students & join Societies','Expand my Network & Connect with Industry Leaders']
 Goals =  st.multiselect('Enter the goals',goals,key = "one")
-  group_6 = df.groupby(df.type)
-  df_T = group_6.get_group("Topic")
-  interest = st.multiselect('Enter the interest',df_T['name'].unique(),key = "two")
-  weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,1]
-  Weight = st.multiselect('Enter the weight',weight,key = "three")
-  Interest = pd.DataFrame(interest,columns = ['Interest'])
-  Weight = pd.DataFrame(Weight,columns = ['Weight'])
-  df_interest = pd.concat([Interest,Weight],axis = 1)
-  University = st.selectbox('Enter the university',df_universities['name'].unique(),key = 'four')
-  Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'five')
-  Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
-  year = ['First Year ','Second Year','Third Year','Final Year']
-  Year = st.selectbox('Enter the year',year,key = 'seven')
+group_6 = df.groupby(df.type)
+df_T = group_6.get_group("Topic")
+interest = st.multiselect('Enter the interest',df_T['name'].unique(),key = "two")
+weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,1]
+Weight = st.multiselect('Enter the weight',weight,key = "three")
+Interest = pd.DataFrame(interest,columns = ['Interest'])
+Weight = pd.DataFrame(Weight,columns = ['Weight'])
+df_interest = pd.concat([Interest,Weight],axis = 1)
+University = st.selectbox('Enter the university',df_universities['name'].unique(),key = 'four')
+Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'five')
+Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
+year = ['First Year ','Second Year','Third Year','Final Year']
+Year = st.selectbox('Enter the year',year,key = 'seven')
 if st.button('Submit',key = 'eight'): 
   st.write(df)
