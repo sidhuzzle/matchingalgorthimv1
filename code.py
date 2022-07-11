@@ -49,30 +49,30 @@ if "one" not in st.session_state:
   df =  pd.merge(df, df_goals, left_on='kind',right_on='touchpointable_kind',suffixes=('', '_x'),how = 'inner')
   df = df.loc[:,~df.columns.duplicated()]
 
-if "two" not in st.session_state:
-  interest = []
-  interest = st.session_state.two
-  Interest = pd.DataFrame(interest,columns = ['Interest'])
-if "three" not in st.session_state:
-  Weight = []
-  Weight = st.session_state.three
-  Weight = pd.DataFrame(Weight,columns = ['Weight'])
-  if len(interest) > 0:
-    group_7 = df.groupby(df.type)
-    df_I = group_7.get_group("Topic")
-    df_interest = pd.concat([Interest,Weight],axis = 1)
-    df_I =  pd.merge(df_I, df_interest, left_on='name',right_on='Interest',suffixes=('', '_x'),how = 'inner')
-    df_I = df_I.loc[:,~df_I.columns.duplicated()]
-    col_list = df_I['name'].unique()
-    df_I['idx'] = df_I.groupby(['touchpointable_id', 'name']).cumcount()
-    df_I = df_I.pivot(index=['idx','touchpointable_id'], columns='name', values='Weight').sort_index(level=1).reset_index().rename_axis(None, axis=1)
-    df_I = df_I.fillna(0)
-    df_I['Weight'] = df_I[col_list].sum(axis=1)
-    df_I = pd.merge(df, df_I, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
-    df_I = df_I.loc[:,~df_I.columns.duplicated()]
-  if len(interest) == 0:
-    df_I = df
-    df_I['Weight'] = 0
+#if "two" not in st.session_state:
+  #interest = []
+  #interest = st.session_state.two
+  #Interest = pd.DataFrame(interest,columns = ['Interest'])
+#if "three" not in st.session_state:
+  #Weight = []
+  #Weight = st.session_state.three
+  #Weight = pd.DataFrame(Weight,columns = ['Weight'])
+  #if len(interest) > 0:
+    #group_7 = df.groupby(df.type)
+    #df_I = group_7.get_group("Topic")
+    #df_interest = pd.concat([Interest,Weight],axis = 1)
+    #df_I =  pd.merge(df_I, df_interest, left_on='name',right_on='Interest',suffixes=('', '_x'),how = 'inner')
+    #df_I = df_I.loc[:,~df_I.columns.duplicated()]
+    #col_list = df_I['name'].unique()
+    #df_I['idx'] = df_I.groupby(['touchpointable_id', 'name']).cumcount()
+    #df_I = df_I.pivot(index=['idx','touchpointable_id'], columns='name', values='Weight').sort_index(level=1).reset_index().rename_axis(None, axis=1)
+    #df_I = df_I.fillna(0)
+    #df_I['Weight'] = df_I[col_list].sum(axis=1)
+    #df_I = pd.merge(df, df_I, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
+    #df_I = df_I.loc[:,~df_I.columns.duplicated()]
+  #if len(interest) == 0:
+    #df_I = df
+    #df_I['Weight'] = 0
   
 #if "four" not in st.session_state:
   #University = st.session_state["four"]
@@ -132,4 +132,4 @@ Weight = st.multiselect('Enter the weight',weight,key = "three")
 #year = ['First Year ','Second Year','Third Year','Final Year']
 #Year = st.selectbox('Enter the year',year,key = 'seven')
 if st.button('Submit',key = 'eight'): 
-  st.write(df_I)
+  st.write(df)
