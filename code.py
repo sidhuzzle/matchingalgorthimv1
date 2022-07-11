@@ -50,21 +50,18 @@ df = df.loc[:,~df.columns.duplicated()]
 Interest = pd.DataFrame(Interest,columns = ['Interest'])
 Weight = pd.DataFrame(Weight,columns = ['Weight'])
 df_interest = pd.concat([Interest,Weight],axis = 1)
-if len(Interest) > 0:
-  group_7 = df.groupby(df.type)
-  df_I = group_7.get_group("Topic")
-  df_I =  pd.merge(df_I, df_interest, left_on='name',right_on='Interest',suffixes=('', '_x'),how = 'inner')
-  df_I = df_I.loc[:,~df_I.columns.duplicated()]
-  col_list = df_I['name'].unique()
-  df_I['idx'] = df_I.groupby(['touchpointable_id', 'name']).cumcount()
-  df_I = df_I.pivot(index=['idx','touchpointable_id'], columns='name', values='Weight').sort_index(level=1).reset_index().rename_axis(None, axis=1)
-  df_I = df_I.fillna(0)
-  df_I['Weight'] = df_I[col_list].sum(axis=1)
-  df_I = pd.merge(df, df_I, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
-  df_I = df_I.loc[:,~df_I.columns.duplicated()]
-if len(Interest) == 0:
-  df_I = df
-  df_I['Weight'] = 0
+#if len(Interest) > 0:
+group_7 = df.groupby(df.type)
+df_I = group_7.get_group("Topic")
+df_I =  pd.merge(df_I, df_interest, left_on='name',right_on='Interest',suffixes=('', '_x'),how = 'inner')
+df_I = df_I.loc[:,~df_I.columns.duplicated()]
+col_list = df_I['name'].unique()
+df_I['idx'] = df_I.groupby(['touchpointable_id', 'name']).cumcount()
+df_I = df_I.pivot(index=['idx','touchpointable_id'], columns='name', values='Weight').sort_index(level=1).reset_index().rename_axis(None, axis=1)
+df_I = df_I.fillna(0)
+df_I['Weight'] = df_I[col_list].sum(axis=1)
+df_I = pd.merge(df, df_I, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
+df_I = df_I.loc[:,~df_I.columns.duplicated()]
 df_tc = pd.read_sql('select * from touchpoints_cities', con=engine)
 df_cities = pd.read_sql('select * from cities', con=engine)
 df_cities.rename(columns = {'name':'city_name'}, inplace = True)
