@@ -3,7 +3,7 @@ import pandas as pd
 import psycopg2 as pg
 import numpy as np
 @st.cache(ttl=24*3600)
-engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
+engine = pg.connect("dbname='huzzle_staging' user='postgres' host='huzzle-staging.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='2Yw*PG9x-FcWvc7R'")
 df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
 df_tags = pd.read_sql('select * from tags', con=engine)
 df_tagging = pd.read_sql('select * from taggings', con=engine)
