@@ -17,7 +17,7 @@ df = pd.merge(df_touchpoints,df_tags,left_on='tag_id',right_on='id',suffixes=(''
 df = df.loc[:,~df.columns.duplicated()]
 group_6 = df.groupby(df.type)
 df_T = group_6.get_group("Topic")
-interest = st.multiselect('Enter the interest',df_T['name'].unique(),key = "two")
+Interest = st.multiselect('Enter the interest',df_T['name'].unique(),key = "two")
 weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,1]
 Weight = st.multiselect('Enter the weight',weight,key = "three")
 df_universities = pd.read_sql('select * from universities', con=engine)
