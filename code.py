@@ -6,7 +6,6 @@ import numpy as np
 engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
 df_goals = pd.read_sql('select * from goals', con=engine)
 Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
-
 df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
 grouped_1 = df_touchpoints.groupby(df_touchpoints.state)
 df_touchpoints = grouped_1.get_group(1)
@@ -22,26 +21,16 @@ df_T = group_6.get_group("Topic")
 interest = st.multiselect('Enter the interest',df_T['name'].unique(),key = "two")
 weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,1]
 Weight = st.multiselect('Enter the weight',weight,key = "three")
-
-
 df_universities = pd.read_sql('select * from universities', con=engine)
 University = st.selectbox('Enter the university',df_universities['name'].unique(),key = 'four')
-
 df_subjects = pd.read_sql('select * from subjects', con=engine)
 Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'five')
-
 df_degrees = pd.read_sql('select * from degrees', con=engine)
 df_degrees.replace("Bachelor's","Bachelors", inplace=True)
 df_degrees.replace("Master's","Masters", inplace=True)
 Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
-
-
 year = ['First Year ','Second Year','Third Year','Final Year']
 Year = st.selectbox('Enter the year',year,key = 'seven')
-
-
-
-
 df_goal_weights = pd.read_sql('select * from matching_goal_weights', con=engine)
 df_goals = pd.merge(df_goals, df_goal_weights, left_on='id',right_on='goal_id',suffixes=('', '_x'),how = 'inner')
 df_goals = df_goals.loc[:,~df_goals.columns.duplicated()]
@@ -52,12 +41,9 @@ df_goals = pd.merge(df_goals, goals_1, left_on='goal',right_on='Goals',suffixes=
 df_goals = df_goals.loc[:,~df_goals.columns.duplicated()]
 df =  pd.merge(df, df_goals, left_on='kind',right_on='touchpointable_kind',suffixes=('', '_x'),how = 'inner')
 df = df.loc[:,~df.columns.duplicated()]
-
-
 Interest = pd.DataFrame(interest,columns = ['Interest'])
 Weight = pd.DataFrame(Weight,columns = ['Weight'])
 df_interest = pd.concat([Interest,Weight],axis = 1)
-
 if len(interest) > 0:
   group_7 = df.groupby(df.type)
   df_I = group_7.get_group("Topic")
@@ -70,14 +56,9 @@ if len(interest) > 0:
   df_I['Weight'] = df_I[col_list].sum(axis=1)
   df_I = pd.merge(df, df_I, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
   df_I = df_I.loc[:,~df_I.columns.duplicated()]
-  
-  
-  
 if len(interest) == 0:
-  
   df_I = df
   df_I['Weight'] = 0
-
 df_tc = pd.read_sql('select * from touchpoints_cities', con=engine)
 df_cities = pd.read_sql('select * from cities', con=engine)
 df_cities.rename(columns = {'name':'city_name'}, inplace = True)
@@ -90,11 +71,8 @@ df_universities_1 = df_universities_1.loc[:,~df_universities_1.columns.duplicate
 df_universities_1 = df_universities_1.loc[df_universities_1['name'] == University]
 city_name = df_universities_1.iloc[0]['city_name']
 df_I['city score'] = np.where(df_I['city_name'] == city_name, 1,0)
-
-
 df_I['degree score'] = np.where(df_I['name'] == Degree, 1,0)
 df_E = df_I.loc[df_I['type'] == 'EducationRequirement']
-
 id = df_E['id'].to_list()
 df_E = df_I[~df_I.id.isin(id)]
 df_E = pd.merge(df, df_E, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
@@ -103,8 +81,6 @@ df_D = df_I.loc[df_I['degree score'] == 1]
 df_T = pd.merge(df, df_D, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
 df_T = df_T.loc[:,~df_T.columns.duplicated()]
 df_T = pd.concat([df_T,df_E])
-
-
 subject_topics = pd.read_sql('select * from subjects_topics', con=engine)
 df_subjects = pd.merge(df_subjects, subject_topics, left_on='id',right_on='subject_id',suffixes=('', '_x'),how = 'inner')
 df_subjects = df_subjects.loc[:,~df_subjects.columns.duplicated()]
@@ -130,12 +106,10 @@ df_A =  pd.concat([df_T,df_Y])
 df_A = df_A[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','year score','value']].copy()
 col_list = ['Weight','city score','degree score','subject score','year score']
 df_A['matching score'] = df_A[col_list].sum(axis=1)
-
 df_A = df_A.sort_values(by='matching score',ascending=False)
 df_O = df_I.loc[df_I['name'] == 'Open to All Students']
 df_O = pd.merge(df, df_O, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
 df_O = df_O.loc[:,~df_O.columns.duplicated()]
-
 df_O = pd.merge(df_O,df_subjects, left_on='name',right_on='name_x',suffixes=('', '_x'),how = 'left')
 df_O = df_O.loc[:,~df_O.columns.duplicated()]
 df_S = df_O.loc[df_O['subject score'] == 0.5]
@@ -149,7 +123,6 @@ col_list = ['Weight','city score','degree score','subject score']
 df_O['matching score'] = df_O[col_list].sum(axis=1)
 df_O = df_O.sort_values(by='matching score',ascending=False)
 df_A = pd.concat([df_A,df_O])
-
 df_A = df_A.groupby('id', as_index=False).first()
 df_A = df_A.sort_values(by='matching score',ascending=False)
 df_A = df_A.groupby(["kind","value"])
@@ -165,6 +138,7 @@ for group,df_1 in df_A:
   df = df.loc[:,~df.columns.duplicated()]
   df = df[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','year score','value','matching score']].copy()
   df = df.sort_values(by='matching score',ascending=False)
-  st.write(df)
+  if st.button("Submit",key = 'eight'):
+    st.write(df)
 
  
