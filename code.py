@@ -72,6 +72,5 @@ if st.button('Submit',key = 'eight'):
   df_I = pd.merge(df, df_I, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
   df_I = df_I.loc[:,~df_I.columns.duplicated()]
     if len(interest) == 0:
-      df_I = df
       df_I['Weight'] = 0
       st.write(df_I)
