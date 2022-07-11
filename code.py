@@ -120,7 +120,7 @@ def callback():
   #df_A['matching score'] = df_A[col_list].sum(axis=1)
   #df = df_A.sort_values(by='matching score',ascending=False)
   #goals = ['Start my Career with a Spring Week','Get a Summer Internship','Get an Internship alongside my Studies', 'Land a Placement Year','Win Awards & Competitions','Secure a Graduate Job','Find a Co-founder & Start a Business', 'Meet Like-minded Students & join Societies','Expand my Network & Connect with Industry Leaders']
-    Goals =  st.multiselect('Enter the goals',goals,key = "one")
+  Goals =  st.multiselect('Enter the goals',goals,key = "one")
 #group_6 = df.groupby(df.type)
 #df_T = group_6.get_group("Topic")
 #interest = st.multiselect('Enter the interest',df_T['name'].unique(),key = "two")
