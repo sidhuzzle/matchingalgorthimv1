@@ -44,9 +44,8 @@ Interest = pd.DataFrame(Interest,columns = ['Interest'])
 Weight = pd.DataFrame(Weight,columns = ['Weight'])
 df_interest = pd.concat([Interest,Weight],axis = 1)
 #if len(Interest) > 0:
-group_7 = df.groupby(df.type)
-df_I = group_7.get_group("Topic")
-df_I =  pd.merge(df_I, df_interest, left_on='name',right_on='Interest',suffixes=('', '_x'),how = 'inner')
+
+df_I =  pd.merge(df, df_interest, left_on='name',right_on='Interest',suffixes=('', '_x'),how = 'inner')
 df_I = df_I.loc[:,~df_I.columns.duplicated()]
 col_list = df_I['name'].unique()
 df_I['idx'] = df_I.groupby(['touchpointable_id', 'name']).cumcount()
