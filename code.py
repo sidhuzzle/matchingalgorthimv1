@@ -54,7 +54,8 @@ if "two" not in st.session_state:
   interest = st.session_state.two
   Interest = pd.DataFrame(interest,columns = ['Interest'])
 if "three" not in st.session_state:
-  Weight = st.session_state["three"]
+  Weight = []
+  Weight = st.session_state.three
   Weight = pd.DataFrame(Weight,columns = ['Weight'])
   if len(interest) > 0:
     group_7 = df.groupby(df.type)
