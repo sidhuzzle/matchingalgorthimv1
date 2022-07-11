@@ -4,27 +4,34 @@ import psycopg2 as pg
 import numpy as np
 engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
 df_goals = pd.read_sql('select * from goals', con=engine)
-Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
-engine_1 = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
 df_tags = pd.read_sql('select * from tags', con=engine_1)
-Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
-weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,1]
-Weight = st.multiselect('Enter the weight',weight,key = "three")
 df_universities = pd.read_sql('select * from universities', con=engine)
-University = st.selectbox('Enter the university',df_universities['name'].unique(),key = 'four')
 df_subjects = pd.read_sql('select * from subjects', con=engine)
-Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'five')
 df_degrees = pd.read_sql('select * from degrees', con=engine)
 df_degrees.replace("Bachelor's","Bachelors", inplace=True)
 df_degrees.replace("Master's","Masters", inplace=True)
-Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
 year = ['First Year ','Second Year','Third Year','Final Year']
+
+
+
+Goals =  st.multiselect('Enter the goals',goals,key = "one")
+Interest = st.multiselect('Enter the interest',df_T['name'].unique(),key = "two")
+weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,1]
+Weight = st.multiselect('Enter the weight',weight,key = "three")
+Interest = pd.DataFrame(interest,columns = ['Interest'])
+Weight = pd.DataFrame(Weight,columns = ['Weight'])
+df_interest = pd.concat([Interest,Weight],axis = 1)
+University = st.selectbox('Enter the university',df_universities['name'].unique(),key = 'four')
+Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'five')
+Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
 Year = st.selectbox('Enter the year',year,key = 'seven')
+
+
 df_goal_weights = pd.read_sql('select * from matching_goal_weights', con=engine)
 df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
 grouped_1 = df_touchpoints.groupby(df_touchpoints.state)
 df_touchpoints = grouped_1.get_group(1)
-df_tags = pd.read_sql('select * from tags', con=engine)
+
 df_tagging = pd.read_sql('select * from taggings', con=engine)
 df_touchpoints = grouped_1.get_group(1)
 df_touchpoints =  pd.merge(df_touchpoints, df_tagging, left_on='id',right_on='taggable_id',suffixes=('', '_x'))
