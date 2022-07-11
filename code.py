@@ -40,14 +40,15 @@ df_subjects = df_subjects.loc[:,~df_subjects.columns.duplicated()]
 df_subjects = pd.merge(df_subjects,df_tags,left_on='topic_id',right_on='id',suffixes=('', '_x'))
 df_subjects = df_subjects.loc[:,~df_subjects.columns.duplicated()]
 goals = ['Start my Career with a Spring Week','Get a Summer Internship','Get an Internship alongside my Studies', 'Land a Placement Year','Win Awards & Competitions','Secure a Graduate Job','Find a Co-founder & Start a Business', 'Meet Like-minded Students & join Societies','Expand my Network & Connect with Industry Leaders']
-if "one" not in st.session_state:
-  Goals = []
-  Goals = st.session_state.one
-  goals_1 =  pd.DataFrame(Goals,columns =['Goals'])
-  df_goals = pd.merge(df_goals, goals_1, left_on='title',right_on='Goals',suffixes=('', '_x'),how = 'inner')
-  df_goals = df_goals.loc[:,~df_goals.columns.duplicated()]
-  df =  pd.merge(df, df_goals, left_on='kind',right_on='touchpointable_kind',suffixes=('', '_x'),how = 'inner')
-  df = df.loc[:,~df.columns.duplicated()]
+def callback:
+  if "one" not in st.session_state:
+    Goals = []
+    Goals = st.session_state.one
+    goals_1 =  pd.DataFrame(Goals,columns =['Goals'])
+    df_goals = pd.merge(df_goals, goals_1, left_on='title',right_on='Goals',suffixes=('', '_x'),how = 'inner')
+    df_goals = df_goals.loc[:,~df_goals.columns.duplicated()]
+    df =  pd.merge(df, df_goals, left_on='kind',right_on='touchpointable_kind',suffixes=('', '_x'),how = 'inner')
+    df = df.loc[:,~df.columns.duplicated()]
 
 #if "two" not in st.session_state:
   #interest = []
@@ -119,17 +120,17 @@ if "one" not in st.session_state:
   #df_A['matching score'] = df_A[col_list].sum(axis=1)
   #df = df_A.sort_values(by='matching score',ascending=False)
   #goals = ['Start my Career with a Spring Week','Get a Summer Internship','Get an Internship alongside my Studies', 'Land a Placement Year','Win Awards & Competitions','Secure a Graduate Job','Find a Co-founder & Start a Business', 'Meet Like-minded Students & join Societies','Expand my Network & Connect with Industry Leaders']
-Goals =  st.multiselect('Enter the goals',goals,key = "one")
-group_6 = df.groupby(df.type)
-df_T = group_6.get_group("Topic")
-interest = st.multiselect('Enter the interest',df_T['name'].unique(),key = "two")
-weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,1]
-Weight = st.multiselect('Enter the weight',weight,key = "three")
+    Goals =  st.multiselect('Enter the goals',goals,key = "one")
+#group_6 = df.groupby(df.type)
+#df_T = group_6.get_group("Topic")
+#interest = st.multiselect('Enter the interest',df_T['name'].unique(),key = "two")
+#weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,1]
+#Weight = st.multiselect('Enter the weight',weight,key = "three")
 
 #University = st.selectbox('Enter the university',df_universities['name'].unique(),key = 'four')
 #Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'five')
 #Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
 #year = ['First Year ','Second Year','Third Year','Final Year']
 #Year = st.selectbox('Enter the year',year,key = 'seven')
-if st.button('Submit',key = 'eight'): 
-  st.write(df)
+  if st.button('Submit',key = 'eight',on_click=callback): 
+    st.write(df)
