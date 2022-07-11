@@ -14,7 +14,7 @@ if 'two' not in st.session_state:
 weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,1]
 Weight = st.multiselect('Enter the weight',weight,key = "three")
 if 'three' not in st.session_state:
-    st.session_state['three'] = Goals
+    st.session_state['three'] = Weight
 df_universities = pd.read_sql('select * from universities', con=engine)
 University = st.selectbox('Enter the university',df_universities['name'].unique(),key = 'four')
 df_subjects = pd.read_sql('select * from subjects', con=engine)
