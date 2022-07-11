@@ -40,7 +40,7 @@ df_subjects = df_subjects.loc[:,~df_subjects.columns.duplicated()]
 df_subjects = pd.merge(df_subjects,df_tags,left_on='topic_id',right_on='id',suffixes=('', '_x'))
 df_subjects = df_subjects.loc[:,~df_subjects.columns.duplicated()]
 if "one" not in st.session_state:
-  st.session_state["one"] = Goals
+  st.session_state["one"] == Goals
   goals_1 =  pd.DataFrame(Goals,columns =['Goals'])
 df_goals = pd.merge(df_goals, goals_1, left_on='title',right_on='Goals',suffixes=('', '_x'),how = 'inner')
 df_goals = df_goals.loc[:,~df_goals.columns.duplicated()]
