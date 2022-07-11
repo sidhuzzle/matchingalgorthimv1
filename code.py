@@ -14,7 +14,7 @@ year = ['First Year ','Second Year','Third Year','Final Year']
 
 
 
-Goals =  st.multiselect('Enter the goals',goals,key = "one")
+Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
 Interest = st.multiselect('Enter the interest',df_T['name'].unique(),key = "two")
 weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,1]
 Weight = st.multiselect('Enter the weight',weight,key = "three")
