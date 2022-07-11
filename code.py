@@ -42,39 +42,40 @@ df_subjects = df_subjects.loc[:,~df_subjects.columns.duplicated()]
 goals = ['Start my Career with a Spring Week','Get a Summer Internship','Get an Internship alongside my Studies', 'Land a Placement Year','Win Awards & Competitions','Secure a Graduate Job','Find a Co-founder & Start a Business', 'Meet Like-minded Students & join Societies','Expand my Network & Connect with Industry Leaders']
 if "one" not in st.session_state:
   Goals = []
-  Goals = st.session_stste.one
+  Goals = st.session_state.one
   goals_1 =  pd.DataFrame(Goals,columns =['Goals'])
   df_goals = pd.merge(df_goals, goals_1, left_on='title',right_on='Goals',suffixes=('', '_x'),how = 'inner')
   df_goals = df_goals.loc[:,~df_goals.columns.duplicated()]
   df =  pd.merge(df, df_goals, left_on='kind',right_on='touchpointable_kind',suffixes=('', '_x'),how = 'inner')
   df = df.loc[:,~df.columns.duplicated()]
 
-#if "two" not in st.session_state:
-  #interest = st.session_state["two"]
-#if "three" not in st.session_state:
-  #interest = st.session_state["three"]
-  #if len(interest) > 0:
-    #group_7 = df.groupby(df.type)
-    #df_I = group_7.get_group("Topic")
-    #Interest = pd.DataFrame(interest,columns = ['Interest'])
-    #Weight = pd.DataFrame(Weight,columns = ['Weight'])
-    #df_interest = pd.concat([Interest,Weight],axis = 1)
-    #df_I =  pd.merge(df_I, df_interest, left_on='name',right_on='Interest',suffixes=('', '_x'),how = 'inner')
-    #df_I = df_I.loc[:,~df_I.columns.duplicated()]
-    #col_list = df_I['name'].unique()
-    #df_I['idx'] = df_I.groupby(['touchpointable_id', 'name']).cumcount()
-    #df_I = df_I.pivot(index=['idx','touchpointable_id'], columns='name', values='Weight').sort_index(level=1).reset_index().rename_axis(None, axis=1)
-    #df_I = df_I.fillna(0)
-    #df_I['Weight'] = df_I[col_list].sum(axis=1)
-    #df_I = pd.merge(df, df_I, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
-    #df_I = df_I.loc[:,~df_I.columns.duplicated()]
+if "two" not in st.session_state:
+  interest = []
+  interest = st.session_state.two
+if "three" not in st.session_state:
+  Weight = st.session_state["three"]
+  if len(interest) > 0:
+    group_7 = df.groupby(df.type)
+    df_I = group_7.get_group("Topic")
+    Interest = pd.DataFrame(interest,columns = ['Interest'])
+    Weight = pd.DataFrame(Weight,columns = ['Weight'])
+    df_interest = pd.concat([Interest,Weight],axis = 1)
+    df_I =  pd.merge(df_I, df_interest, left_on='name',right_on='Interest',suffixes=('', '_x'),how = 'inner')
+    df_I = df_I.loc[:,~df_I.columns.duplicated()]
+    col_list = df_I['name'].unique()
+    df_I['idx'] = df_I.groupby(['touchpointable_id', 'name']).cumcount()
+    df_I = df_I.pivot(index=['idx','touchpointable_id'], columns='name', values='Weight').sort_index(level=1).reset_index().rename_axis(None, axis=1)
+    df_I = df_I.fillna(0)
+    df_I['Weight'] = df_I[col_list].sum(axis=1)
+    df_I = pd.merge(df, df_I, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
+    df_I = df_I.loc[:,~df_I.columns.duplicated()]
   
   
   
   
-  #if len(interest) == 0:
-    #df_I = df
-    #df_I['Weight'] = 0
+  if len(interest) == 0:
+    df_I = df
+    df_I['Weight'] = 0
   
 #if "four" not in st.session_state:
   #University = st.session_state["four"]
@@ -122,18 +123,16 @@ if "one" not in st.session_state:
   #df = df_A.sort_values(by='matching score',ascending=False)
   #goals = ['Start my Career with a Spring Week','Get a Summer Internship','Get an Internship alongside my Studies', 'Land a Placement Year','Win Awards & Competitions','Secure a Graduate Job','Find a Co-founder & Start a Business', 'Meet Like-minded Students & join Societies','Expand my Network & Connect with Industry Leaders']
 Goals =  st.multiselect('Enter the goals',goals,key = "one")
-#group_6 = df.groupby(df.type)
-#df_T = group_6.get_group("Topic")
-#interest = st.multiselect('Enter the interest',df_T['name'].unique(),key = "two")
-#weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,1]
-#Weight = st.multiselect('Enter the weight',weight,key = "three")
-#Interest = pd.DataFrame(interest,columns = ['Interest'])
-#Weight = pd.DataFrame(Weight,columns = ['Weight'])
-#df_interest = pd.concat([Interest,Weight],axis = 1)
+group_6 = df.groupby(df.type)
+df_T = group_6.get_group("Topic")
+interest = st.multiselect('Enter the interest',df_T['name'].unique(),key = "two")
+weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,1]
+Weight = st.multiselect('Enter the weight',weight,key = "three")
+
 #University = st.selectbox('Enter the university',df_universities['name'].unique(),key = 'four')
 #Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'five')
 #Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
 #year = ['First Year ','Second Year','Third Year','Final Year']
 #Year = st.selectbox('Enter the year',year,key = 'seven')
 if st.button('Submit',key = 'eight'): 
-  st.write(df)
+  st.write(df_I)
