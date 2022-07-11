@@ -18,7 +18,7 @@ Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one"
 Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
 weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,1]
 Weight = st.multiselect('Enter the weight',weight,key = "three")
-Interest = pd.DataFrame(interest,columns = ['Interest'])
+Interest = pd.DataFrame(Interest,columns = ['Interest'])
 Weight = pd.DataFrame(Weight,columns = ['Weight'])
 df_interest = pd.concat([Interest,Weight],axis = 1)
 University = st.selectbox('Enter the university',df_universities['name'].unique(),key = 'four')
