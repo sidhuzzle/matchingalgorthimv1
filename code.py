@@ -40,7 +40,7 @@ df_goals = pd.merge(df_goals, goals_1, left_on='goal',right_on='Goals',suffixes=
 df_goals = df_goals.loc[:,~df_goals.columns.duplicated()]
 df =  pd.merge(df, df_goals, left_on='kind',right_on='touchpointable_kind',suffixes=('', '_x'),how = 'inner')
 df = df.loc[:,~df.columns.duplicated()]
-Interest = pd.DataFrame(interest,columns = ['Interest'])
+Interest = pd.DataFrame(Interest,columns = ['Interest'])
 Weight = pd.DataFrame(Weight,columns = ['Weight'])
 df_interest = pd.concat([Interest,Weight],axis = 1)
 if len(interest) > 0:
