@@ -132,5 +132,5 @@ Goals =  st.multiselect('Enter the goals',goals,key = "one")
 #Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
 #year = ['First Year ','Second Year','Third Year','Final Year']
 #Year = st.selectbox('Enter the year',year,key = 'seven')
-  if st.button('Submit',key = 'eight',on_click=callback): 
+if st.button('Submit',key = 'eight',on_click=callback): 
     st.write(df)
