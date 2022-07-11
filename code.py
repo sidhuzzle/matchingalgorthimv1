@@ -40,6 +40,7 @@ df_subjects = df_subjects.loc[:,~df_subjects.columns.duplicated()]
 df_subjects = pd.merge(df_subjects,df_tags,left_on='topic_id',right_on='id',suffixes=('', '_x'))
 df_subjects = df_subjects.loc[:,~df_subjects.columns.duplicated()]
 goals = ['Start my Career with a Spring Week','Get a Summer Internship','Get an Internship alongside my Studies', 'Land a Placement Year','Win Awards & Competitions','Secure a Graduate Job','Find a Co-founder & Start a Business', 'Meet Like-minded Students & join Societies','Expand my Network & Connect with Industry Leaders']
+form = st.form(key='Matching Algorithm')
 Goals =  st.multiselect('Enter the goals',goals,key = "one")
 group_6 = df.groupby(df.type)
 df_T = group_6.get_group("Topic")
@@ -54,7 +55,7 @@ Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'f
 Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
 year = ['First Year ','Second Year','Third Year','Final Year']
 Year = st.selectbox('Enter the year',year,key = 'seven')
-submit_button = st.form_submit_button(label="Submit")
+submit_button = form.form_submit_button(label="Submit")
 
 goals_1 =  pd.DataFrame(Goals,columns =['Goals'])
 df_goals = pd.merge(df_goals, goals_1, left_on='goal',right_on='Goals',suffixes=('', '_x'),how = 'inner')
