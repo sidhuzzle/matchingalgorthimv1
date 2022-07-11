@@ -39,7 +39,8 @@ df_subjects = pd.merge(df_subjects, subject_topics, left_on='id',right_on='subje
 df_subjects = df_subjects.loc[:,~df_subjects.columns.duplicated()]
 df_subjects = pd.merge(df_subjects,df_tags,left_on='topic_id',right_on='id',suffixes=('', '_x'))
 df_subjects = df_subjects.loc[:,~df_subjects.columns.duplicated()]
-goals_1 =  pd.DataFrame(goals,columns =['Goals'])
+
+goals_1 =  pd.DataFrame(Goals,columns =['Goals'])
 df_goals = pd.merge(df_goals, goals_1, left_on='title',right_on='Goals',suffixes=('', '_x'),how = 'inner')
 df_goals = df_goals.loc[:,~df_goals.columns.duplicated()]
 df =  pd.merge(df, df_goals, left_on='kind',right_on='touchpointable_kind',suffixes=('', '_x'),how = 'inner')
