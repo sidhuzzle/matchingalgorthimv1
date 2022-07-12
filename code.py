@@ -18,15 +18,15 @@ year = ['First Year ','Second Year','Third Year','Final Year']
 
 
 @st.cache(ttl=24*3600)
-#def user_input():
-Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
-Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
-Weight = st.multiselect('Enter the weight',weight,key = "three")
-University = st.selectbox('Enter the university',df_universities['name'].unique(),key = 'four')
-Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'five')
-Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
-Year = st.selectbox('Enter the year',year,key = 'seven')
+def user_input():
+  Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
+  Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
+  Weight = st.multiselect('Enter the weight',weight,key = "three")
+  University = st.selectbox('Enter the university',df_universities['name'].unique(),key = 'four')
+  Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'five')
+  Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
+  Year = st.selectbox('Enter the year',year,key = 'seven')
   
-  #return Goals,Interest,Weight,University,Subject,Degree,Year
-st.write(Goals)
+  return Goals,Interest,Weight,University,Subject,Degree,Year
+user_input
 
