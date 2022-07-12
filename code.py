@@ -47,7 +47,7 @@ def matching_algo():
   df = df.loc[:,~df.columns.duplicated()]
   
   interest = pd.DataFrame(Interest,columns = ['Interest'])
-  weight = pd.DataFrame(Weight,columns = ['Weight'])
+  weight = pd.DataFrame(weight,columns = ['Weight'])
   df_interest = pd.concat([interest,Weight],axis = 1)
   df_I =  pd.merge(df, df_interest, left_on='name',right_on='Interest',suffixes=('', '_x'),how = 'inner')
   df_I = df_I.loc[:,~df_I.columns.duplicated()]
