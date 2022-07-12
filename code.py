@@ -46,6 +46,8 @@ def matching_algo():
   df =  pd.merge(df, df_goals, left_on='kind',right_on='touchpointable_kind',suffixes=('', '_x'),how = 'inner')
   df = df.loc[:,~df.columns.duplicated()]
   
+  time.sleep(5)
+  
   interest = pd.DataFrame(Interest,columns = ['Interest'])
   Weight = pd.DataFrame(weight,columns = ['Weight'])
   df_interest = pd.concat([interest,Weight],axis = 1)
