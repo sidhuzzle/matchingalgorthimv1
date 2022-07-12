@@ -51,5 +51,5 @@ def data():
   print(year)
   st.write(df)
 data()
-print(year)
+
 
