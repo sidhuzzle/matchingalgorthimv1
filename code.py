@@ -62,7 +62,7 @@ def matching_algo():
   df_I['Weight'] = df_I[col_list].sum(axis=1)
   df_I = pd.merge(df, df_I, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
   df_I = df_I.loc[:,~df_I.columns.duplicated()]
-  time.sleep(3)
+  time.sleep(10)
   df_tc = pd.read_sql('select * from touchpoints_cities', con=engine)
   df_cities = pd.read_sql('select * from cities', con=engine)
   df_cities.rename(columns = {'name':'city_name'}, inplace = True)
@@ -75,6 +75,7 @@ def matching_algo():
   df_universities_1 = df_universities_1.loc[df_universities_1['name'] == University]
   city_name = df_universities_1.iloc[0]['city_name']
   df_I['city score'] = np.where(df_I['city_name'] == city_name, 1,0)
+  time.sleep(5)
   df_I['degree score'] = np.where(df_I['name'] == Degree, 1,0)
   df_E = df_I.loc[df_I['type'] == 'EducationRequirement']
   id = df_E['id'].to_list()
@@ -85,6 +86,7 @@ def matching_algo():
   df_T = pd.merge(df, df_D, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
   df_T = df_T.loc[:,~df_T.columns.duplicated()]
   df_T = pd.concat([df_T,df_E])
+  time.sleep(5)
   subject_topics = pd.read_sql('select * from subjects_topics', con=engine)
   df_subjects_1 = pd.merge(df_subjects, subject_topics, left_on='id',right_on='subject_id',suffixes=('', '_x'),how = 'inner')
   df_subjects_1 = df_subjects_1.loc[:,~df_subjects_1.columns.duplicated()]
@@ -100,6 +102,7 @@ def matching_algo():
   id = df_S['id'].to_list()
   df_T = df_T[~df_T.id.isin(id)]
   df_T = pd.concat([df_T,df_S])
+  time.sleep(5)
   df_T['year score'] = np.where(df_T['name'] == Year, 1,0)
   df_Y = df_T.loc[df_T['year score'] == 1]
   df_Y = pd.merge(df, df_S, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
@@ -107,6 +110,7 @@ def matching_algo():
   id_y = df_Y['id'].to_list()
   df_T = df_T[~df_T.id.isin(id_y)]
   df_A =  pd.concat([df_T,df_Y])
+  time.sleep(3)
   df_A = df_A[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','year score','value']].copy()
   col_list = ['Weight','city score','degree score','subject score','year score']
   df_A['matching score'] = df_A[col_list].sum(axis=1)
@@ -130,6 +134,7 @@ def matching_algo():
   df_A = df_A.groupby('id', as_index=False).first()
   df_A = df_A.sort_values(by='matching score',ascending=False)
   df_A = df_A.groupby(["kind","value"])
+  time.sleep(5)
   for group,df_1 in df_A:
     df_1 = pd.DataFrame(df_1)
     n = df_1['value'].iloc[0]
