@@ -81,13 +81,13 @@ def matching_algo():
   df_T = df_T.loc[:,~df_T.columns.duplicated()]
   df_T = pd.concat([df_T,df_E])
   subject_topics = pd.read_sql('select * from subjects_topics', con=engine)
-  df_subjects = pd.merge(df_subjects, subject_topics, left_on='id',right_on='subject_id',suffixes=('', '_x'),how = 'inner')
-  df_subjects = df_subjects.loc[:,~df_subjects.columns.duplicated()]
-  df_subjects = pd.merge(df_subjects,df_tags,left_on='topic_id',right_on='id',suffixes=('', '_x'))
-  df_subjects = df_subjects.loc[:,~df_subjects.columns.duplicated()]
-  df_subjects = df_subjects.loc[df_subjects['name'] == Subject]
-  df_subjects['subject score'] = 0.5
-  df_T = pd.merge(df_T,df_subjects, left_on='name',right_on='name_x',suffixes=('', '_x'),how = 'left')
+  df_subjects_1 = pd.merge(df_subjects, subject_topics, left_on='id',right_on='subject_id',suffixes=('', '_x'),how = 'inner')
+  df_subjects_1 = df_subjects_1.loc[:,~df_subjects_1.columns.duplicated()]
+  df_subjects_1 = pd.merge(df_subjects_1,df_tags,left_on='topic_id',right_on='id',suffixes=('', '_x'))
+  df_subjects_1 = df_subjects_1.loc[:,~df_subjects_1.columns.duplicated()]
+  df_subjects_1 = df_subjects_1.loc[df_subjects_1['name'] == Subject]
+  df_subjects_1['subject score'] = 0.5
+  df_T = pd.merge(df_T,df_subjects_1, left_on='name',right_on='name_x',suffixes=('', '_x'),how = 'left')
   df_T = df_T.loc[:,~df_T.columns.duplicated()]
   df_S = df_T.loc[df_T['subject score'] == 0.5]
   df_S = pd.merge(df, df_S, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
