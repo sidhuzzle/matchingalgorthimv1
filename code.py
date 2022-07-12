@@ -9,7 +9,7 @@ engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-pro
 
 @st.cache(ttl=24*3600)
 @st.cache(suppress_st_warning=True)
-def data(df_goals,df_tags,weight,df_universities,df_subjects,df_degrees,year):
+def data():
   df_goals = pd.read_sql('select * from goals', con=engine)
   df_tags = pd.read_sql('select * from tags', con=engine)
   weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,1]
@@ -51,4 +51,5 @@ def data(df_goals,df_tags,weight,df_universities,df_subjects,df_degrees,year):
   df =  pd.merge(df, df_goals, left_on='kind',right_on='touchpointable_kind',suffixes=('', '_x'),how = 'inner')
   df = df.loc[:,~df.columns.duplicated()]
   st.write(df)  
+data()
 
