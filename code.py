@@ -19,13 +19,13 @@ def data(Goals,Interest,Weight,University,Subject,Degree,Year):
   
   return df_goals,df_tags,weight,df_universities,df_subjects,df_degrees,year
 
-Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
-Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
-Weight = st.multiselect('Enter the weight',weight,key = "three")
-University = st.selectbox('Enter the university',df_universities['name'].unique(),key = 'four')
-Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'five')
-Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
-Year = st.selectbox('Enter the year',year,key = 'seven')
+  Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
+  Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
+  Weight = st.multiselect('Enter the weight',weight,key = "three")
+  University = st.selectbox('Enter the university',df_universities['name'].unique(),key = 'four')
+  Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'five')
+  Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
+  Year = st.selectbox('Enter the year',year,key = 'seven')
 data(Goals,Interest,Weight,University,Subject,Degree,Year)
 df_goal_weights = pd.read_sql('select * from matching_goal_weights', con=engine)
 df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
