@@ -48,7 +48,7 @@ def matching_algo():
   df =  pd.merge(df, df_goals, left_on='kind',right_on='touchpointable_kind',suffixes=('', '_x'),how = 'inner')
   df = df.loc[:,~df.columns.duplicated()]
   
-  time.sleep(5)
+  time.sleep(3)
   
   interest = pd.DataFrame(Interest,columns = ['Interest'])
   Weight = pd.DataFrame(weight,columns = ['Weight'])
@@ -62,6 +62,7 @@ def matching_algo():
   df_I['Weight'] = df_I[col_list].sum(axis=1)
   df_I = pd.merge(df, df_I, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
   df_I = df_I.loc[:,~df_I.columns.duplicated()]
+  time.sleep(3)
   df_tc = pd.read_sql('select * from touchpoints_cities', con=engine)
   df_cities = pd.read_sql('select * from cities', con=engine)
   df_cities.rename(columns = {'name':'city_name'}, inplace = True)
