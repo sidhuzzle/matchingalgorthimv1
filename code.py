@@ -47,6 +47,7 @@ def data():
   df_goals = df_goals.loc[:,~df_goals.columns.duplicated()]
   df =  pd.merge(df, df_goals, left_on='kind',right_on='touchpointable_kind',suffixes=('', '_x'),how = 'inner')
   df = df.loc[:,~df.columns.duplicated()]
-  st.write(df)  
+  
 data()
+st.write(df)
 
