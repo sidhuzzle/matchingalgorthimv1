@@ -21,7 +21,7 @@ Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'f
 Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
 Year = st.selectbox('Enter the year',year,key = 'seven')
 
-@st.cache()
+@st.cache(max_entries = 200)
 @st.cache(suppress_st_warning=True)
 def matching_algo():
   
