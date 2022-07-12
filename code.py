@@ -26,28 +26,28 @@ def data(Goals,Interest,Weight,University,Subject,Degree,Year):
   Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'five')
   Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
   Year = st.selectbox('Enter the year',year,key = 'seven')
+
+  df_goal_weights = pd.read_sql('select * from matching_goal_weights', con=engine)
+  df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
+  grouped_1 = df_touchpoints.groupby(df_touchpoints.state)
+  df_touchpoints = grouped_1.get_group(1)
+  df_tagging = pd.read_sql('select * from taggings', con=engine)
+  df_touchpoints = grouped_1.get_group(1)
+  df_touchpoints =  pd.merge(df_touchpoints, df_tagging, left_on='id',right_on='taggable_id',suffixes=('', '_x'))
+  df_touchpoints = df_touchpoints.loc[:,~df_touchpoints.columns.duplicated()]
+  df = pd.merge(df_touchpoints,df_tags,left_on='tag_id',right_on='id',suffixes=('', '_x'))
+  df = df.loc[:,~df.columns.duplicated()]
+  df_goals = pd.merge(df_goals, df_goal_weights, left_on='id',right_on='goal_id',suffixes=('', '_x'),how = 'inner')
+  df_goals = df_goals.loc[:,~df_goals.columns.duplicated()]
+  df_goals = df_goals[['id','title','touchpointable_kind','value']].copy()
+  df_goals.rename(columns = {'title':'goal'}, inplace = True)
+  goals_1 =  pd.DataFrame(Goals,columns =['Goals'])
+  df_goals = pd.merge(df_goals, goals_1, left_on='goal',right_on='Goals',suffixes=('', '_x'),how = 'inner')
+  df_goals = df_goals.loc[:,~df_goals.columns.duplicated()]
+  df =  pd.merge(df, df_goals, left_on='kind',right_on='touchpointable_kind',suffixes=('', '_x'),how = 'inner')
+  df = df.loc[:,~df.columns.duplicated()]
+  st.write(df)
 data(Goals,Interest,Weight,University,Subject,Degree,Year)
-df_goal_weights = pd.read_sql('select * from matching_goal_weights', con=engine)
-df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
-grouped_1 = df_touchpoints.groupby(df_touchpoints.state)
-df_touchpoints = grouped_1.get_group(1)
-df_tagging = pd.read_sql('select * from taggings', con=engine)
-df_touchpoints = grouped_1.get_group(1)
-df_touchpoints =  pd.merge(df_touchpoints, df_tagging, left_on='id',right_on='taggable_id',suffixes=('', '_x'))
-df_touchpoints = df_touchpoints.loc[:,~df_touchpoints.columns.duplicated()]
-df = pd.merge(df_touchpoints,df_tags,left_on='tag_id',right_on='id',suffixes=('', '_x'))
-df = df.loc[:,~df.columns.duplicated()]
-df_goals = pd.merge(df_goals, df_goal_weights, left_on='id',right_on='goal_id',suffixes=('', '_x'),how = 'inner')
-df_goals = df_goals.loc[:,~df_goals.columns.duplicated()]
-df_goals = df_goals[['id','title','touchpointable_kind','value']].copy()
-df_goals.rename(columns = {'title':'goal'}, inplace = True)
-goals_1 =  pd.DataFrame(Goals,columns =['Goals'])
-df_goals = pd.merge(df_goals, goals_1, left_on='goal',right_on='Goals',suffixes=('', '_x'),how = 'inner')
-df_goals = df_goals.loc[:,~df_goals.columns.duplicated()]
-df =  pd.merge(df, df_goals, left_on='kind',right_on='touchpointable_kind',suffixes=('', '_x'),how = 'inner')
-df = df.loc[:,~df.columns.duplicated()]
-print(year)
-st.write(df)
 
 
 
