@@ -21,8 +21,8 @@ Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'f
 Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
 Year = st.selectbox('Enter the year',year,key = 'seven')
 
-#st.cache(ttl=12*2400)
-#@st.cache(suppress_st_warning=True)
+@st.cache(ttl=72*7200)
+@st.cache(suppress_st_warning=True)
 def matching_algo():
   
   engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
