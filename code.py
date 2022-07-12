@@ -109,7 +109,7 @@ def matching_algo():
   df_O = df_I.loc[df_I['name'] == 'Open to All Students']
   df_O = pd.merge(df, df_O, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
   df_O = df_O.loc[:,~df_O.columns.duplicated()]
-  df_O = pd.merge(df_O,df_subjects, left_on='name',right_on='name_x',suffixes=('', '_x'),how = 'left')
+  df_O = pd.merge(df_O,df_subjects_1, left_on='name',right_on='name_x',suffixes=('', '_x'),how = 'left')
   df_O = df_O.loc[:,~df_O.columns.duplicated()]
   df_S = df_O.loc[df_O['subject score'] == 0.5]
   df_S = pd.merge(df, df_S, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
