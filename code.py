@@ -139,7 +139,7 @@ def user_input():
     df = df.loc[:,~df.columns.duplicated()]
     df = df[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','year score','value','matching score']].copy()
     df = df.sort_values(by='matching score',ascending=False)
-    
+    st.write(df)
 user_input()  
-st.write(df)
+
 
