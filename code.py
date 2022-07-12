@@ -133,7 +133,7 @@ def matching_algo():
   df_A = pd.concat([df_A,df_O])
   df_A = df_A.groupby('id', as_index=False).first()
   df_A = df_A.sort_values(by='matching score',ascending=False)
-  df_A = df_A.groupby(["kind","value"])
+  #df_A = df_A.groupby(["kind","value"])
   
   st.write(df_A)
   #for group,df_1 in df_A:
