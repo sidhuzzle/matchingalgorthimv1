@@ -49,5 +49,5 @@ def data():
   df = df.loc[:,~df.columns.duplicated()]
   st.write(df)
 data()
-st.write(df)
+
 
