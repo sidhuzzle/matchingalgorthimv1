@@ -21,7 +21,7 @@ Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'f
 Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
 Year = st.selectbox('Enter the year',year,key = 'seven')
 
-st.cache(ttl=24*3600)
+st.cache(ttl=12*2400)
 @st.cache(suppress_st_warning=True)
 def matching_algo():
   
@@ -124,7 +124,7 @@ def matching_algo():
   df_A = pd.concat([df_A,df_O])
   df_A = df_A.groupby('id', as_index=False).first()
   df_A = df_A.sort_values(by='matching score',ascending=False)
-  df_A = df_A.groupby(["kind","value"])
+  #df_A = df_A.groupby(["kind","value"])
   #for group,df_1 in df_A:
     #df_1 = pd.DataFrame(df_1)
     #n = df_1['value'].iloc[0]
