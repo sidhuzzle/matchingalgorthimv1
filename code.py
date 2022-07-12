@@ -3,13 +3,13 @@ import pandas as pd
 import psycopg2 as pg
 import numpy as np
 
-engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
-df_goals = pd.read_sql('select * from goals', con=engine)
-df_tags = pd.read_sql('select * from tags', con=engine)
+engine_1 = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
+df_goals = pd.read_sql('select * from goals', con=engine_1)
+df_tags = pd.read_sql('select * from tags', con=engine_1)
 weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,1]
-df_universities = pd.read_sql('select * from universities', con=engine)
-df_subjects = pd.read_sql('select * from subjects', con=engine)
-df_degrees = pd.read_sql('select * from degrees', con=engine)
+df_universities = pd.read_sql('select * from universities', con=engine_1)
+df_subjects = pd.read_sql('select * from subjects', con=engine_1)
+df_degrees = pd.read_sql('select * from degrees', con=engine_1)
 df_degrees.replace("Bachelor's","Bachelors", inplace=True)
 df_degrees.replace("Master's","Masters", inplace=True)
 year = ['First Year ','Second Year','Third Year','Final Year']
@@ -24,7 +24,8 @@ Year = st.selectbox('Enter the year',year,key = 'seven')
 st.cache(ttl=24*3600)
 @st.cache(suppress_st_warning=True)
 def matching_algo():
-
+  
+  engine_1 = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
   df_goal_weights = pd.read_sql('select * from matching_goal_weights', con=engine)
   df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
   grouped_1 = df_touchpoints.groupby(df_touchpoints.state)
