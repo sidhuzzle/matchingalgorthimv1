@@ -4,7 +4,7 @@ import psycopg2 as pg
 import numpy as np
 
 engine_1 = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
-df_goals = pd.read_sql('select * from goals', con=engine_1)
+df_goals_1 = pd.read_sql('select * from goals', con=engine_1)
 df_tags = pd.read_sql('select * from tags', con=engine_1)
 weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,1]
 df_universities = pd.read_sql('select * from universities', con=engine_1)
@@ -13,7 +13,7 @@ df_degrees = pd.read_sql('select * from degrees', con=engine_1)
 df_degrees.replace("Bachelor's","Bachelors", inplace=True)
 df_degrees.replace("Master's","Masters", inplace=True)
 year = ['First Year ','Second Year','Third Year','Final Year']
-Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
+Goals =  st.multiselect('Enter the goals',df_goals_1['title'].unique(),key = "one")
 Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
 Weight = st.multiselect('Enter the weight',weight,key = "three")
 University = st.selectbox('Enter the university',df_universities['name'].unique(),key = 'four')
@@ -36,7 +36,7 @@ def matching_algo():
   df_touchpoints = df_touchpoints.loc[:,~df_touchpoints.columns.duplicated()]
   df = pd.merge(df_touchpoints,df_tags,left_on='tag_id',right_on='id',suffixes=('', '_x'))
   df = df.loc[:,~df.columns.duplicated()]
-  df_goals = pd.merge(df_goals, df_goal_weights, left_on='id',right_on='goal_id',suffixes=('', '_x'),how = 'inner')
+  df_goals = pd.merge(df_goals_1, df_goal_weights, left_on='id',right_on='goal_id',suffixes=('', '_x'),how = 'inner')
   df_goals = df_goals.loc[:,~df_goals.columns.duplicated()]
   df_goals = df_goals[['id','title','touchpointable_kind','value']].copy()
   df_goals.rename(columns = {'title':'goal'}, inplace = True)
