@@ -134,9 +134,8 @@ def matching_algo():
   df_A = df_A.groupby('id', as_index=False).first()
   df_A = df_A.sort_values(by='matching score',ascending=False)
   df_A = df_A.groupby(["kind","value"])
-  time.sleep(3)
-  if st.button("Submit",key = "eight"):
-    st.write(df)
+  
+  st.write(df_A)
   #for group,df_1 in df_A:
     #df_1 = pd.DataFrame(df_1)
     #n = df_1['value'].iloc[0]
