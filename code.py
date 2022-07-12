@@ -9,7 +9,7 @@ engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-pro
 
 @st.cache(ttl=24*3600)
 @st.cache(suppress_st_warning=True)
-@st.cache(hash_funcs={pg.connect:engine})
+@st.cache(hash_funcs={("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'"):engine})
 def data():
   df_goals = pd.read_sql('select * from goals', con=engine)
   df_tags = pd.read_sql('select * from tags', con=engine)
