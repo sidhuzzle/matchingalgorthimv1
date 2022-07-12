@@ -18,6 +18,7 @@ year = ['First Year ','Second Year','Third Year','Final Year']
 
 
 @st.cache(ttl=24*3600)
+@st.cache(suppress_st_warning=True)
 def user_input():
   Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
   Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
