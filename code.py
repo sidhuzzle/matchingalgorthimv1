@@ -3,29 +3,24 @@ import pandas as pd
 import psycopg2 as pg
 import numpy as np
 
-@st.cache(ttl=24*3600)
-@st.cache(suppress_st_warning=True)
-def data(Goals,Interest,Weight,University,Subject,Degree,Year):
-  engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
-  df_goals = pd.read_sql('select * from goals', con=engine)
-  df_tags = pd.read_sql('select * from tags', con=engine)
-  weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,1]
-  df_universities = pd.read_sql('select * from universities', con=engine)
-  df_subjects = pd.read_sql('select * from subjects', con=engine)
-  df_degrees = pd.read_sql('select * from degrees', con=engine)
-  df_degrees.replace("Bachelor's","Bachelors", inplace=True)
-  df_degrees.replace("Master's","Masters", inplace=True)
-  year = ['First Year ','Second Year','Third Year','Final Year']
-  
-  return df_goals,df_tags,weight,df_universities,df_subjects,df_degrees,year
+engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
+df_goals = pd.read_sql('select * from goals', con=engine)
+df_tags = pd.read_sql('select * from tags', con=engine)
+weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1,2,1]
+df_universities = pd.read_sql('select * from universities', con=engine)
+df_subjects = pd.read_sql('select * from subjects', con=engine)
+df_degrees = pd.read_sql('select * from degrees', con=engine)
+df_degrees.replace("Bachelor's","Bachelors", inplace=True)
+df_degrees.replace("Master's","Masters", inplace=True)
+year = ['First Year ','Second Year','Third Year','Final Year']
+Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
+Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
+Weight = st.multiselect('Enter the weight',weight,key = "three")
+University = st.selectbox('Enter the university',df_universities['name'].unique(),key = 'four')
+Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'five')
+Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
+Year = st.selectbox('Enter the year',year,key = 'seven')
 
-  Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
-  Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
-  Weight = st.multiselect('Enter the weight',weight,key = "three")
-  University = st.selectbox('Enter the university',df_universities['name'].unique(),key = 'four')
-  Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'five')
-  Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
-  Year = st.selectbox('Enter the year',year,key = 'seven')
 st.cache(ttl=24*3600)
 @st.cache(suppress_st_warning=True)
 def matching_algo():
@@ -50,7 +45,7 @@ def matching_algo():
   df =  pd.merge(df, df_goals, left_on='kind',right_on='touchpointable_kind',suffixes=('', '_x'),how = 'inner')
   df = df.loc[:,~df.columns.duplicated()]
   st.write(df)
-  matching_algo():
+matching_algo():
   
 
 
