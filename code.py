@@ -29,7 +29,7 @@ def user_input():
   Year = st.selectbox('Enter the year',year,key = 'seven')
   
   return Goals,Interest,Weight,University,Subject,Degree,Year
-user_input()
+
   df_goal_weights = pd.read_sql('select * from matching_goal_weights', con=engine)
   df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
   grouped_1 = df_touchpoints.groupby(df_touchpoints.state)
