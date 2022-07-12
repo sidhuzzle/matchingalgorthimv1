@@ -18,6 +18,7 @@ def data():
   year = ['First Year ','Second Year','Third Year','Final Year']
   
   return df_goals,df_tags,weight,df_universities,df_subjects,df_degrees,year
+
   Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
   Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
   Weight = st.multiselect('Enter the weight',weight,key = "three")
@@ -49,5 +50,5 @@ def data():
   df = df.loc[:,~df.columns.duplicated()]
   st.write(df)
 data()
-
+print(year)
 
