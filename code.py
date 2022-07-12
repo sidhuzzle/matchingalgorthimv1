@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import psycopg2 as pg
 import numpy as np
-
+import time
 engine_1 = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
 df_goals_1 = pd.read_sql('select * from goals', con=engine_1)
 df_tags = pd.read_sql('select * from tags', con=engine_1)
