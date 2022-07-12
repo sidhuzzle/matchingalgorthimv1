@@ -26,6 +26,9 @@ def data(Goals,Interest,Weight,University,Subject,Degree,Year):
   Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'five')
   Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
   Year = st.selectbox('Enter the year',year,key = 'seven')
+st.cache(ttl=24*3600)
+@st.cache(suppress_st_warning=True)
+def matching_algo():
 
   df_goal_weights = pd.read_sql('select * from matching_goal_weights', con=engine)
   df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
@@ -47,7 +50,9 @@ def data(Goals,Interest,Weight,University,Subject,Degree,Year):
   df =  pd.merge(df, df_goals, left_on='kind',right_on='touchpointable_kind',suffixes=('', '_x'),how = 'inner')
   df = df.loc[:,~df.columns.duplicated()]
   st.write(df)
-data(Goals,Interest,Weight,University,Subject,Degree,Year)
+  matching_algo():
+  
+
 
 
 
