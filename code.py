@@ -27,7 +27,7 @@ def user_input(Goals,Interest,Weight,University,Subject,Degree,Year):
   Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'five')
   Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
   Year = st.selectbox('Enter the year',year,key = 'seven')
-  return Goals,Interest,Weight,University,Subject,Degree,Year
+  #return Goals,Interest,Weight,University,Subject,Degree,Year
 
 user_input(Goals,Interest,Weight,University,Subject,Degree,Year)
 df_goal_weights = pd.read_sql('select * from matching_goal_weights', con=engine)
