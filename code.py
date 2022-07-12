@@ -28,5 +28,5 @@ def user_input():
   Year = st.selectbox('Enter the year',year,key = 'seven')
   
   return Goals,Interest,Weight,University,Subject,Degree,Year
-user_input
+user_input()
 
