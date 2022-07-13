@@ -50,6 +50,12 @@ submit_button = st.button('Submit',key = 'eight')
 
 @st.cache(ttl=100*10000)
 @st.cache(suppress_st_warning=True)
+def matching_algo(a,b):
+  a*b
+ 
+a=1
+b=1
+matching_algo(a,b)  
 goals_1 =  pd.DataFrame(Goals,columns =['Goals'])
 df_goals_1 = df_goals[['id','title','touchpointable_kind','value']].copy()
 df_goals_1.rename(columns = {'title':'goal'}, inplace = True)
