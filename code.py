@@ -20,6 +20,7 @@ df = pd.merge(df,df_tc,left_on='id',right_on='touchpoint_id',suffixes=('', '_x')
 df = df.loc[:,~df.columns.duplicated()]
 df = pd.merge(df,df_cities,left_on='city_id',right_on='id',suffixes=('', '_x'),how = 'left')
 df = df.loc[:,~df.columns.duplicated()]
+weight = [1,2,1,2,1,2,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2]
 df_universities = pd.read_sql('select * from universities', con=engine)
 df_universities_1 = pd.merge(df_universities, df_cities, left_on='city_id',right_on='id',suffixes=('', '_x'),how = 'left')
 df_universities_1 = df_universities_1.loc[:,~df_universities_1.columns.duplicated()]
