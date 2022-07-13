@@ -53,9 +53,9 @@ submit_button = st.button('Submit',key = 'eight')
 def matching_algo():
   if len(Goals) > 1:
     goals_1 =  pd.DataFrame(Goals,columns =['Goals'])
-    df_goals = df_goals[['id','title','touchpointable_kind','value']].copy()
-    df_goals.rename(columns = {'title':'goal'}, inplace = True)
-    df_goals = pd.merge(df_goals, goals_1, left_on='goal',right_on='Goals',suffixes=('', '_x'),how = 'inner')
+    df_goals_1 = df_goals[['id','title','touchpointable_kind','value']].copy()
+    df_goals_1.rename(columns = {'title':'goal'}, inplace = True)
+    df_goals = pd.merge(df_goals_1, goals_1, left_on='goal',right_on='Goals',suffixes=('', '_x'),how = 'inner')
     df_goals = df_goals.loc[:,~df_goals.columns.duplicated()]
     df =  pd.merge(df, df_goals, left_on='kind',right_on='touchpointable_kind',suffixes=('', '_x'),how = 'inner')
     df = df.loc[:,~df.columns.duplicated()]
