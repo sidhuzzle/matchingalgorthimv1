@@ -48,14 +48,6 @@ Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six
 Year = st.selectbox('Enter the year',year,key = 'seven')
 submit_button = st.button('Submit',key = 'eight')
 
-@st.cache(ttl=100*10000)
-@st.cache(suppress_st_warning=True)
-def matching_algo(a,b):
-  a*b
- 
-a=1
-b=1
-matching_algo(a,b)  
 goals_1 =  pd.DataFrame(Goals,columns =['Goals'])
 df_goals_1 = df_goals[['id','title','touchpointable_kind','value']].copy()
 df_goals_1.rename(columns = {'title':'goal'}, inplace = True)
@@ -77,10 +69,10 @@ if len(Interest) > 0:
   df_I['Weight'] = df_I[col_list].sum(axis=1)
   df = pd.merge(df, df_I, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
   df = df.loc[:,~df.columns.duplicated()]
-  time.sleep(3)
+  time.sleep(10)
 else:
   df['Weight'] = 0
-time.sleep(3)
+time.sleep(10)
 st.table(df)
 
 
