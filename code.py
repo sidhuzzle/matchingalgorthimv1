@@ -140,7 +140,7 @@ for group,df_1 in kind:
  time.sleep(25)
  
  st.write(df)
- @st.cache()
+ 
 
 
 
