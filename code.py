@@ -61,7 +61,7 @@ def matching_algo():
     df = df.loc[:,~df.columns.duplicated()]
     
   else:
-    df['value'] = 0
+    
     group_0 = df.groupby(df.touchpointable_type)
     df_Events = group_0.get_group("Event")
     group_1 = df.groupby(df.touchpointable_type)
@@ -170,6 +170,7 @@ def matching_algo():
         df_Job = df_Job.head(n)
         df =  pd.concat([df_Job,df_Internship])
         df =  pd.concat([df,df_Events])
+    df['value'] = 0
     time.sleep(2)
   if len(Interest) > 0:
     interest = pd.DataFrame(Interest,columns = ['Interest'])
