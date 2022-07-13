@@ -57,17 +57,16 @@ def matching_algo():
     df_goals_1.rename(columns = {'title':'goal'}, inplace = True)
     df_goals = pd.merge(df_goals_1, goals_1, left_on='goal',right_on='Goals',suffixes=('', '_x'),how = 'inner')
     df_goals = df_goals.loc[:,~df_goals.columns.duplicated()]
-    df =  pd.merge(df, df_goals, left_on='kind',right_on='touchpointable_kind',suffixes=('', '_x'),how = 'inner')
-    df = df.loc[:,~df.columns.duplicated()]
-    
+    df_1 =  pd.merge(df, df_goals, left_on='kind',right_on='touchpointable_kind',suffixes=('', '_x'),how = 'inner')
+    df_1 = df_1.loc[:,~df_1.columns.duplicated()]
   else:
     df_1 = df
     
-    group_0 = df_1.groupby(df_1.touchpointable_type)
+    group_0 = df.groupby(df.touchpointable_type)
     df_Events = group_0.get_group("Event")
-    group_1 = df_1.groupby(df_1.touchpointable_type)
+    group_1 = df_1.groupby(df.touchpointable_type)
     df_Internship = group_1.get_group("Internship")
-    group_2 = df_1.groupby(df_1.touchpointable_type)
+    group_2 = df.groupby(df.touchpointable_type)
     df_Job = group_2.get_group("Job")
     if 'Foundation' in Degree:
       if '1' in Year:
