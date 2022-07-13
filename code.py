@@ -41,7 +41,7 @@ df_goals_1 = df_goals[['id','title','touchpointable_kind','value']].copy()
 df_goals_1.rename(columns = {'title':'goal'}, inplace = True)
 year = ['First Year ','Second Year','Third Year','Final Year']
 
-Goals =  st.multiselect('Enter the goals',df_goals_1['title'].unique(),key = "one")
+Goals =  st.multiselect('Enter the goals',df_goals_1['goal'].unique(),key = "one")
 Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
 Weight = st.multiselect('Enter the weight',weight,key = "three")
 University = st.selectbox('Enter the university',df_universities['name'].unique(),key = 'four')
