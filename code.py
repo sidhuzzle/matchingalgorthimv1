@@ -58,7 +58,7 @@ df_goals = pd.merge(df_goals_1, goals_1, left_on='goal',right_on='Goals',suffixe
 df_goals = df_goals.loc[:,~df_goals.columns.duplicated()]
 df =  pd.merge(df, df_goals, left_on='kind',right_on='touchpointable_kind',suffixes=('', '_x'),how = 'inner')
 df = df.loc[:,~df.columns.duplicated()]
-time.sleep(15)
+
 if len(Interest) > 0:
   interest = pd.DataFrame(Interest,columns = ['Interest'])
   Weight = pd.DataFrame(weight,columns = ['Weight'])
@@ -77,15 +77,14 @@ if len(Interest) > 0:
 else:
   df['Weight'] = 0
 
-time.sleep(15)
 if len(University) == 1:
   df_universities_1 = df_universities_1.loc[df_universities_1['name'] == University]
   city_name = df_universities_1.iloc['city_name']
   df['city score'] = np.where(df['city_name'] == city_name, 1,0)
 else:
   df['city score'] = 0
-time.sleep(5)
-st.table(df)
+
+
 if len(Degree) == 1:
   df['degree score'] = np.where(df['name'] == Degree, 1,0)
   df_O = df[df['name'] == 'Open to All Students']
@@ -101,7 +100,7 @@ if len(Degree) == 1:
   df = pd.concat([df,df_O])
 else:
     df['degree score'] = 0
-time.sleep(5)
+
 if len(Subject) ==1:
   df_subjects_1 = df_subjects_1.loc[df_subjects_1['name'] == Subject]
   df_subjects_1['subject score'] = 0.5
@@ -115,7 +114,7 @@ if len(Subject) ==1:
   df = pd.concat([df,df_S])
 else:
   df['subject score'] = 0
-time.sleep(5)
+
 if len(Year) == 1:
   df['year score'] = np.where(df['name'] == Year, 1,0)
   df_Y = df.loc[df['year score'] == 1]
@@ -126,7 +125,7 @@ if len(Year) == 1:
   df =  pd.concat([df,df_Y])
 else:
   df['year score'] = 0
-time.sleep(8)
+
 
 df = df[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','year score','value']].copy()
 col_list = ['Weight','city score','degree score','subject score','year score']
@@ -138,9 +137,8 @@ for group,df_1 in kind:
  n = df_1['value'].iloc[0]
  n = round(len(df_1)*(n/10))
  df = df_1.head(n)
-if st.button('Submit',key = 'eight'):
-  time.sleep(5)
-  st.table(df)
+ time.sleep(40)
+ st.table(df)
 
 
 
