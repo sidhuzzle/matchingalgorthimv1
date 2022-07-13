@@ -84,7 +84,27 @@ if len(University) == 1:
   df['city score'] = np.where(df['city_name'] == city_name, 1,0)
 else:
   df['city score'] = 0
+time.sleep(5)
 st.table(df)
+if len(Degree) == 1:
+    df['degree score'] = np.where(df['name'] == Degree, 1,0)
+    df_O = df[df['name'] == 'Open to All Students']
+  
+    df_E = df.loc[df['type'] == 'EducationRequirement']
+    id = df_E['id'].to_list()
+    df_E = df[~df.id.isin(id)]
+    df_E = pd.merge(df, df_E, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
+    df_E = df_E.loc[:,~df_E.columns.duplicated()]
+    df_D = df.loc[df['degree score'] == 1]
+    df = pd.merge(df, df_D, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
+    df = df.loc[:,~df.columns.duplicated()]
+    df = pd.concat([df,df_E])
+    df = pd.concat([df,df_O])
+  else:
+    df['degree score'] = 0
+  time.sleep(5)
+  
+  st.table(df)
 
 
 
