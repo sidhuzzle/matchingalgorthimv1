@@ -63,7 +63,7 @@ df_goals = pd.merge(df_goals_1, goals_1, left_on='goal',right_on='Goals',suffixe
 df_goals = df_goals.loc[:,~df_goals.columns.duplicated()]
 df =  pd.merge(df, df_goals, left_on='kind',right_on='touchpointable_kind',suffixes=('', '_x'),how = 'inner')
 df = df.loc[:,~df.columns.duplicated()]
-time.sleep(3)
+time.sleep(5)
 if len(Interest) > 0:
   interest = pd.DataFrame(Interest,columns = ['Interest'])
   Weight = pd.DataFrame(weight,columns = ['Weight'])
@@ -77,9 +77,10 @@ if len(Interest) > 0:
   df_I['Weight'] = df_I[col_list].sum(axis=1)
   df = pd.merge(df, df_I, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
   df = df.loc[:,~df.columns.duplicated()]
+  time.sleep(3)
 else:
   df['Weight'] = 0
-  time.sleep(3)
+time.sleep(3)
 st.table(df)
 
 
