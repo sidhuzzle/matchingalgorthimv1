@@ -40,7 +40,9 @@ df_goals = df_goals.loc[:,~df_goals.columns.duplicated()]
 
 year = ['First Year ','Second Year','Third Year','Final Year']
 Goals =  st.multiselect('Enter the goals',df_goals_1['title'].unique(),key = "one")
+time.sleep(5)
 Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
+time.sleep(10)
 Weight = st.multiselect('Enter the weight',weight,key = "three")
 University = st.selectbox('Enter the university',df_universities['name'].unique(),key = 'four')
 Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'five')
