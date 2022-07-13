@@ -61,9 +61,9 @@ def matching_algo():
     df = df.loc[:,~df.columns.duplicated()]
     
   else:
-    df = df
+    df_1 = df
     
-    group_0 = df.groupby(df.touchpointable_type)
+    group_0 = df_1.groupby(df_1.touchpointable_type)
     df_Events = group_0.get_group("Event")
     group_1 = df_1.groupby(df_1.touchpointable_type)
     df_Internship = group_1.get_group("Internship")
