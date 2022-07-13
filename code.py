@@ -100,11 +100,11 @@ if len(Degree) == 1:
     df = df.loc[:,~df.columns.duplicated()]
     df = pd.concat([df,df_E])
     df = pd.concat([df,df_O])
-  else:
+else:
     df['degree score'] = 0
-  time.sleep(5)
+time.sleep(5)
   
-  st.table(df)
+st.table(df)
 
 
 
