@@ -37,12 +37,12 @@ df_goals_1 = pd.read_sql('select * from goals', con=engine)
 df_goal_weights = pd.read_sql('select * from matching_goal_weights', con=engine)
 df_goals = pd.merge(df_goals_1, df_goal_weights, left_on='id',right_on='goal_id',suffixes=('', '_x'),how = 'inner')
 df_goals = df_goals.loc[:,~df_goals.columns.duplicated()]
-
+df_goals_1 = df_goals[['id','title','touchpointable_kind','value']].copy()
+df_goals_1.rename(columns = {'title':'goal'}, inplace = True)
 year = ['First Year ','Second Year','Third Year','Final Year']
+
 Goals =  st.multiselect('Enter the goals',df_goals_1['title'].unique(),key = "one")
-time.sleep(5)
 Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
-time.sleep(30)
 Weight = st.multiselect('Enter the weight',weight,key = "three")
 University = st.selectbox('Enter the university',df_universities['name'].unique(),key = 'four')
 Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'five')
@@ -51,13 +51,11 @@ Year = st.selectbox('Enter the year',year,key = 'seven')
 submit_button = st.button('Submit',key = 'eight')
 
 goals_1 =  pd.DataFrame(Goals,columns =['Goals'])
-df_goals_1 = df_goals[['id','title','touchpointable_kind','value']].copy()
-df_goals_1.rename(columns = {'title':'goal'}, inplace = True)
 df_goals = pd.merge(df_goals_1, goals_1, left_on='goal',right_on='Goals',suffixes=('', '_x'),how = 'inner')
 df_goals = df_goals.loc[:,~df_goals.columns.duplicated()]
 df =  pd.merge(df, df_goals, left_on='kind',right_on='touchpointable_kind',suffixes=('', '_x'),how = 'inner')
 df = df.loc[:,~df.columns.duplicated()]
-time.sleep(5)
+time.sleep(15)
 if len(Interest) > 0:
   interest = pd.DataFrame(Interest,columns = ['Interest'])
   Weight = pd.DataFrame(weight,columns = ['Weight'])
