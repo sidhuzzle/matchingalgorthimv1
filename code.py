@@ -39,17 +39,20 @@ df_goals = pd.merge(df_goals_1, df_goal_weights, left_on='id',right_on='goal_id'
 df_goals = df_goals.loc[:,~df_goals.columns.duplicated()]
 df_goals_1 = df_goals[['id','title','touchpointable_kind','value']].copy()
 df_goals_1.rename(columns = {'title':'goal'}, inplace = True)
+group_0 = df.groupby(df.type)
+df_T = group_0.get_group("Topic")
 year = ['First Year ','Second Year','Third Year','Final Year']
 
 Goals =  st.multiselect('Enter the goals',df_goals_1['goal'].unique(),key = "one")
-Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
+Interest = st.multiselect('Enter the interest',df_T['name'].unique(),key = "two")
 Weight = st.multiselect('Enter the weight',weight,key = "three")
 University = st.selectbox('Enter the university',df_universities['name'].unique(),key = 'four')
 Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'five')
 Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
 Year = st.selectbox('Enter the year',year,key = 'seven')
 submit_button = st.button('Submit',key = 'eight')
-
+group_0 = df.groupby(df.type)
+df_T = group_0.get_group("Topic")
 goals_1 =  pd.DataFrame(Goals,columns =['Goals'])
 df_goals = pd.merge(df_goals_1, goals_1, left_on='goal',right_on='Goals',suffixes=('', '_x'),how = 'inner')
 df_goals = df_goals.loc[:,~df_goals.columns.duplicated()]
@@ -69,10 +72,18 @@ if len(Interest) > 0:
   df_I['Weight'] = df_I[col_list].sum(axis=1)
   df = pd.merge(df, df_I, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
   df = df.loc[:,~df.columns.duplicated()]
-  time.sleep(10)
+  
+ 
 else:
   df['Weight'] = 0
-time.sleep(10)
+
+time.sleep(5)
+if len(University) == 1:
+  df_universities_1 = df_universities_1.loc[df_universities_1['name'] == University]
+  city_name = df_universities_1.iloc['city_name']
+  df['city score'] = np.where(df['city_name'] == city_name, 1,0)
+else:
+  df['city score'] = 0
 st.table(df)
 
 
