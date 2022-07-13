@@ -138,8 +138,9 @@ for group,df_1 in kind:
  n = round(len(df_1)*(n/10))
  df = df_1.head(n)
  time.sleep(25)
- @st.cache()
+ 
  st.write(df)
+ @st.cache()
 
 
 
