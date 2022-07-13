@@ -137,7 +137,7 @@ for group,df_1 in kind:
  n = df_1['value'].iloc[0]
  n = round(len(df_1)*(n/10))
  df = df_1.head(n)
- time.sleep(20)
+ time.sleep(25)
  st.write(df)
 
 
