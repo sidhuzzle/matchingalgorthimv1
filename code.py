@@ -51,127 +51,14 @@ submit_button = st.button('Submit',key = 'eight')
 @st.cache(ttl=100*10000)
 @st.cache(suppress_st_warning=True)
 def matching_algo():
-  if len(Goals) > 1:
-    goals_1 =  pd.DataFrame(Goals,columns =['Goals'])
-    df_goals_1 = df_goals[['id','title','touchpointable_kind','value']].copy()
-    df_goals_1.rename(columns = {'title':'goal'}, inplace = True)
-    df_goals = pd.merge(df_goals_1, goals_1, left_on='goal',right_on='Goals',suffixes=('', '_x'),how = 'inner')
-    df_goals = df_goals.loc[:,~df_goals.columns.duplicated()]
-    df_1 =  pd.merge(df, df_goals, left_on='kind',right_on='touchpointable_kind',suffixes=('', '_x'),how = 'inner')
-    df_1 = df_1.loc[:,~df_1.columns.duplicated()]
-  else:
-    df_1 = df
-    
-    group_0 = df.groupby(df.touchpointable_type)
-    df_Events = group_0.get_group("Event")
-    group_1 = df_1.groupby(df.touchpointable_type)
-    df_Internship = group_1.get_group("Internship")
-    group_2 = df.groupby(df.touchpointable_type)
-    df_Job = group_2.get_group("Job")
-    if 'Foundation' in Degree:
-      if '1' in Year:
-        n = 7
-        n = round(len(df_Events)*(n/10))
-        df_Events = df_Events.head(n)
-        n = 3
-        n = round(len(df_Internship)*(n/10))
-        df_Internship = df_Internship.head(n)
-        df =  pd.concat([df_Events,df_Internship])
-    if "Bachelor's" in Degree:
-      if  "1" in Year:
-
-        n = 4
-        n = round(len(df_Events)*(n/10))
-        df_Events = df_Events.head(n)
-        n = 6
-        n = round(len(df_Events)*(n/10))
-        df_Internship = df_Internship.head(n)
-        df =  pd.concat([df_Events,df_Internship])
-    if "Bachelor's" in Degree:
-      if  "2" in Year:
-        n = 3
-        n = round(len(df_Events)*(n/10))
-        df_Events = df_Events.head(n)
-        n = 6
-        n = round(len(df_Events)*(n/10))
-        df_Internship = df_Internship.head(n)
-        n = 1
-        df_Job = df_Job.head(n)
-        df =  pd.concat([df_Events,df_Internship])
-        df =  pd.concat([df,df_Job])
-    if "Bachelor's" in Degree:
-      if  "3" in Year:
-        n = 2
-        n = round(len(df_Events)*(n/10))
-        df_Events = df_Events.head(n)
-        n = 2
-        n = round(len(df_Events)*(n/10))
-        df_Internship = df_Internship.head(n)
-        n = 6
-        n = round(len(df_Events)*(n/10))
-        df_Job = df_Job.head(n)
-        df =  pd.concat([df_Job,df_Internship])
-        df =  pd.concat([df,df_Events])
-    if "Bachelor's (Integrated Master's)" in Degree:
-      if  "1" in Year:
-        n = 5
-        n = round(len(df_Events)*(n/10))
-        df_Events = df_Events.head(n)
-        n = 5
-        n = round(len(df_Events)*(n/10))
-        df_Internship = df_Internship.head(n)
-        df =  pd.concat([df_Events,df_Internship])
-    if "Bachelor's (Integrated Master's)" in Degree:
-      if  "2" in Year:
-        n = 4
-        n = round(len(df_Events)*(n/10))
-        df_Events = df_Events.head(n)
-        n = 6
-        n = round(len(df_Events)*(n/10))
-        df_Internship = df_Internship.head(n)
-        df =  pd.concat([df_Events,df_Internship])
-
-    if "Bachelor's (Integrated Master's)" in Degree:
-      if  "3" in Year:
-        n = 2
-        n = round(len(df_Events)*(n/10))
-        df_Events = df_Events.head(n)
-        n = 4
-        n = round(len(df_Events)*(n/10))
-        df_Internship = df_Internship.head(n)
-        n = 4
-        n = round(len(df_Events)*(n/10))
-        df_Job = df_Job.head(n)
-        df =  pd.concat([df_Job,df_Internship])
-        df =  pd.concat([df,df_Events])
-    if "Bachelor's (Integrated Master's)" in Degree:
-      if  "4" in Year:
-        n = 2
-        n = round(len(df_Events)*(n/10))
-        df_Events = df_Events.head(n)
-        n = 2
-        n = round(len(df_Events)*(n/10))
-        df_Internship = df_Internship.head(n)
-        n = 6
-        n = round(len(df_Events)*(n/10))
-        df_Job = df_Job.head(n)
-        df =  pd.concat([df_Job,df_Internship])
-        df =  pd.concat([df,df_Events])
-    
-    else:
-        n = 2
-        n = round(len(df_Events)*(n/10))
-        df_Events = df_Events.head(n)
-        n = 3
-        n = round(len(df_Events)*(n/10))
-        df_Internship = df_Internship.head(n)
-        n = 5 
-        n = round(len(df_Events)*(n/10))
-        df_Job = df_Job.head(n)
-        df =  pd.concat([df_Job,df_Internship])
-        df =  pd.concat([df,df_Events])
-    df_1['value'] = 0
-    time.sleep(2)
+  goals_1 =  pd.DataFrame(Goals,columns =['Goals'])
+  df_goals_1 = df_goals[['id','title','touchpointable_kind','value']].copy()
+  df_goals_1.rename(columns = {'title':'goal'}, inplace = True)
+  df_goals = pd.merge(df_goals_1, goals_1, left_on='goal',right_on='Goals',suffixes=('', '_x'),how = 'inner')
+  df_goals = df_goals.loc[:,~df_goals.columns.duplicated()]
+  df =  pd.merge(df, df_goals, left_on='kind',right_on='touchpointable_kind',suffixes=('', '_x'),how = 'inner')
+  df = df.loc[:,~df.columns.duplicated()]
+  
   if len(Interest) > 0:
     interest = pd.DataFrame(Interest,columns = ['Interest'])
   
