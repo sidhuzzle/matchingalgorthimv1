@@ -14,6 +14,11 @@ year = ['1','2','3','4']
 def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
   grouped_1 = df_touchpoints.groupby(df_touchpoints.state)
+  df_goals = pd.read_sql('select * from goals', con=engine)
+  df_tags = pd.read_sql('select * from tags', con=engine)
+  df_universities = pd.read_sql('select * from universities', con=engine)
+  df_degrees = pd.read_sql('select * from degrees', con=engine)
+  df_subjects = pd.read_sql('select * from subjects', con=engine)
  
   df_matching_goal_weights = pd.read_sql('select * from matching_goal_weights', con=engine)
   df_goals_weights = pd.merge(df_goals, df_matching_goal_weights, left_on='id',right_on='goal_id',suffixes=('', '_x'),how = 'inner')
