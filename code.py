@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import psycopg2 as pg
 import numpy as np
-import time
+
 engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
 df_goals = pd.read_sql('select * from goals', con=engine)
 df_tags = pd.read_sql('select * from tags', con=engine)
@@ -141,7 +141,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
       n = round(len(df_1)*(n/10))
       df = df_1.head(n)
       return df
-Goals =  st.multiselect('Enter the goals',df_goals_weights['title'].unique(),key = "one")
+Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
 Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
 weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1]
 weight = st.multiselect('Enter the weight',weight,key = "three")
