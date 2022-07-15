@@ -4,11 +4,17 @@ import psycopg2 as pg
 import numpy as np
 import time
 engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
+df_goals = pd.read_sql('select * from goals', con=engine)
+df_tags = pd.read_sql('select * from tags', con=engine)
+df_universities = pd.read_sql('select * from universities', con=engine)
+df_degrees = pd.read_sql('select * from degrees', con=engine)
+df_subjects = pd.read_sql('select * from subjects', con=engine)
+weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1]
 @st.cache()
 def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
   grouped_1 = df_touchpoints.groupby(df_touchpoints.state)
-  df_goals = pd.read_sql('select * from goals', con=engine)
+ 
   df_matching_goal_weights = pd.read_sql('select * from matching_goal_weights', con=engine)
   df_goals_weights = pd.merge(df_goals, df_matching_goal_weights, left_on='id',right_on='goal_id',suffixes=('', '_x'),how = 'inner')
   df_goals_weights = df_goals_weights.loc[:,~df_goals_weights.columns.duplicated()]
@@ -16,7 +22,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   df_cities = pd.read_sql('select * from cities', con=engine)
   df_cities.rename(columns = {'name':'city_name'}, inplace = True)
   df_tagging = pd.read_sql('select * from taggings', con=engine)
-  df_tags = pd.read_sql('select * from tags', con=engine)
+  
   df =  pd.merge(df_touchpoints, df_tagging, left_on='id',right_on='taggable_id',suffixes=('', '_x'))
   df = df.loc[:,~df.columns.duplicated()]
   df = pd.merge(df,df_tags,left_on='tag_id',right_on='id',suffixes=('', '_x'))
@@ -32,16 +38,16 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   df.replace("Second Year","2",inplace = True)
   df.replace("Third Year","3",inplace = True)
   df.replace("Fourth Year","4",inplace = True)
-  df_universities = pd.read_sql('select * from universities', con=engine)
+  
   df_universities_1 = pd.merge(df_universities, df_cities, left_on='city_id',right_on='id',suffixes=('', '_x'),how = 'left')
   df_universities_1 = df_universities_1.loc[:,~df_universities_1.columns.duplicated()]
   
   
-  df_degrees = pd.read_sql('select * from degrees', con=engine)
+  
   
   
   subject_topics = pd.read_sql('select * from subjects_topics', con=engine)
-  df_subjects = pd.read_sql('select * from subjects', con=engine)
+  
   df_subjects_1 = pd.merge(df_subjects, subject_topics, left_on='id',right_on='subject_id',suffixes=('', '_x'),how = 'inner')
   df_subjects_1 = df_subjects_1.loc[:,~df_subjects_1.columns.duplicated()]
   df_subjects_1 = pd.merge(df_subjects_1,df_tags,left_on='topic_id',right_on='id',suffixes=('', '_x'))
@@ -136,7 +142,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
       return df
 Goals =  st.multiselect('Enter the goals',df_goals_weights['title'].unique(),key = "one")
 Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
-weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,3]
+weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1]
 weight = st.multiselect('Enter the weight',weight,key = "three")
 University = st.selectbox('Enter the university',df_universities['name'].unique(),key = 'four')
 Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'five')
