@@ -144,7 +144,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
       n = df_1['value'].iloc[0]
       n = round(len(df_1)*(n/10))
       df = df_1.head(n)
- return df
+  return df
 Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
 Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
 weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1]
