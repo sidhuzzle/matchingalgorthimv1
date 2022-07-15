@@ -4,7 +4,7 @@ import psycopg2 as pg
 import numpy as np
 import time
 engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
-st.cache()
+@st.cache()
 def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
   grouped_1 = df_touchpoints.groupby(df_touchpoints.state)
@@ -134,8 +134,9 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
       n = round(len(df_1)*(n/10))
       df = df_1.head(n)
       return df
-Goals =  st.multiselect('Enter the goals',df_goals_1['title'].unique(),key = "one")
+Goals =  st.multiselect('Enter the goals',df_goal_weights['title'].unique(),key = "one")
 Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
+weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,3]
 weight = st.multiselect('Enter the weight',weight,key = "three")
 University = st.selectbox('Enter the university',df_universities['name'].unique(),key = 'four')
 Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'five')
