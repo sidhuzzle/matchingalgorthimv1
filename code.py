@@ -10,9 +10,9 @@ df_degrees = pd.read_sql('select * from degrees', con=engine)
 df_subjects = pd.read_sql('select * from subjects', con=engine)
 weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1]
 year = ['1','2','3','4']
-@st.cache()
+
 def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
-  engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
+  
   df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
   grouped_1 = df_touchpoints.groupby(df_touchpoints.state)
   df_goals = pd.read_sql('select * from goals', con=engine)
@@ -144,7 +144,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
     df_1 = pd.DataFrame(df_1)
     n = df_1['value'].iloc[0]
     n = round(len(df_1)*(n/10))
-return df_1.head(n)
+
 Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
 Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
 weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1]
