@@ -2,18 +2,19 @@ import streamlit as st
 import pandas as pd
 import psycopg2 as pg
 import numpy as np
-engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
-df_goals = pd.read_sql('select * from goals', con=engine)
-df_tags = pd.read_sql('select * from tags', con=engine)
-df_universities = pd.read_sql('select * from universities', con=engine)
-df_degrees = pd.read_sql('select * from degrees', con=engine)
-df_subjects = pd.read_sql('select * from subjects', con=engine)
-weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1]
-year = ['1','2','3','4']
-
 @st.cache(allow_output_mutation=True)
-def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
+def get_connection(path):
   
+  return pg.connect(path)
+@st.cache(hash_funcs={pg: id})
+def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
+  df_goals = pd.read_sql('select * from goals', con=engine)
+  df_tags = pd.read_sql('select * from tags', con=engine)
+  df_universities = pd.read_sql('select * from universities', con=engine)
+  df_degrees = pd.read_sql('select * from degrees', con=engine)
+  df_subjects = pd.read_sql('select * from subjects', con=engine)
+  weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1]
+  year = ['1','2','3','4']
   df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
   grouped_1 = df_touchpoints.groupby(df_touchpoints.state)
   df_goals = pd.read_sql('select * from goals', con=engine)
@@ -151,7 +152,8 @@ Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six
 Year = st.selectbox('Enter the year',year,key = 'seven')
 
 if st.button("Submit",key = "eight"):
-   
+  
+  get_connection("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
   df = matching_algo(Goals,Interest,weight,University,Degree,Subject,Year)
   kind = df.groupby("kind")
   for group,df_1 in kind:
