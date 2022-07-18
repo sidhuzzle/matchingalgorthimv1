@@ -156,6 +156,6 @@ Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'f
 Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
 Year = st.selectbox('Enter the year',year,key = 'seven')
 submit_button = st.button("Submit",key = "eight")
-
+st.table(df)
 
 matching_algo(Goals,Interest,weight,University,Degree,Subject,Year)
