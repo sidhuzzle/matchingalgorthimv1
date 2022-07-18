@@ -148,6 +148,7 @@ University = st.selectbox('Enter the university',df_universities['name'].unique(
 Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'five')
 Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
 Year = st.selectbox('Enter the year',year,key = 'seven')
+st.stop()
 if st.button("Submit",key = "eight"):
    
   df = matching_algo(Goals,Interest,weight,University,Degree,Subject,Year)
