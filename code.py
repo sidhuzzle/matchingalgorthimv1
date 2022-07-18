@@ -2,18 +2,18 @@ import streamlit as st
 import pandas as pd
 import psycopg2 as pg
 import numpy as np
-@st.cache(allow_output_mutation=True)
-def get_connection(path):
-  df_goals = pd.read_sql('select * from goals', con=engine)
-  df_tags = pd.read_sql('select * from tags', con=engine)
-  df_universities = pd.read_sql('select * from universities', con=engine)
-  df_degrees = pd.read_sql('select * from degrees', con=engine)
-  df_subjects = pd.read_sql('select * from subjects', con=engine)
-  weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1]
-  year = ['1','2','3','4']
+
+engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
+df_goals = pd.read_sql('select * from goals', con=engine)
+df_tags = pd.read_sql('select * from tags', con=engine)
+df_universities = pd.read_sql('select * from universities', con=engine)
+df_degrees = pd.read_sql('select * from degrees', con=engine)
+df_subjects = pd.read_sql('select * from subjects', con=engine)
+weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1]
+year = ['1','2','3','4']
   
-  return pg.connect(path)
-@st.cache(hash_funcs={pg: id})
+  
+
 def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   
   df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
