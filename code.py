@@ -157,4 +157,4 @@ Year = st.selectbox('Enter the year',year,key = 'seven')
 
 df = matching_algo(Goals,Interest,weight,University,Degree,Subject,Year)
 #if st.button("Submit",key = "eight"):
-  st.write(df)
+st.write(df)
