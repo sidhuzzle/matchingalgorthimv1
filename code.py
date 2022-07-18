@@ -143,7 +143,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
 Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
 Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
 weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1]
-weight = st.selectbox('Enter the weight',weight,key = "three")
+weight = st.multiselect('Enter the weight',weight,key = "three")
 University = st.selectbox('Enter the university',df_universities['name'].unique(),key = 'four')
 Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'five')
 Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
