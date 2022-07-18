@@ -144,6 +144,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
     n = df_1['value'].iloc[0]
     n = round(len(df_1)*(n/10))
     df = df_1.head(n)
+    return(df)
   
 Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
 Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
@@ -154,6 +155,6 @@ Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'f
 Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
 Year = st.selectbox('Enter the year',year,key = 'seven')
 if st.button("Submit",key = "eight"):
-  st.table(df)
+    st.table(df)
 
 matching_algo(Goals,Interest,weight,University,Degree,Subject,Year)
