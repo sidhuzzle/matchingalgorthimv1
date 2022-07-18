@@ -11,9 +11,9 @@ df_subjects = pd.read_sql('select * from subjects', con=engine)
 weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1]
 year = ['1','2','3','4']
 
-@st.cache(hash_funcs=engine)
+@st.cache()
 def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
-  
+  engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
   df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
   grouped_1 = df_touchpoints.groupby(df_touchpoints.state)
   df_goals = pd.read_sql('select * from goals', con=engine)
