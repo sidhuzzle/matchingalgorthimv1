@@ -139,7 +139,12 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   col_list = ['Weight','city score','degree score','subject score','year score']
   df['matching score'] = df[col_list].sum(axis=1)
   df = df.sort_values(by='matching score',ascending=False)
-  return df
+  kind = df.groupby("kind")
+  for group,df_1 in kind:
+    df_1 = pd.DataFrame(df_1)
+    n = df_1['value'].iloc[0]
+    n = round(len(df_1)*(n/10))
+  return df_1.head(n)return 
 Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
 Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
 weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1]
@@ -149,12 +154,8 @@ Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'f
 Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
 Year = st.selectbox('Enter the year',year,key = 'seven')
 if st.button("Submit",key = "eight"):
-  kind = df.groupby("kind")
-  for group,df_1 in kind:
-    df_1 = pd.DataFrame(df_1)
-    n = df_1['value'].iloc[0]
-    n = round(len(df_1)*(n/10))
-    df = df_1.head(n)
-    st.table(df)
+  
 
-matching_algo(Goals,Interest,weight,University,Degree,Subject,Year)
+df = matching_algo(Goals,Interest,weight,University,Degree,Subject,Year)
+if st.button("Submit",key = "eight"):
+  st.write(df)
