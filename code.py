@@ -147,7 +147,7 @@ weight = st.multiselect('Enter the weight',weight,key = "three")
 University = st.multiselect('Enter the university',df_universities['name'].unique(),key = 'four')
 Subject = st.multiselect('Enter the subject',df_subjects['name'].unique(),key = 'five')
 Degree =  st.multiselect('Enter the degree',df_degrees['name'].unique(),key = 'six')
-Year = st.multiselectselect('Enter the year',year,key = 'seven')
+Year = st.multiselect('Enter the year',year,key = 'seven')
 
 if st.button("Submit",key = "eight"):
    
