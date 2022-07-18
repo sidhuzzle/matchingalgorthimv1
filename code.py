@@ -144,10 +144,10 @@ Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one"
 Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
 weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1]
 weight = st.multiselect('Enter the weight',weight,key = "three")
-University = st.selectbox('Enter the university',df_universities['name'].unique(),key = 'four')
-Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'five')
-Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
-Year = st.selectbox('Enter the year',year,key = 'seven')
+University = st.multiselect('Enter the university',df_universities['name'].unique(),key = 'four')
+Subject = st.multiselect('Enter the subject',df_subjects['name'].unique(),key = 'five')
+Degree =  st.multiselect('Enter the degree',df_degrees['name'].unique(),key = 'six')
+Year = st.multiselectselect('Enter the year',year,key = 'seven')
 
 if st.button("Submit",key = "eight"):
    
