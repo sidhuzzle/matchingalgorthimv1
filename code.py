@@ -151,10 +151,10 @@ University = st.selectbox('Enter the university',df_universities['name'].unique(
 Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'five')
 Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
 Year = st.selectbox('Enter the year',year,key = 'seven')
-
+engine = get_connection("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
 if st.button("Submit",key = "eight"):
   
-  engine = get_connection("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
+  
   df = matching_algo(Goals,Interest,weight,University,Degree,Subject,Year)
   kind = df.groupby("kind")
   for group,df_1 in kind:
