@@ -83,16 +83,16 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   else:
    df['Weight'] = 0
  
-  if len(University) == 1:
+  if University in df_universities_1['name'].unique():
     df_universities_1 = df_universities_1.loc[df_universities_1['name'] == University]
-    city_name = df_universities_1.iloc['city_name']
+    city_name = df_universities_1.iloc[0]['city_name']
     df['city score'] = np.where(df['city_name'] == city_name, 1,0)
 
   else:
     df['city score'] = 0
   
 
-  if len(Degree) == 1:
+  if Degree in df_degrees['name'].unique():
     df['degree score'] = np.where(df['name'] == Degree, 1,0)
     df_O = df[df['name'] == 'Open to All Students']
   
@@ -109,7 +109,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   else:
     df['degree score'] = 0
   
-  if len(Subject) ==1:
+  if Subject in df_subjects['name'].unique():
     df_subjects_1 = df_subjects_1.loc[df_subjects_1['name'] == Subject]
     df_subjects_1['subject score'] = 0.5
     df = pd.merge(df,df_subjects_1, left_on='name',right_on='name_x',suffixes=('', '_x'),how = 'left')
@@ -123,7 +123,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   else:
     df['subject score'] = 0
 
-  if len(Year) == 1:
+  if Year in year:
     df['year score'] = np.where(df['name'] == Year, 1,0)
     df_Y = df.loc[df['year score'] == 1]
     df_Y = pd.merge(df, df_Y, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
