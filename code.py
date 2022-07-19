@@ -17,7 +17,7 @@ subject = df_subjects['name'].unique()
 subject = np.insert(subject,0,'Select a Subject') 
 weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1]
 year = ['Select a Year','1','2','3','4']
-@st.cache(max_entries=500)
+@st.cache(ttl = 24*2400)
 def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
   df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
