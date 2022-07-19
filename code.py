@@ -150,13 +150,13 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   else:
     df_I['year score'] = 0
   
-  df_I = df_I.groupby('id', as_index=False).first()
-  df_I = pd.merge(df, df_I, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
-  df_I = df_I.loc[:,~df_I.columns.duplicated()]
+  #df_I = df_I.groupby('id', as_index=False).first()
+  #df_I = pd.merge(df, df_I, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
+  #df_I = df_I.loc[:,~df_I.columns.duplicated()]
   df = df_I[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','year score','value']].copy()
   col_list = ['Weight','city score','degree score','subject score','year score']
   df['matching score'] = df[col_list].sum(axis=1)
-  return df#.sort_values(by='matching score',ascending=False)
+  return df.sort_values(by='matching score',ascending=False)
 Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
 Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
 weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1]
