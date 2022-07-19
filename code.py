@@ -7,10 +7,16 @@ engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-pro
 df_goals = pd.read_sql('select * from goals', con=engine)
 df_tags = pd.read_sql('select * from tags', con=engine)
 df_universities = pd.read_sql('select * from universities', con=engine)
+universities = df_universities['name'].unique()
+universities = universities.insert(0,'Select an University)
 df_degrees = pd.read_sql('select * from degrees', con=engine)
+degree = df_degrees['name'].unique()
+degree = degree.insert(0,'Select a Degree')                
 df_subjects = pd.read_sql('select * from subjects', con=engine)
+subject = df_subjects['name'].unique()
+subject = subject.insert(0,'Select a Subject') 
 weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1]
-year = ['1','2','3','4']
+year = ['Select a Year','1','2','3','4']
 @st.cache(max_entries=500)
 def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
