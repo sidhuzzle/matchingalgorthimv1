@@ -69,7 +69,9 @@ def matching_algo(Goals,Interest,weight):#,University,Degree,Subject,Year):
     df_goals = df_goals.loc[:,~df_goals.columns.duplicated()]
     df =  pd.merge(df, df_goals, left_on='kind',right_on='touchpointable_kind',suffixes=('', '_x'),how = 'inner')
     df = df.loc[:,~df.columns.duplicated()]
-    
+    df = df.groupby('id', as_index=False).first()
+    df =  pd.merge(df_touchpoints, df, left_on='id',right_on='id',suffixes=('', '_x'))
+    df = df.loc[:,~df.columns.duplicated()]
   else:
 
     df['value'] = 0
@@ -88,7 +90,7 @@ def matching_algo(Goals,Interest,weight):#,University,Degree,Subject,Year):
     df_I = df_I.pivot(index=['idx','touchpointable_id'], columns='name', values='Weight').sort_index(level=1).reset_index().rename_axis(None, axis=1)
     df_I = df_I.fillna(0)
     df_I['Weight'] = df_I[col_list].sum(axis=1)
-    df = pd.merge(df_touchpoints, df_I, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
+    df = pd.merge(df, df_I, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
     df = df.loc[:,~df.columns.duplicated()]
   else:
     df['Weight'] = 0
