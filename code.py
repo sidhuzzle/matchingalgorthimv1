@@ -20,7 +20,7 @@ year = ['Select a Year','1','2','3','4']
 
 
 @st.cache(func=None, persist=False, allow_output_mutation=True, show_spinner=False, suppress_st_warning=False, hash_funcs=None, max_entries=1000, ttl=24*3600)
-def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
+def matching_algo(Goals,Interest,weight)#,University,Degree,Subject,Year):
   engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
   df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
   grouped_1 = df_touchpoints.groupby(df_touchpoints.state)
@@ -164,7 +164,7 @@ weight = st.multiselect('Enter the weight',weight,key = "three")
 if st.button("Submit",key = "eight"):
   
   
-  df = matching_algo(Goals,Interest,weight,University,Degree,Subject,Year)
+  df = matching_algo(Goals,Interest,weight)#,University,Degree,Subject,Year)
   kind = df.groupby("kind")
   for group,df_1 in kind:
     df_1 = pd.DataFrame(df_1)
