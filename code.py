@@ -70,7 +70,7 @@ def matching_algo(Goals,Interest,weight):#,University,Degree,Subject,Year):
     df =  pd.merge(df, df_goals, left_on='kind',right_on='touchpointable_kind',suffixes=('', '_x'),how = 'inner')
     df = df.loc[:,~df.columns.duplicated()]
     df = df.groupby('id', as_index=False).first()
-    df =  pd.merge(df_touchpoints, df, left_on='id',right_on='id',suffixes=('', '_x'),how = inner)
+    df =  pd.merge(df_touchpoints, df, left_on='id',right_on='id',suffixes=('', '_x'),how = 'inner')
     df = df.loc[:,~df.columns.duplicated()]
   else:
 
