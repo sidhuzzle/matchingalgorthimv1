@@ -120,23 +120,23 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
     df_subjects_1['subject score'] = 0.5
     df = pd.merge(df,df_subjects_1, left_on='name',right_on='name_x',suffixes=('', '_x'),how = 'left')
     df = df.loc[:,~df.columns.duplicated()]
-    #df_S = df.loc[df['subject score'] == 0.5]
-    #df_S = pd.merge(df, df_S, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
-    #df_S = df_S.loc[:,~df_S.columns.duplicated()]
-    #id = df_S['id'].to_list()
-    #df = df[~df.id.isin(id)]
-    #df = pd.concat([df,df_S])
+    df_S = df.loc[df['subject score'] == 0.5]
+    df_S = pd.merge(df, df_S, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
+    df_S = df_S.loc[:,~df_S.columns.duplicated()]
+    id = df_S['id'].to_list()
+    df = df[~df.id.isin(id)]
+    df = pd.concat([df,df_S])
   else:
     df['subject score'] = 0
   
   if Year in year:
     df['year score'] = np.where(df['name'] == Year, 1,0)
-    #df_Y = df.loc[df['year score'] == 1]
-    #df_Y = pd.merge(df, df_Y, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
-    #df_Y = df_Y.loc[:,~df_Y.columns.duplicated()]
-    #id = df_Y['id'].to_list()
-    #df = df[~df.id.isin(id)]
-    #df =  pd.concat([df,df_Y])
+    df_Y = df.loc[df['year score'] == 1]
+    df_Y = pd.merge(df, df_Y, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
+    df_Y = df_Y.loc[:,~df_Y.columns.duplicated()]
+    id = df_Y['id'].to_list()
+    df = df[~df.id.isin(id)]
+    df =  pd.concat([df,df_Y])
   else:
     df['year score'] = 0
   
