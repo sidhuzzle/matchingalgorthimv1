@@ -18,8 +18,8 @@ def input(df_goals,df_tags,universities,degree,subject,year):
   subject = np.insert(subject,0,'Select a Subject') 
   weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1]
   year = ['Select a Year','1','2','3','4']
-  return df_goals
-input(df_goals,df_tags,universities,degree,subject,year)
+  return year
+
 @st.cache(ttl = 24*2400)
 def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   #engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
@@ -153,7 +153,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   col_list = ['Weight','city score','degree score','subject score','year score']
   df['matching score'] = df[col_list].sum(axis=1)
   return df.sort_values(by='matching score',ascending=False)
-
+input(df_goals,df_tags,universities,degree,subject,year)
 Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
 Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
 weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1]
