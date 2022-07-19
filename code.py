@@ -38,7 +38,7 @@ def matching_algo(Goals,Interest,weight):#,University,Degree,Subject,Year):
   df = df.loc[:,~df.columns.duplicated()]
   df = pd.merge(df,df_cities,left_on='city_id',right_on='id',suffixes=('', '_x'),how = 'left')
   df = df.loc[:,~df.columns.duplicated()]
-  df = df[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','city_name']]
+  #df = df[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','city_name']]
   df.replace("Bachelors","Bachelor's", inplace=True)
   df.replace("Masters","Master's", inplace=True)
   df.replace("First Year","1",inplace = True)
@@ -70,7 +70,7 @@ def matching_algo(Goals,Interest,weight):#,University,Degree,Subject,Year):
     df =  pd.merge(df, df_goals, left_on='kind',right_on='touchpointable_kind',suffixes=('', '_x'),how = 'inner')
     df = df.loc[:,~df.columns.duplicated()]
     df = df.groupby('id', as_index=False).first()
-    df =  pd.merge(df_touchpoints, df, left_on='id',right_on='id',suffixes=('', '_x'))
+    df =  pd.merge(df_touchpoints, df, left_on='id',right_on='id',suffixes=('', '_x'),how = inner)
     df = df.loc[:,~df.columns.duplicated()]
   else:
 
