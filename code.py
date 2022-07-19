@@ -73,7 +73,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   else:
 
     df['value'] = 0
-  print(df['kind'].unique())
+
 
   if len(Interest) > 0:
 
@@ -151,8 +151,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   df = df[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','year score','value']].copy()
   col_list = ['Weight','city score','degree score','subject score','year score']
   df['matching score'] = df[col_list].sum(axis=1)
-  
-
+  return df.sort_values(by='matching score',ascending=False)
 Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
 Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
 weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1]
