@@ -163,10 +163,9 @@ if st.button("Submit",key = "eight"):
     df_1 = pd.DataFrame(df_1)
     n = df_1['value'].iloc[0]
     n = round(len(df_1)*(n/10))
-    df= df_1.head(n)
-    df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
-    df =  pd.merge(df_touchpoints, df, left_on='id',right_on='id',suffixes=('', '_x'),how = 'inner')
-    df = df.loc[:,~df.columns.duplicated()]
+    df = df_1.head(n)
+    #df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
+    
     st.write(df)
   if len(df['value'].unique()) > 1:
     group_0 = df.groupby(df.touchpointable_type)
