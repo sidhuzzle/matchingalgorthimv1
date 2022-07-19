@@ -88,10 +88,10 @@ def matching_algo(Goals,Interest,weight):#,University,Degree,Subject,Year):
     df_I = df_I.pivot(index=['idx','touchpointable_id'], columns='name', values='Weight').sort_index(level=1).reset_index().rename_axis(None, axis=1)
     df_I = df_I.fillna(0)
     df_I['Weight'] = df_I[col_list].sum(axis=1)
-    df = pd.merge(df, df_I, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
-    df = df.loc[:,~df.columns.duplicated()]
+    #df = pd.merge(df, df_I, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
+    #df = df.loc[:,~df.columns.duplicated()]
   else:
-    df['Weight'] = 0
+    df_I['Weight'] = 0
   #if University in df_universities['name'].unique():
     #df_universities_1 = pd.merge(df_universities, df_cities, left_on='city_id',right_on='id',suffixes=('', '_x'),how = 'left')
     #df_universities_1 = df_universities_1.loc[:,~df_universities_1.columns.duplicated()]
@@ -150,8 +150,8 @@ def matching_algo(Goals,Interest,weight):#,University,Degree,Subject,Year):
   
   #df = df[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','year score','value']].copy()
   #col_list = ['Weight','city score','degree score','subject score','year score']
-  df['matching score'] = df[col_list].sum(axis=1)
-  return df#.sort_values(by='matching score',ascending=False)
+  #df['matching score'] = df[col_list].sum(axis=1)
+  return df_I#.sort_values(by='matching score',ascending=False)
 Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
 Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
 weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1]
