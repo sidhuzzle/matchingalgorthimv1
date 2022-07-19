@@ -20,7 +20,7 @@ year = ['Select a Year','1','2','3','4']
 
 
 @st.cache(func=None, persist=False, allow_output_mutation=True, show_spinner=False, suppress_st_warning=False, hash_funcs=None, max_entries=1000, ttl=24*3600)
-def matching_algo(Goals,Interest,weight):#,University,Degree,Subject,Year):
+def matching_algo(Goals):#,Interest,weight):#,University,Degree,Subject,Year):
   engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
   df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
   grouped_1 = df_touchpoints.groupby(df_touchpoints.state)
@@ -77,23 +77,23 @@ def matching_algo(Goals,Interest,weight):#,University,Degree,Subject,Year):
     df['value'] = 0
 
 
-  if len(Interest) > 0:
+  #if len(Interest) > 0:
 
-    interest = pd.DataFrame(Interest,columns = ['Interest'])
-    Weight = pd.DataFrame(weight,columns = ['Weight'])
-    df_interest = pd.concat([interest,Weight],axis = 1)
+    #interest = pd.DataFrame(Interest,columns = ['Interest'])
+    #Weight = pd.DataFrame(weight,columns = ['Weight'])
+    #df_interest = pd.concat([interest,Weight],axis = 1)
 
-    df_I =  pd.merge(df, df_interest, left_on='name',right_on='Interest',suffixes=('', '_x'),how = 'inner')
-    df_I = df_I.loc[:,~df_I.columns.duplicated()]
-    col_list = df_I['name'].unique()
-    df_I['idx'] = df_I.groupby(['touchpointable_id', 'name']).cumcount()
-    df_I = df_I.pivot(index=['idx','touchpointable_id'], columns='name', values='Weight').sort_index(level=1).reset_index().rename_axis(None, axis=1)
-    df_I = df_I.fillna(0)
-    df_I['Weight'] = df_I[col_list].sum(axis=1)
-    df = pd.merge(df, df_I, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
-    df = df.loc[:,~df.columns.duplicated()]
-  else:
-    df['Weight'] = 0
+    #df_I =  pd.merge(df, df_interest, left_on='name',right_on='Interest',suffixes=('', '_x'),how = 'inner')
+    #df_I = df_I.loc[:,~df_I.columns.duplicated()]
+    #col_list = df_I['name'].unique()
+    #df_I['idx'] = df_I.groupby(['touchpointable_id', 'name']).cumcount()
+    #df_I = df_I.pivot(index=['idx','touchpointable_id'], columns='name', values='Weight').sort_index(level=1).reset_index().rename_axis(None, axis=1)
+    #df_I = df_I.fillna(0)
+    #df_I['Weight'] = df_I[col_list].sum(axis=1)
+    #df = pd.merge(df, df_I, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
+    #df = df.loc[:,~df.columns.duplicated()]
+  #else:
+    #df['Weight'] = 0
   #if University in df_universities['name'].unique():
     #df_universities_1 = pd.merge(df_universities, df_cities, left_on='city_id',right_on='id',suffixes=('', '_x'),how = 'left')
     #df_universities_1 = df_universities_1.loc[:,~df_universities_1.columns.duplicated()]
@@ -166,7 +166,7 @@ weight = st.multiselect('Enter the weight',weight,key = "three")
 if st.button("Submit",key = "eight"):
   
   
-  df = matching_algo(Goals,Interest,weight)#,University,Degree,Subject,Year)
+  df = matching_algo(Goals)#,Interest,weight)#,University,Degree,Subject,Year)
   kind = df.groupby("kind")
   for group,df_1 in kind:
     df_1 = pd.DataFrame(df_1)
