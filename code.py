@@ -68,9 +68,9 @@ def matching_algo(Goals,Interest,weight):#,University,Degree,Subject,Year):
     df_goals = pd.merge(df_goals_weights, goals_1, left_on='title',right_on='Goals',suffixes=('', '_x'),how = 'inner')
     df_goals = df_goals.loc[:,~df_goals.columns.duplicated()]
     df_goals_1 =  pd.merge(df, df_goals, left_on='kind',right_on='touchpointable_kind',suffixes=('', '_x'),how = 'inner')
-    df_goals_1 = df.loc[:,~df.columns.duplicated()]
+    df_goals_1 = df_goals_1.loc[:,~df_goals_1.columns.duplicated()]
     df = df.groupby('id', as_index=False).first()
-    df =  pd.merge(df, df_goals_1, left_on='id',right_on='id',suffixes=('', '_x'),how = 'inner')
+    df =  pd.merge(df_goals_1, df, left_on='id',right_on='id',suffixes=('', '_x'),how = 'inner')
     df = df.loc[:,~df.columns.duplicated()]
   else:
 
