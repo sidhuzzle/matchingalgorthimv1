@@ -164,6 +164,7 @@ if st.button("Submit",key = "eight"):
     n = df_1['value'].iloc[0]
     n = round(len(df_1)*(n/10))
     df= df_1.head(n)
+    df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
     df =  pd.merge(df_touchpoints, df, left_on='id',right_on='id',suffixes=('', '_x'),how = 'inner')
     df = df.loc[:,~df.columns.duplicated()]
     st.write(df)
@@ -276,6 +277,7 @@ if st.button("Submit",key = "eight"):
         df_Job = df_Job.head(n)
         df =  pd.concat([df_Job,df_Internship])
         df =  pd.concat([df,df_Events])
+        df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
         df =  pd.merge(df_touchpoints, df, left_on='id',right_on='id',suffixes=('', '_x'),how = 'inner')
         df = df.loc[:,~df.columns.duplicated()]
         st.write(df)
