@@ -8,7 +8,7 @@ df_goals = pd.read_sql('select * from goals', con=engine)
 df_tags = pd.read_sql('select * from tags', con=engine)
 df_universities = pd.read_sql('select * from universities', con=engine)
 universities = df_universities['name'].unique()
-universities = universities.insert(0,'Select an University)
+universities = universities.insert(0,'Select an University')
 df_degrees = pd.read_sql('select * from degrees', con=engine)
 degree = df_degrees['name'].unique()
 degree = degree.insert(0,'Select a Degree')                
@@ -155,9 +155,9 @@ Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one"
 Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
 weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1]
 weight = st.multiselect('Enter the weight',weight,key = "three")
-University = st.selectbox('Enter the university',df_universities['name'].unique(),key = 'four')
-Subject = st.selectbox('Enter the subject',df_subjects['name'].unique(),key = 'five')
-Degree =  st.selectbox('Enter the degree',df_degrees['name'].unique(),key = 'six')
+University = st.selectbox('Enter the university',universities,key = 'four')
+Subject = st.selectbox('Enter the subject',subject,key = 'five')
+Degree =  st.selectbox('Enter the degree',degree,key = 'six')
 Year = st.selectbox('Enter the year',year,key = 'seven')
 
 if st.button("Submit",key = "eight"):
