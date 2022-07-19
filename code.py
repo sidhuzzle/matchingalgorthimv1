@@ -92,74 +92,74 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
     df = df.loc[:,~df.columns.duplicated()]
   else:
     df['Weight'] = 0
-  if University in df_universities['name'].unique():
-    df_universities_1 = pd.merge(df_universities, df_cities, left_on='city_id',right_on='id',suffixes=('', '_x'),how = 'left')
-    df_universities_1 = df_universities_1.loc[:,~df_universities_1.columns.duplicated()]
-    df_universities_1 = df_universities_1.loc[df_universities_1['name'] == University]
-    city_name = df_universities_1.iloc[0]['city_name']
-    df['city score'] = np.where(df['city_name'] == city_name, 1,0)
-  else:
-    df['city score'] = 0
-  if Degree in df_degrees['name'].unique():
-    df['degree score'] = np.where(df['name'] == Degree, 1,0)
-    df_O = df[df['name'] == 'Open to All Students']
-    df_O = pd.merge(df, df_O, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
-    df_O = df_O.loc[:,~df_O.columns.duplicated()]
-    df_E = df.loc[df['type'] == 'EducationRequirement']
-    id = df_E['id'].to_list()
-    df_E = df[~df.id.isin(id)]
-    df_E = pd.merge(df, df_E, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
-    df_E = df_E.loc[:,~df_E.columns.duplicated()]
-    df_D = df.loc[df['degree score'] == 1]
-    df = pd.merge(df, df_D, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
-    df = df.loc[:,~df.columns.duplicated()]
-    df = pd.concat([df,df_E])
-    df = pd.concat([df,df_O])
+  #if University in df_universities['name'].unique():
+    #df_universities_1 = pd.merge(df_universities, df_cities, left_on='city_id',right_on='id',suffixes=('', '_x'),how = 'left')
+    #df_universities_1 = df_universities_1.loc[:,~df_universities_1.columns.duplicated()]
+    #df_universities_1 = df_universities_1.loc[df_universities_1['name'] == University]
+    #city_name = df_universities_1.iloc[0]['city_name']
+    #df['city score'] = np.where(df['city_name'] == city_name, 1,0)
+  #else:
+    #df['city score'] = 0
+  #if Degree in df_degrees['name'].unique():
+    #df['degree score'] = np.where(df['name'] == Degree, 1,0)
+    #df_O = df[df['name'] == 'Open to All Students']
+    #df_O = pd.merge(df, df_O, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
+    #df_O = df_O.loc[:,~df_O.columns.duplicated()]
+    #df_E = df.loc[df['type'] == 'EducationRequirement']
+    #id = df_E['id'].to_list()
+    #df_E = df[~df.id.isin(id)]
+    #df_E = pd.merge(df, df_E, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
+    #df_E = df_E.loc[:,~df_E.columns.duplicated()]
+    #df_D = df.loc[df['degree score'] == 1]
+    #df = pd.merge(df, df_D, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
+    #df = df.loc[:,~df.columns.duplicated()]
+    #df = pd.concat([df,df_E])
+    #df = pd.concat([df,df_O])
     
-  else:
-    df['degree score'] = 0
-  if Subject in df_subjects['name'].unique():
-    subject_topics = pd.read_sql('select * from subjects_topics', con=engine)
-    df_subjects_1 = pd.merge(df_subjects, subject_topics, left_on='id',right_on='subject_id',suffixes=('', '_x'),how = 'inner')
-    df_subjects_1 = df_subjects_1.loc[:,~df_subjects_1.columns.duplicated()]
-    df_subjects_1 = pd.merge(df_subjects_1,df_tags,left_on='topic_id',right_on='id',suffixes=('', '_x'))
-    df_subjects_1 = df_subjects_1.loc[:,~df_subjects_1.columns.duplicated()]
-    df_subjects_1 = df_subjects_1.loc[df_subjects_1['name'] == Subject]
-    df_subjects_1['subject score'] = 0.5
-    df = pd.merge(df,df_subjects_1, left_on='name',right_on='name_x',suffixes=('', '_x'),how = 'left')
-    df = df.loc[:,~df.columns.duplicated()]
-    df_S = df.loc[df['subject score'] == 0.5]
-    df_S = pd.merge(df, df_S, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
-    df_S = df_S.loc[:,~df_S.columns.duplicated()]
-    id = df_S['id'].to_list()
-    df = df[~df.id.isin(id)]
-    df = pd.concat([df,df_S])
-  else:
-    df['subject score'] = 0
+  #else:
+    #df['degree score'] = 0
+  #if Subject in df_subjects['name'].unique():
+    #subject_topics = pd.read_sql('select * from subjects_topics', con=engine)
+    #df_subjects_1 = pd.merge(df_subjects, subject_topics, left_on='id',right_on='subject_id',suffixes=('', '_x'),how = 'inner')
+    #df_subjects_1 = df_subjects_1.loc[:,~df_subjects_1.columns.duplicated()]
+    #df_subjects_1 = pd.merge(df_subjects_1,df_tags,left_on='topic_id',right_on='id',suffixes=('', '_x'))
+    #df_subjects_1 = df_subjects_1.loc[:,~df_subjects_1.columns.duplicated()]
+    #df_subjects_1 = df_subjects_1.loc[df_subjects_1['name'] == Subject]
+    #df_subjects_1['subject score'] = 0.5
+    #df = pd.merge(df,df_subjects_1, left_on='name',right_on='name_x',suffixes=('', '_x'),how = 'left')
+    #df = df.loc[:,~df.columns.duplicated()]
+    #df_S = df.loc[df['subject score'] == 0.5]
+    #df_S = pd.merge(df, df_S, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
+    #df_S = df_S.loc[:,~df_S.columns.duplicated()]
+    #id = df_S['id'].to_list()
+    #df = df[~df.id.isin(id)]
+    #df = pd.concat([df,df_S])
+  #else:
+    #df['subject score'] = 0
   
-  if Year in year:
-    df['year score'] = np.where(df['name'] == Year, 1,0)
-    df_Y = df.loc[df['year score'] == 1]
-    df_Y = pd.merge(df, df_Y, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
-    df_Y = df_Y.loc[:,~df_Y.columns.duplicated()]
-    id = df_Y['id'].to_list()
-    df = df[~df.id.isin(id)]
-    df =  pd.concat([df,df_Y])
-  else:
-    df['year score'] = 0
+  #if Year in year:
+    #df['year score'] = np.where(df['name'] == Year, 1,0)
+    #df_Y = df.loc[df['year score'] == 1]
+    #df_Y = pd.merge(df, df_Y, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
+    #df_Y = df_Y.loc[:,~df_Y.columns.duplicated()]
+    #id = df_Y['id'].to_list()
+    #df = df[~df.id.isin(id)]
+    #df =  pd.concat([df,df_Y])
+  #else:
+    #df['year score'] = 0
   
-  df = df[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','year score','value']].copy()
-  col_list = ['Weight','city score','degree score','subject score','year score']
+  #df = df[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','year score','value']].copy()
+  #col_list = ['Weight','city score','degree score','subject score','year score']
   df['matching score'] = df[col_list].sum(axis=1)
-  return df.sort_values(by='matching score',ascending=False)
+  return df#.sort_values(by='matching score',ascending=False)
 Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
 Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
 weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1]
 weight = st.multiselect('Enter the weight',weight,key = "three")
-University = st.selectbox('Enter the university',universities,key = 'four')
-Subject = st.selectbox('Enter the subject',subject,key = 'five')
-Degree =  st.selectbox('Enter the degree',degree,key = 'six')
-Year = st.selectbox('Enter the year',year,key = 'seven')
+#University = st.selectbox('Enter the university',universities,key = 'four')
+#Subject = st.selectbox('Enter the subject',subject,key = 'five')
+#Degree =  st.selectbox('Enter the degree',degree,key = 'six')
+#Year = st.selectbox('Enter the year',year,key = 'seven')
 
 if st.button("Submit",key = "eight"):
   
