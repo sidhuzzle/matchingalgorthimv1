@@ -11,6 +11,7 @@ df_degrees = pd.read_sql('select * from degrees', con=engine)
 df_subjects = pd.read_sql('select * from subjects', con=engine)
 weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1]
 year = ['1','2','3','4']
+@st.cache(hash_funcs={engine:id})
 def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
   grouped_1 = df_touchpoints.groupby(df_touchpoints.state)
