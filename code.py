@@ -2,25 +2,24 @@ import streamlit as st
 import pandas as pd
 import psycopg2 as pg
 import numpy as np
-@st.cache(allow_output_mutation=True)
-def input(df_goals,df_tags,universities,degree,subject,year):
-  engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
-  df_goals = pd.read_sql('select * from goals', con=engine)
-  df_tags = pd.read_sql('select * from tags', con=engine)
-  df_universities = pd.read_sql('select * from universities', con=engine)
-  universities = df_universities['name'].unique()
-  universities = np.insert(universities,0,'Select an University')
-  df_degrees = pd.read_sql('select * from degrees', con=engine)
-  degree = df_degrees['name'].unique()
-  degree = np.insert(degree,0,'Select a Degree')                
-  df_subjects = pd.read_sql('select * from subjects', con=engine)
-  subject = df_subjects['name'].unique()
-  subject = np.insert(subject,0,'Select a Subject') 
-  weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1]
-  year = ['Select a Year','1','2','3','4']
-  return year
 
-@st.cache(ttl = 24*2400)
+engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
+df_goals = pd.read_sql('select * from goals', con=engine)
+df_tags = pd.read_sql('select * from tags', con=engine)
+df_universities = pd.read_sql('select * from universities', con=engine)
+universities = df_universities['name'].unique()
+universities = np.insert(universities,0,'Select an University')
+df_degrees = pd.read_sql('select * from degrees', con=engine)
+degree = df_degrees['name'].unique()
+degree = np.insert(degree,0,'Select a Degree')                
+df_subjects = pd.read_sql('select * from subjects', con=engine)
+subject = df_subjects['name'].unique()
+subject = np.insert(subject,0,'Select a Subject') 
+weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1]
+year = ['Select a Year','1','2','3','4']
+
+
+st.cache(func=None, persist=False, allow_output_mutation=True, show_spinner=False, suppress_st_warning=False, hash_funcs=None, max_entries=1000, ttl=24*3600)
 def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   #engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
   df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
@@ -152,8 +151,8 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   df = df[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','year score','value']].copy()
   col_list = ['Weight','city score','degree score','subject score','year score']
   df['matching score'] = df[col_list].sum(axis=1)
-  return df.sort_values(by='matching score',ascending=False)
-input(df_goals,df_tags,universities,degree,subject,year)
+  
+
 Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
 Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
 weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1]
