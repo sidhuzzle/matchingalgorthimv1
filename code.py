@@ -141,7 +141,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   
   if Year in year:
     df_I['year score'] = np.where(df_I['name'] == Year, 1,0)
-    df_Y = df.loc[df_I['year score'] == 1]
+    df_Y = df_I.loc[df_I['year score'] == 1]
     df_Y = pd.merge(df, df_Y, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
     df_Y = df_Y.loc[:,~df_Y.columns.duplicated()]
     id = df_Y['id'].to_list()
