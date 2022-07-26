@@ -73,7 +73,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
     df_goals_1 = df_goals_1.groupby('id', as_index=False).first()
     df_touchpoints =  pd.merge(df_touchpoints, df_goals_1, left_on='id',right_on='id',suffixes=('', '_x'),how = 'inner')
     df_touchpoints = df_touchpoints.loc[:,~df_touchpoints.columns.duplicated()]
-    df_touchpoints = df_touchpoints[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','city_name','value']].copy()
+    
     
     
   else:
