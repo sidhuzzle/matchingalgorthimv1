@@ -161,23 +161,23 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   else:
     df_touchpoints['subject score'] = 0
   
-  #if Year in year:
-    #df_touchpoints['year score'] = np.where(df_touchpoints['name'] == Year, 1,0)
-    #df_Y = df_touchpoints.loc[df_touchpoints['year score'] == 1]
-    #df_Y = df_Y.groupby('id', as_index=False).first()
-    #df_Y = pd.merge(df_touchpoints, df_Y, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
-    #df_Y = df_Y.loc[:,~df_Y.columns.duplicated()]
-    #id = df_Y['id'].to_list()
-    #df_touchpoints = df_touchpoints[~df_touchpoints.id.isin(id)]
-    #df_touchpoints =  pd.concat([df_Y,df_touchpoints])
-  #else:
-    #df_touchpoints['year score'] = 0
+  if Year in year:
+    df_touchpoints['year score'] = np.where(df_touchpoints['name'] == Year, 1,0)
+    df_Y = df_touchpoints.loc[df_touchpoints['year score'] == 1]
+    df_Y = df_Y.groupby('id', as_index=False).first()
+    df_Y = pd.merge(df_touchpoints, df_Y, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
+    df_Y = df_Y.loc[:,~df_Y.columns.duplicated()]
+    id = df_Y['id'].to_list()
+    df_touchpoints = df_touchpoints[~df_touchpoints.id.isin(id)]
+    df_touchpoints =  pd.concat([df_Y,df_touchpoints])
+  else:
+    df_touchpoints['year score'] = 0
   
-  #df = df_touchpoints[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','year score','value']].copy()
-  #col_list = ['Weight','city score','degree score','subject score','year score']
-  #df['matching score'] = df[col_list].sum(axis=1)
-  #print(len(df['id'].unique()))
-  return df_touchpoints
+  df = df_touchpoints[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','year score','value']].copy()
+  col_list = ['Weight','city score','degree score','subject score','year score']
+  df['matching score'] = df[col_list].sum(axis=1)
+  
+  return df.sort_values(by='matching score',ascending=False)
   
   
   
