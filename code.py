@@ -127,6 +127,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
     
     df_D = df_touchpoints[df_touchpoints['name'] == Degree]
     df_D['degree score'] = 1
+    df_D = df_D.groupby('id', as_index=False).first()
     df_D = pd.merge(df_touchpoints, df_D, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
     df_D = df_D.loc[:,~df_D.columns.duplicated()]
     
@@ -146,24 +147,22 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
     df_subjects_1 = df_subjects_1.loc[:,~df_subjects_1.columns.duplicated()]
     df_subjects_1 = df_subjects_1.loc[df_subjects_1['name'] == Subject]
     df_subjects_1['subject score'] = 0.5
-    df_I = pd.merge(df_touchpoints,df_subjects_1, left_on='name',right_on='name_x',suffixes=('', '_x'),how = 'inner')
-    df_I = df_I.loc[:,~df_I.columns.duplicated()]
-    df_S = df_I.loc[df_I['subject score'] == 0.5]
-    df_S = df_S.groupby('id', as_index=False).first()
+    df_S = pd.merge(df_touchpoints,df_subjects_1, left_on='name',right_on='name_x',suffixes=('', '_x'),how = 'inner')
+    df_S = df_I.loc[:,~df_I.columns.duplicated()]
+    df_S =  df_S.groupby('id', as_index=False).first()
     df_S = pd.merge(df_touchpoints, df_S, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
     df_S = df_S.loc[:,~df_S.columns.duplicated()]
     id = df_S['id'].to_list()
     df_touchpoints = df_touchpoints[~df_touchpoints.id.isin(id)]
     df_touchpoints = pd.concat([df_touchpoints,df_S])
     df_touchpoints = df_touchpoints[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','value']].copy()
-    print(len(df_touchpoints['id'].unique()))
-    print(df_touchpoints['name'].unique())
+    
   else:
     df_touchpoints['subject score'] = 0
   
   if Year in year:
-    df_touchpoints['year score'] = np.where(df_touchpoints['name'] == Year, 1,0)
-    df_Y = df_touchpoints.loc[df_touchpoints['year score'] == 1]
+    df_Y = df_touchpoints.loc[df_touchpoints['name'] == Year]
+    df_Y['year score'] = 1
     df_Y = df_Y.groupby('id', as_index=False).first()
     df_Y = pd.merge(df_touchpoints, df_Y, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
     df_Y = df_Y.loc[:,~df_Y.columns.duplicated()]
