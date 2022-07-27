@@ -121,6 +121,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
     df_E = df_touchpoints[~df_touchpoints.id.isin(id)]
     print(len(df_E['id'].unique()))
     df_O = df_touchpoints[df_touchpoints['name'] == 'Open to All Students']
+    df_O = df_O.groupby('id', as_index=False).first()
     df_O = pd.merge(df_touchpoints, df_O, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
     df_O = df_O.loc[:,~df_O.columns.duplicated()]
     print(len(df_O['id'].unique()))
