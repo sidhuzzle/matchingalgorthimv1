@@ -146,7 +146,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
     df_subjects_1 = df_subjects_1.loc[:,~df_subjects_1.columns.duplicated()]
     df_subjects_1 = df_subjects_1.loc[df_subjects_1['name'] == Subject]
     df_subjects_1['subject score'] = 0.5
-    df_I = pd.merge(df_touchpoints,df_subjects_1, left_on='name',right_on='name_x',suffixes=('', '_x'),how = 'left')
+    df_I = pd.merge(df_touchpoints,df_subjects_1, left_on='name',right_on='name_x',suffixes=('', '_x'),how = 'inner')
     df_I = df_I.loc[:,~df_I.columns.duplicated()]
     df_S = df_I.loc[df_I['subject score'] == 0.5]
     df_S = df_S.groupby('id', as_index=False).first()
