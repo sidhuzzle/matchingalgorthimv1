@@ -116,27 +116,27 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
     df_touchpoints['city score'] = 0
   
   if Degree in df_degrees['name'].unique():
-    df_touchpoints['degree score'] = np.where(df_touchpoints['name'] == Degree, 1,0)
-    df_D = df_touchpoints.loc[df_touchpoints['degree score'] == 1]
-    #df_D = df_D[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','value']].copy()
-    df_D = pd.merge(df_touchpoints, df_D, left_on='id',right_on='id',suffixes=('', '_x'),how = 'inner')
-    df_D = df_D.loc[:,~df_D.columns.duplicated()]
-    df_D.rename(columns = {'degree score_x':'degree_score'}, inplace = True)
-    #df_D = df_D[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','value']].copy()
-    df_O = df_touchpoints[df_touchpoints['name'] == 'Open to All Students']
-    df_O = pd.merge(df_touchpoints, df_O, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
-    df_O = df_O.loc[:,~df_O.columns.duplicated()]
     df_E = df_touchpoints.loc[df_touchpoints['type'] == 'EducationRequirement']
     id = df_E['id'].to_list()
     df_E = df_touchpoints[~df_touchpoints.id.isin(id)]
-    df_E = pd.merge(df_touchpoints, df_E, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
-    df_E = df_E.loc[:,~df_E.columns.duplicated()]
-   
-    df_touchpoints = pd.concat([df_D,df_E])
-    df_touchpoints = pd.concat([df_touchpoints,df_O])
-    df_touchpoints = df_touchpoints[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree_score','value']].copy()
+    print(len(df_E['id'].unique()))
+    df_O = df_touchpoints[df_touchpoints['name'] == 'Open to All Students']
+    df_O = pd.merge(df_touchpoints, df_O, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
+    df_O = df_O.loc[:,~df_O.columns.duplicated()]
+    print(len(df_O['id'].unique()))
+    df_D = df_touchpoints[df_touchpoints['name'] == Degree]
+    df_D['degree score'] = 1
+    df_D = pd.merge(df_touchpoints, df_D, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
+    df_D = df_D.loc[:,~df_D.columns.duplicated()]
+    print(len(df_D['id'].unique()))
+    df_touchpoints = pd.concat([df_D,df_O])
+    df_touchpoints = pd.concat([df_touchpoints,df_E])
+    df_touchpoints = df_touchpoints[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','value']].copy()
+    print(len(df_touchpoints['id'].unique()))
+  
   else:
     df_touchpoints['degree score'] = 0
+  
   if Subject in df_subjects['name'].unique():
     subject_topics = pd.read_sql('select * from subjects_topics', con=engine)
     df_subjects_1 = pd.merge(df_subjects, subject_topics, left_on='id',right_on='subject_id',suffixes=('', '_x'),how = 'inner')
@@ -154,7 +154,9 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
     id = df_S['id'].to_list()
     df_I = df_I[~df_I.id.isin(id)]
     df_touchpoints = pd.concat([df_I,df_S])
-    df_touchpoints = df_touchpoints[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree_score','subject score','value']].copy()
+    df_touchpoints = df_touchpoints[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','value']].copy()
+    print(len(df_touchpoints['id'].unique()))
+    print(df_touchpoints['name'].unique())
   else:
     df_touchpoints['subject score'] = 0
   
@@ -169,10 +171,13 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
     df_touchpoints =  pd.concat([df_Y,df_touchpoints])
   else:
     df_touchpoints['year score'] = 0
-  df = df_touchpoints[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree_score','subject score','year score','value']].copy()
-  col_list = ['Weight','city score','degree_score','subject score','year score']
+  
+  df = df_touchpoints[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','year score','value']].copy()
+  col_list = ['Weight','city score','degree score','subject score','year score']
   df['matching score'] = df[col_list].sum(axis=1)
+  print(len(df['id'].unique()))
   return df.sort_values(by='matching score',ascending=False)
+  
 Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
 Interest = st.multiselect('Enter the interest',df_tags['name'].unique(),key = "two")
 weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1]
@@ -186,125 +191,126 @@ if st.button("Submit",key = "eight"):
   
   
   df = matching_algo(Goals,Interest,weight,University,Degree,Subject,Year)
-  kind = df.groupby("kind")
-  for group,df_1 in kind:
-    df_1 = pd.DataFrame(df_1)
-    n = df_1['value'].iloc[0]
-    n = round(len(df_1)*(n/10))
-    df = df_1.head(n)
+  st.write(df)
+  #kind = df.groupby("kind")
+  #for group,df_1 in kind:
+    #df_1 = pd.DataFrame(df_1)
+    #n = df_1['value'].iloc[0]
+    #n = round(len(df_1)*(n/10))
+    #df = df_1.head(n)
     #df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
     
-    st.write(df)
-  if len(df['value'].unique()) > 1:
-    group_0 = df.groupby(df.touchpointable_type)
-    df_Events = group_0.get_group("Event")
-    group_1 = df.groupby(df.touchpointable_type)
-    df_Internship = group_1.get_group("Internship")
-    group_2 = df.groupby(df.touchpointable_type)
-    df_Job = group_2.get_group("Job")
-    if 'Foundation' in Degree:
-      if '1' in Year:
-        n = 7
-        n = round(len(df_Events)*(n/10))
-        df_Events = df_Events.head(n)
-        n = 3
-        n = round(len(df_Internship)*(n/10))
-        df_Internship = df_Internship.head(n)
-        df =  pd.concat([df_Events,df_Internship])
-    if "Bachelor's" in Degree:
-      if  "1" in Year:
-
-        n = 4
-        n = round(len(df_Events)*(n/10))
-        df_Events = df_Events.head(n)
-        n = 6
-        n = round(len(df_Events)*(n/10))
-        df_Internship = df_Internship.head(n)
-        df =  pd.concat([df_Events,df_Internship])
-    if "Bachelor's" in Degree:
-      if  "2" in Year:
-        n = 3
-        n = round(len(df_Events)*(n/10))
-        df_Events = df_Events.head(n)
-        n = 6
-        n = round(len(df_Events)*(n/10))
-        df_Internship = df_Internship.head(n)
-        n = 1
-        df_Job = df_Job.head(n)
-        df =  pd.concat([df_Events,df_Internship])
-        df =  pd.concat([df,df_Job])
-    if "Bachelor's" in Degree:
-      if  "3" in Year:
-        n = 2
-        n = round(len(df_Events)*(n/10))
-        df_Events = df_Events.head(n)
-        n = 2
-        n = round(len(df_Events)*(n/10))
-        df_Internship = df_Internship.head(n)
-        n = 6
-        n = round(len(df_Events)*(n/10))
-        df_Job = df_Job.head(n)
-        df =  pd.concat([df_Job,df_Internship])
-        df =  pd.concat([df,df_Events])
-    if "Bachelor's (Integrated Master's)" in Degree:
-      if  "1" in Year:
-        n = 5
-        n = round(len(df_Events)*(n/10))
-        df_Events = df_Events.head(n)
-        n = 5
-        n = round(len(df_Events)*(n/10))
-        df_Internship = df_Internship.head(n)
-        df =  pd.concat([df_Events,df_Internship])
-    if "Bachelor's (Integrated Master's)" in Degree:
-      if  "2" in Year:
-        n = 4
-        n = round(len(df_Events)*(n/10))
-        df_Events = df_Events.head(n)
-        n = 6
-        n = round(len(df_Events)*(n/10))
-        df_Internship = df_Internship.head(n)
-        df =  pd.concat([df_Events,df_Internship])
-
-    if "Bachelor's (Integrated Master's)" in Degree:
-      if  "3" in Year:
-        n = 2
-        n = round(len(df_Events)*(n/10))
-        df_Events = df_Events.head(n)
-        n = 4
-        n = round(len(df_Events)*(n/10))
-        df_Internship = df_Internship.head(n)
-        n = 4
-        n = round(len(df_Events)*(n/10))
-        df_Job = df_Job.head(n)
-        df =  pd.concat([df_Job,df_Internship])
-        df =  pd.concat([df,df_Events])
-    if "Bachelor's (Integrated Master's)" in Degree:
-      if  "4" in Year:
-        n = 2
-        n = round(len(df_Events)*(n/10))
-        df_Events = df_Events.head(n)
-        n = 2
-        n = round(len(df_Events)*(n/10))
-        df_Internship = df_Internship.head(n)
-        n = 6
-        n = round(len(df_Events)*(n/10))
-        df_Job = df_Job.head(n)
-        df =  pd.concat([df_Job,df_Internship])
-        df =  pd.concat([df,df_Events])
     
-    else:
-        n = 2
-        n = round(len(df_Events)*(n/10))
-        df_Events = df_Events.head(n)
-        n = 3
-        n = round(len(df_Events)*(n/10))
-        df_Internship = df_Internship.head(n)
-        n = 5 
-        n = round(len(df_Events)*(n/10))
-        df_Job = df_Job.head(n)
-        df =  pd.concat([df_Job,df_Internship])
-        df =  pd.concat([df,df_Events])
-        df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
-        df =  pd.merge(df_touchpoints, df, left_on='id',right_on='id',suffixes=('', '_x'),how = 'inner')
-        df = df.loc[:,~df.columns.duplicated()]
-        st.write(df)
+  #if len(df['value'].unique()) > 1:
+    #group_0 = df.groupby(df.touchpointable_type)
+    #df_Events = group_0.get_group("Event")
+    #group_1 = df.groupby(df.touchpointable_type)
+    #df_Internship = group_1.get_group("Internship")
+    #group_2 = df.groupby(df.touchpointable_type)
+    #df_Job = group_2.get_group("Job")
+    #if 'Foundation' in Degree:
+      #if '1' in Year:
+        #n = 7
+        #n = round(len(df_Events)*(n/10))
+        #df_Events = df_Events.head(n)
+        #n = 3
+        #n = round(len(df_Internship)*(n/10))
+        #df_Internship = df_Internship.head(n)
+        #df =  pd.concat([df_Events,df_Internship])
+    #if "Bachelor's" in Degree:
+      #if  "1" in Year:
+
+        #n = 4
+        #n = round(len(df_Events)*(n/10))
+        #df_Events = df_Events.head(n)
+        #n = 6
+        #n = round(len(df_Events)*(n/10))
+        #df_Internship = df_Internship.head(n)
+        #df =  pd.concat([df_Events,df_Internship])
+    #if "Bachelor's" in Degree:
+      #if  "2" in Year:
+        #n = 3
+        #n = round(len(df_Events)*(n/10))
+        #df_Events = df_Events.head(n)
+        #n = 6
+        #n = round(len(df_Events)*(n/10))
+        #df_Internship = df_Internship.head(n)
+        #n = 1
+        #df_Job = df_Job.head(n)
+        #df =  pd.concat([df_Events,df_Internship])
+        #df =  pd.concat([df,df_Job])
+    #if "Bachelor's" in Degree:
+      #if  "3" in Year:
+        #n = 2
+        #n = round(len(df_Events)*(n/10))
+        #df_Events = df_Events.head(n)
+        #n = 2
+        #n = round(len(df_Events)*(n/10))
+        #df_Internship = df_Internship.head(n)
+        #n = 6
+        #n = round(len(df_Events)*(n/10))
+        #df_Job = df_Job.head(n)
+        #df =  pd.concat([df_Job,df_Internship])
+        #df =  pd.concat([df,df_Events])
+    #if "Bachelor's (Integrated Master's)" in Degree:
+      #if  "1" in Year:
+        #n = 5
+        #n = round(len(df_Events)*(n/10))
+        #df_Events = df_Events.head(n)
+        #n = 5
+        #n = round(len(df_Events)*(n/10))
+        #df_Internship = df_Internship.head(n)
+        #df =  pd.concat([df_Events,df_Internship])
+    #if "Bachelor's (Integrated Master's)" in Degree:
+      #if  "2" in Year:
+        #n = 4
+        #n = round(len(df_Events)*(n/10))
+        #df_Events = df_Events.head(n)
+        #n = 6
+        #n = round(len(df_Events)*(n/10))
+        #df_Internship = df_Internship.head(n)
+        #df =  pd.concat([df_Events,df_Internship])
+
+    #if "Bachelor's (Integrated Master's)" in Degree:
+      #if  "3" in Year:
+        #n = 2
+        #n = round(len(df_Events)*(n/10))
+        #df_Events = df_Events.head(n)
+        #n = 4
+        #n = round(len(df_Events)*(n/10))
+        #df_Internship = df_Internship.head(n)
+        #n = 4
+        #n = round(len(df_Events)*(n/10))
+        #df_Job = df_Job.head(n)
+        #df =  pd.concat([df_Job,df_Internship])
+        #df =  pd.concat([df,df_Events])
+    #if "Bachelor's (Integrated Master's)" in Degree:
+      #if  "4" in Year:
+        #n = 2
+        #n = round(len(df_Events)*(n/10))
+        #df_Events = df_Events.head(n)
+        #n = 2
+        #n = round(len(df_Events)*(n/10))
+        #df_Internship = df_Internship.head(n)
+        #n = 6
+        #n = round(len(df_Events)*(n/10))
+        #df_Job = df_Job.head(n)
+        #df =  pd.concat([df_Job,df_Internship])
+        #df =  pd.concat([df,df_Events])
+    
+    #else:
+        #n = 2
+        #n = round(len(df_Events)*(n/10))
+        #df_Events = df_Events.head(n)
+        #n = 3
+        #n = round(len(df_Events)*(n/10))
+        #df_Internship = df_Internship.head(n)
+        #n = 5 
+        #n = round(len(df_Events)*(n/10))
+        #df_Job = df_Job.head(n)
+        #df =  pd.concat([df_Job,df_Internship])
+        #df =  pd.concat([df,df_Events])
+        #df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
+        #df =  pd.merge(df_touchpoints, df, left_on='id',right_on='id',suffixes=('', '_x'),how = 'inner')
+        #df = df.loc[:,~df.columns.duplicated()]
+        #st.write(df)
