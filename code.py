@@ -134,7 +134,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
     df_DO = pd.concat([df_D,df_O])
     df_DO = pd.merge(df_touchpoints, df_DO, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
     df_DO = df_DO.loc[:,~df_DO.columns.duplicated()]
-    df_touchpoints = pd.concat([df_touchpoints,df_E])
+    df_touchpoints = pd.concat([df_DO,df_E])
     df_touchpoints = df_touchpoints[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','value']].copy()
     
   
