@@ -6,8 +6,8 @@ import numpy as np
 engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-production-db-read.ct4mk1ahmp9p.eu-central-1.rds.amazonaws.com' port='5432' password='S11mXHLGbA0Cb8z8uLfj'")
 df_goals = pd.read_sql('select * from goals', con=engine)
 df_tags = pd.read_sql('select * from tags', con=engine)
-group_0 = df_tags.groupby(df_tags.name)
-df_tag = group_0.get_group(Topic)
+group_0 = df_tags.groupby(df_tags.type)
+df_tag = group_0.get_group('Topics')
 df_universities = pd.read_sql('select * from universities', con=engine)
 universities = df_universities['name'].unique()
 universities = np.insert(universities,0,'Select an University')
@@ -88,8 +88,8 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
     Weight = pd.DataFrame(weight,columns = ['Weight'])
     df_interest = pd.concat([interest,Weight],axis = 1)
     
-    group_2 = df_touchpoints.groupby(df_touchpoints.name)
-    df_T = grouped_2.get_group(Topic)
+    group_2 = df_touchpoints.groupby(df_touchpoints.type)
+    df_T = grouped_2.get_group('Topic')
 
     df_I =  pd.merge(df_T, df_interest, left_on='name',right_on='Interest',suffixes=('', '_x'),how = 'inner')
     df_I = df_I.loc[:,~df_I.columns.duplicated()]
