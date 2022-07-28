@@ -109,7 +109,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   
   if University in df_universities['name'].unique():
     
-    df_universities_1 = pd.merge(df_universities, df_cities, left_on='city_id',right_on='id',suffixes=('', '_x'),how = 'inner')
+    df_universities_1 = pd.merge(df_universities, df_cities, left_on='city_id',right_on='id',suffixes=('', '_x'),how = 'left')
     df_universities_1 = df_universities_1.loc[:,~df_universities_1.columns.duplicated()]
     
     df_universities_1 = df_universities_1.loc[df_universities_1['name'] == University]
