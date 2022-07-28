@@ -162,10 +162,11 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
     
     df_S = pd.merge(df_touchpoints, df_S, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
     df_S = df_S.loc[:,~df_S.columns.duplicated()]
+    df_touchpoints = df_S
     #id = df_S['id'].to_list()
     #df_touchpoints = df_touchpoints[~df_touchpoints.id.isin(id)]
-    df_touchpoints = pd.concat([df_touchpoints,df_S])
-    df_touchpoints = df_touchpoints[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','value']].copy()
+    #df_touchpoints = pd.concat([df_touchpoints,df_S])
+    #df_touchpoints = df_touchpoints[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','value']].copy()
     
   else:
     df_touchpoints['subject score'] = 0
