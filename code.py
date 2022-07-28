@@ -191,8 +191,8 @@ Interest = st.multiselect('Enter the interest',df_tag['name'].unique(),key = "tw
 weight = [1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,1]
 weight = st.multiselect('Enter the weight',weight,key = "three")
 University = st.selectbox('Enter the university',universities,key = 'four')
-Subject = st.selectbox('Enter the subject',subject,key = 'five')
 Degree =  st.selectbox('Enter the degree',degree,key = 'six')
+Subject = st.selectbox('Enter the subject',subject,key = 'five')
 Year = st.selectbox('Enter the year',year,key = 'seven')
 
 if st.button("Submit",key = "eight"):
