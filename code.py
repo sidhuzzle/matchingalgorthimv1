@@ -101,7 +101,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
     df_I = df_I.pivot(index=['idx','touchpointable_id'], columns='name', values='Weight').sort_index(level=1).reset_index().rename_axis(None, axis=1)
     df_I = df_I.fillna(0)
     df_I['Weight'] = df_I[col_list].sum(axis=1)
-    #df_I = df_I.groupby('touchpointable_id', as_index=False).first()
+    df_I = df_I.groupby('touchpointable_id', as_index=False).first()
     df_touchpoints = pd.merge(df_touchpoints, df_I, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
     df_touchpoints = df_touchpoints.loc[:,~df_touchpoints.columns.duplicated()]
   else:
