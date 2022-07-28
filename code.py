@@ -145,31 +145,30 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   else:
     df_touchpoints['degree score'] = 0
   
-  #if Subject in df_subjects['name'].unique():
-    #subject_topics = pd.read_sql('select * from subjects_topics', con=engine)
-    #df_subjects_1 = pd.merge(df_subjects, subject_topics, left_on='id',right_on='subject_id',suffixes=('', '_x'),how = 'left')
-    #df_subjects_1 = df_subjects_1.loc[:,~df_subjects_1.columns.duplicated()]
-    #df_subjects_1 = pd.merge(df_subjects_1,df_tags,left_on='topic_id',right_on='id',suffixes=('', '_x'),how = 'left')
-    #df_subjects_1 = df_subjects_1.loc[:,~df_subjects_1.columns.duplicated()]
-    #df_subjects_1 = df_subjects_1.loc[df_subjects_1['name'] == Subject]
-    #df_subjects_1['subject score'] = 0.5
-    #group_3 = df_touchpoints.groupby(df_touchpoints.type)
-    #df_T = group_3.get_group('Topic')
-    #df_S = pd.merge(df_T,df_subjects_1, left_on='name',right_on='name_x',suffixes=('', '_x'),how = 'inner')
-    #df_S = df_S.loc[:,~df_S.columns.duplicated()]
-    #df_touchpoints = df_S
-    #df_S =  df_S.groupby('id', as_index=False).first()
+  if Subject in df_subjects['name'].unique():
+    subject_topics = pd.read_sql('select * from subjects_topics', con=engine)
+    df_subjects_1 = pd.merge(df_subjects, subject_topics, left_on='id',right_on='subject_id',suffixes=('', '_x'),how = 'left')
+    df_subjects_1 = df_subjects_1.loc[:,~df_subjects_1.columns.duplicated()]
+    df_subjects_1 = pd.merge(df_subjects_1,df_tags,left_on='topic_id',right_on='id',suffixes=('', '_x'),how = 'left')
+    df_subjects_1 = df_subjects_1.loc[:,~df_subjects_1.columns.duplicated()]
+    df_subjects_1 = df_subjects_1.loc[df_subjects_1['name'] == Subject]
+    df_subjects_1['subject score'] = 0.5
+    group_3 = df_touchpoints.groupby(df_touchpoints.type)
+    df_T = group_3.get_group('Topic')
+    df_S = pd.merge(df_T,df_subjects_1, left_on='name',right_on='name_x',suffixes=('', '_x'),how = 'inner')
+    df_S = df_S.loc[:,~df_S.columns.duplicated()]
+    df_touchpoints = df_S
+    df_S =  df_S.groupby('id', as_index=False).first()
     
-    #df_S = pd.merge(df_touchpoints, df_S, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
-    #df_S = df_S.loc[:,~df_S.columns.duplicated()]
-    #df_touchpoints = df_S
-    #id = df_S['id'].to_list()
-    #df_touchpoints = df_touchpoints[~df_touchpoints.id.isin(id)]
-    #df_touchpoints = pd.concat([df_touchpoints,df_S])
-    #df_touchpoints = df_touchpoints[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','value']].copy()
+    df_S = pd.merge(df_touchpoints, df_S, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
+    df_S = df_S.loc[:,~df_S.columns.duplicated()]
+    id = df_S['id'].to_list()
+    df_touchpoints = df_touchpoints[~df_touchpoints.id.isin(id)]
+    df_touchpoints = pd.concat([df_touchpoints,df_S])
+    df_touchpoints = df_touchpoints[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','value']].copy()
     
-  #else:
-    #df_touchpoints['subject score'] = 0
+  else:
+    df_touchpoints['subject score'] = 0
   
   #if Year in year:
     #df_Y = df_touchpoints.loc[df_touchpoints['name'] == Year]
