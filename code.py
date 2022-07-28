@@ -89,7 +89,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
     df_interest = pd.concat([interest,Weight],axis = 1)
     
     group_2 = df_touchpoints.groupby(df_touchpoints.type)
-    df_T = grouped_2.get_group('Topic')
+    df_T = group_2.get_group('Topic')
 
     df_I =  pd.merge(df_T, df_interest, left_on='name',right_on='Interest',suffixes=('', '_x'),how = 'inner')
     df_I = df_I.loc[:,~df_I.columns.duplicated()]
