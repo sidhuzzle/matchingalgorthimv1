@@ -36,9 +36,9 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   df_touchpoints = df_touchpoints.loc[:,~df_touchpoints.columns.duplicated()]
   df_touchpoints = pd.merge(df_touchpoints,df_tags,left_on='tag_id',right_on='id',suffixes=('', '_x'))
   df_touchpoints = df_touchpoints.loc[:,~df_touchpoints.columns.duplicated()]
-  df_touchpoints = pd.merge(df_touchpoints,df_tc,left_on='id',right_on='touchpoint_id',suffixes=('', '_x'),how = 'left')
+  df_touchpoints = pd.merge(df_touchpoints,df_tc,left_on='id',right_on='touchpoint_id',suffixes=('', '_x'),how = 'inner')
   df_touchpoints = df_touchpoints.loc[:,~df_touchpoints.columns.duplicated()]
-  df_touchpoints = pd.merge(df_touchpoints,df_cities,left_on='city_id',right_on='id',suffixes=('', '_x'),how = 'left')
+  df_touchpoints = pd.merge(df_touchpoints,df_cities,left_on='city_id',right_on='id',suffixes=('', '_x'),how = 'inner')
   df_touchpoints = df_touchpoints.loc[:,~df_touchpoints.columns.duplicated()]
   df_touchpoints = df_touchpoints[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','city_name']].copy()
   df_touchpoints.replace("Bachelors","Bachelor's", inplace=True)
