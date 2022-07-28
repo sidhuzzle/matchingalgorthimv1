@@ -121,30 +121,30 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   else:
     df_touchpoints['city score'] = 0
   
-  #if Degree in df_degrees['name'].unique():
-    #df_E = df_touchpoints.loc[df_touchpoints['type'] == 'EducationRequirement']
-    #id = df_E['id'].to_list()
-    #df_E = df_touchpoints[~df_touchpoints.id.isin(id)]
+  if Degree in df_degrees['name'].unique():
+    df_E = df_touchpoints.loc[df_touchpoints['type'] == 'EducationRequirement']
+    id = df_E['id'].to_list()
+    df_E = df_touchpoints[~df_touchpoints.id.isin(id)]
     
-    #df_O = df_touchpoints[df_touchpoints['name'] == 'Open to All Students']
-    #df_O = df_O.groupby('id', as_index=False).first()
-    #df_O = pd.merge(df_touchpoints, df_O, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
-    #df_O = df_O.loc[:,~df_O.columns.duplicated()]
+    df_O = df_touchpoints[df_touchpoints['name'] == 'Open to All Students']
+    df_O = df_O.groupby('id', as_index=False).first()
+    df_O = pd.merge(df_touchpoints, df_O, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
+    df_O = df_O.loc[:,~df_O.columns.duplicated()]
     
-    #df_D = df_touchpoints[df_touchpoints['name'] == Degree]
-    #df_D['degree score'] = 1
-    #df_D = df_D.groupby('id', as_index=False).first()
-    #df_D = pd.merge(df_touchpoints, df_D, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
-    #df_D = df_D.loc[:,~df_D.columns.duplicated()]
+    df_D = df_touchpoints[df_touchpoints['name'] == Degree]
+    df_D['degree score'] = 1
+    df_D = df_D.groupby('id', as_index=False).first()
+    df_D = pd.merge(df_touchpoints, df_D, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
+    df_D = df_D.loc[:,~df_D.columns.duplicated()]
     
-    #df_DO = pd.concat([df_D,df_O])
+    df_DO = pd.concat([df_D,df_O])
    
-    #df_touchpoints = pd.concat([df_DO,df_E])
-    #df_touchpoints = df_touchpoints[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','value']].copy()
+    df_touchpoints = pd.concat([df_DO,df_E])
+    df_touchpoints = df_touchpoints[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','value']].copy()
     
   
-  #else:
-    #df_touchpoints['degree score'] = 0
+  else:
+    df_touchpoints['degree score'] = 0
   
   #if Subject in df_subjects['name'].unique():
     #subject_topics = pd.read_sql('select * from subjects_topics', con=engine)
@@ -183,7 +183,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   #col_list = ['Weight','city score','degree score','subject score','year score']
   #df['matching score'] = df[col_list].sum(axis=1)
   #df.sort_values(by='matching score',ascending=False)
-  return df_touchpoints
+  return df_E
   
   
 Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
