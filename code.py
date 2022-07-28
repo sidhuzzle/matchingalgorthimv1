@@ -242,10 +242,12 @@ if st.button("Submit",key = "eight"):
         df_Internship = df_Internship.groupby('id', as_index=False).first()
         df_Internship = pd.merge(df, df_Internship, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
         df_Internship = df_Internship.loc[:,~df_Internship.columns.duplicated()]
+        
         n = 1
         df_Job = df_Job.head(n)
         df =  pd.concat([df_Events,df_Internship])
         df =  pd.concat([df,df_Job])
+        df = df_touchpoints[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','year score','value']].copy()
     if "Bachelor's" in Degree:
       if  "3" in Year:
         n = 2
