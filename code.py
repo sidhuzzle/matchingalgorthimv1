@@ -234,13 +234,13 @@ if st.button("Submit",key = "eight"):
         n = round(len(df_Events)*(n/10))
         df_Events = df_Events.head(n)
         df_Events = df_Events.groupby('id', as_index=False).first()
-        df_Events = pd.merge(df_touchpoints, df_Events, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
+        df_Events = pd.merge(df, df_Events, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
         df_Events = df_Events.loc[:,~df_Events.columns.duplicated()]
         n = 6
         n = round(len(df_Events)*(n/10))
         df_Internship = df_Internship.head(n)
         df_Internship = df_Internship.groupby('id', as_index=False).first()
-        df_Internship = pd.merge(df_touchpoints, df_Internship, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
+        df_Internship = pd.merge(df, df_Internship, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
         df_Internship = df_Internship.loc[:,~df_Internship.columns.duplicated()]
         n = 1
         df_Job = df_Job.head(n)
