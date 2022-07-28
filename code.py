@@ -237,7 +237,7 @@ if st.button("Submit",key = "eight"):
         df_Events = pd.merge(df, df_Events, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
         df_Events = df_Events.loc[:,~df_Events.columns.duplicated()]
         n = 6
-        n = round(len(df_Events)*(n/10))
+        n = round(len(df_Internship)*(n/10))
         df_Internship = df_Internship.head(n)
         df_Internship = df_Internship.groupby('id', as_index=False).first()
         df_Internship = pd.merge(df, df_Internship, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
@@ -245,9 +245,11 @@ if st.button("Submit",key = "eight"):
         
         n = 1
         df_Job = df_Job.head(n)
+        df_Internship = pd.merge(df, df_Job, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
+        df_Job = df_Job.loc[:,~df_Job.columns.duplicated()]
         df =  pd.concat([df_Events,df_Internship])
         df =  pd.concat([df,df_Job])
-        df = df[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','year score','value']].copy()
+       
     if "Bachelor's" in Degree:
       if  "3" in Year:
         n = 2
@@ -322,5 +324,5 @@ if st.button("Submit",key = "eight"):
         df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
         df =  pd.merge(df_touchpoints, df, left_on='id',right_on='id',suffixes=('', '_x'),how = 'inner')
         df = df.loc[:,~df.columns.duplicated()]
-        df = df[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','year score','value']].copy()
+        df = df[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','year score','value','matching score']].copy()
         st.write(df)
