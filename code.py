@@ -153,10 +153,13 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
     df_subjects_1 = df_subjects_1.loc[:,~df_subjects_1.columns.duplicated()]
     df_subjects_1 = df_subjects_1.loc[df_subjects_1['name'] == Subject]
     df_subjects_1['subject score'] = 0.5
-    df_S = pd.merge(df_touchpoints,df_subjects_1, left_on='name',right_on='name_x',suffixes=('', '_x'),how = 'inner')
+    group_3 = df_touchpoints.groupby(df_touchpoints.type)
+    df_T = group_3.get_group('Topic')
+    df_S = pd.merge(df_T,df_subjects_1, left_on='name',right_on='name_x',suffixes=('', '_x'),how = 'inner')
     df_S = df_S.loc[:,~df_S.columns.duplicated()]
+    #df_touchpoints = df_S
+    df_S =  df_S.groupby('id', as_index=False).first()
     df_touchpoints = df_S
-    #df_S =  df_S.groupby('id', as_index=False).first()
     #df_S = pd.merge(df_touchpoints, df_S, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
     #df_S = df_S.loc[:,~df_S.columns.duplicated()]
     #id = df_S['id'].to_list()
