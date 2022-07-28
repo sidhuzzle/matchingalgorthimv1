@@ -7,7 +7,7 @@ engine = pg.connect("dbname='huzzle_production' user='postgres' host='huzzle-pro
 df_goals = pd.read_sql('select * from goals', con=engine)
 df_tags = pd.read_sql('select * from tags', con=engine)
 group_0 = df_tags.groupby(df_tags.name)
-df_tag = group_0.get_group('Topic')
+df_tag = group_0.get_group(Topic)
 df_universities = pd.read_sql('select * from universities', con=engine)
 universities = df_universities['name'].unique()
 universities = np.insert(universities,0,'Select an University')
@@ -89,7 +89,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
     df_interest = pd.concat([interest,Weight],axis = 1)
     
     group_2 = df_touchpoints.groupby(df_touchpoints.name)
-    df_T = grouped_2.get_group('Topic')
+    df_T = grouped_2.get_group(Topic)
 
     df_I =  pd.merge(df_T, df_interest, left_on='name',right_on='Interest',suffixes=('', '_x'),how = 'inner')
     df_I = df_I.loc[:,~df_I.columns.duplicated()]
