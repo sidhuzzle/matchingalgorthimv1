@@ -125,7 +125,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
     df_E = df_touchpoints.loc[df_touchpoints['type'] == 'EducationRequirement']
     id = df_E['id'].to_list()
     df_E = df_touchpoints[~df_touchpoints.id.isin(id)]
-    
+    df_touchpoints = df_E
     df_O = df_touchpoints[df_touchpoints['name'] == 'Open to All Students']
     df_O = df_O.groupby('id', as_index=False).first()
     df_O = pd.merge(df_touchpoints, df_O, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
@@ -183,7 +183,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   #col_list = ['Weight','city score','degree score','subject score','year score']
   #df['matching score'] = df[col_list].sum(axis=1)
   #df.sort_values(by='matching score',ascending=False)
-  return df_E
+  return df_touchpoints
   
   
 Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
