@@ -136,7 +136,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
     df_D = df_D.groupby('id', as_index=False).first()
     df_D = pd.merge(df_touchpoints, df_D, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
     df_D = df_D.loc[:,~df_D.columns.duplicated()]
-    df_touchpoints = df_D
+    
     df_DO = pd.concat([df_D,df_O])
     df_touchpoints = pd.concat([df_DO,df_E])
     df_touchpoints = df_touchpoints[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','value']].copy()
@@ -145,16 +145,17 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   else:
     df_touchpoints['degree score'] = 0
   
-  #if Subject in df_subjects['name'].unique():
-    #subject_topics = pd.read_sql('select * from subjects_topics', con=engine)
-    #df_subjects_1 = pd.merge(df_subjects, subject_topics, left_on='id',right_on='subject_id',suffixes=('', '_x'),how = 'inner')
-    #df_subjects_1 = df_subjects_1.loc[:,~df_subjects_1.columns.duplicated()]
-    #df_subjects_1 = pd.merge(df_subjects_1,df_tags,left_on='topic_id',right_on='id',suffixes=('', '_x'))
-    #df_subjects_1 = df_subjects_1.loc[:,~df_subjects_1.columns.duplicated()]
-    #df_subjects_1 = df_subjects_1.loc[df_subjects_1['name'] == Subject]
-    #df_subjects_1['subject score'] = 0.5
-    #df_S = pd.merge(df_touchpoints,df_subjects_1, left_on='name',right_on='name_x',suffixes=('', '_x'),how = 'inner')
-    #df_S = df_S.loc[:,~df_S.columns.duplicated()]
+  if Subject in df_subjects['name'].unique():
+    subject_topics = pd.read_sql('select * from subjects_topics', con=engine)
+    df_subjects_1 = pd.merge(df_subjects, subject_topics, left_on='id',right_on='subject_id',suffixes=('', '_x'),how = 'left')
+    df_subjects_1 = df_subjects_1.loc[:,~df_subjects_1.columns.duplicated()]
+    df_subjects_1 = pd.merge(df_subjects_1,df_tags,left_on='topic_id',right_on='id',suffixes=('', '_x'),how = 'left')
+    df_subjects_1 = df_subjects_1.loc[:,~df_subjects_1.columns.duplicated()]
+    df_subjects_1 = df_subjects_1.loc[df_subjects_1['name'] == Subject]
+    df_subjects_1['subject score'] = 0.5
+    df_S = pd.merge(df_touchpoints,df_subjects_1, left_on='name',right_on='name_x',suffixes=('', '_x'),how = 'inner')
+    df_S = df_S.loc[:,~df_S.columns.duplicated()]
+    df_touchpoints = df_S
     #df_S =  df_S.groupby('id', as_index=False).first()
     #df_S = pd.merge(df_touchpoints, df_S, left_on='touchpointable_id',right_on='touchpointable_id',suffixes=('', '_x'),how = 'inner')
     #df_S = df_S.loc[:,~df_S.columns.duplicated()]
