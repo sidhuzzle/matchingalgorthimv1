@@ -322,4 +322,5 @@ if st.button("Submit",key = "eight"):
         df_touchpoints = pd.read_sql('select * from touchpoints', con=engine)
         df =  pd.merge(df_touchpoints, df, left_on='id',right_on='id',suffixes=('', '_x'),how = 'inner')
         df = df.loc[:,~df.columns.duplicated()]
+        df = df[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','year score','value']].copy()
         st.write(df)
