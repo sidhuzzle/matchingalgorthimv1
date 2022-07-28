@@ -107,19 +107,19 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   else:
     df_touchpoints['Weight'] = 0
   
-  #if University in df_universities['name'].unique():
+  if University in df_universities['name'].unique():
     
-    #df_universities_1 = pd.merge(df_universities, df_cities, left_on='city_id',right_on='id',suffixes=('', '_x'),how = 'left')
-    #df_universities_1 = df_universities_1.loc[:,~df_universities_1.columns.duplicated()]
+    df_universities_1 = pd.merge(df_universities, df_cities, left_on='city_id',right_on='id',suffixes=('', '_x'),how = 'inner')
+    df_universities_1 = df_universities_1.loc[:,~df_universities_1.columns.duplicated()]
     
-    #df_universities_1 = df_universities_1.loc[df_universities_1['name'] == University]
+    df_universities_1 = df_universities_1.loc[df_universities_1['name'] == University]
     
-    #city_name = df_universities_1.iloc[0]['city_name']
+    city_name = df_universities_1.iloc[0]['city_name']
     
-    #df_touchpoints['city score'] = np.where(df_touchpoints['city_name'] == city_name, 1,0)
+    df_touchpoints['city score'] = np.where(df_touchpoints['city_name'] == city_name, 1,0)
     
-  #else:
-    #df_touchpoints['city score'] = 0
+  else:
+    df_touchpoints['city score'] = 0
   
   #if Degree in df_degrees['name'].unique():
     #df_E = df_touchpoints.loc[df_touchpoints['type'] == 'EducationRequirement']
