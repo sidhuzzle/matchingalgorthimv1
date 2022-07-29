@@ -351,7 +351,6 @@ if st.button("Submit",key = "eight"):
         df_Job = df_Job.head(n)
         #df =  pd.concat([df_Job,df_Internship])
         #df =  pd.concat([df,df_Events])
-        df = df[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','year score','value','matching score']].copy()
         id = df['touchpointable_id'].to_list()
         st.write(df_Events)
         st.write(df_Internship)
