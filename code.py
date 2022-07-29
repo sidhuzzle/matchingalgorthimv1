@@ -190,7 +190,9 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   df['matching score'] = df[col_list].sum(axis=1)
   #df = df.groupby(['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','year score','value']).sum()
  
-  df_name = df.set_index(['id', df.groupby('id').cumcount()])['name'].unstack().add_prefix('name').reset_index()
+  df_name['idx'] = df.groupby(['id', 'name']).cumcount()
+  df_name = df_name.pivot(index=['idx','id'], columns='type', values='name').sort_index(level=1).reset_index().rename_axis(None, axis=1)
+  df_name = df_name.fillna(0)
   df = pd.merge(df, df_name, left_on='id',right_on='id',suffixes=('', '_x'),how = 'left')
   df = df.loc[:,~df.columns.duplicated()]
   #df = df.drop(['name'],axis = 1)
@@ -251,13 +253,13 @@ if st.button("Submit",key = "eight"):
         #df =  pd.concat([df_Events,df_Internship])
     if "Bachelor's" in Degree:
       if  "Second Year" in Year:
-        n_1 = 3
-        n_1 = round(len(df_Events)*(n_1/10))
-        df_Events = df_Events.head(n_1)
+        n = 3
+        n = round(len(df_Events)*(n/10))
+        df_Events = df_Events.head(n)
         
-        n_2 = 6
-        n_2 = round(len(df_Internship)*(n_2/10))
-        df_Internship = df_Internship.head(n_2)
+        n = 6
+        n = round(len(df_Internship)*(n/10))
+        df_Internship = df_Internship.head(n)
         
         n = 1
         n = round(len(df_Job)*(n/10))
@@ -271,9 +273,11 @@ if st.button("Submit",key = "eight"):
         n = 2
         n = round(len(df_Events)*(n/10))
         df_Events = df_Events.head(n)
+        
         n = 2
         n = round(len(df_Internship)*(n/10))
         df_Internship = df_Internship.head(n)
+        
         n = 6
         n = round(len(df_Job)*(n/10))
         df_Job = df_Job.head(n)
