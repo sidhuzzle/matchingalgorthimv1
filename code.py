@@ -182,6 +182,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   
   df = df_touchpoints[['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','year score','value']].copy()
   col_list = ['Weight','city score','degree score','subject score','year score']
+  df['matching score'] = df[col_list].sum()
   #group_4 = df.groupby(df.type)
   #df_T = group_4.get_group('Topic')
   #df = df_T.set_index(['id', df.groupby('id').cumcount()])['name'].unstack().add_prefix('name').reset_index()
