@@ -197,7 +197,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   df = pd.merge(df, df_name, left_on='id',right_on='id',suffixes=('', '_x'),how = 'right')
   df = df.loc[:,~df.columns.duplicated()]
   limitPer = len(df) * .90
-  df = df.dropna(thresh=limitper, axis=1)
+  df = df.dropna(thresh=limitPer, axis=1)
   #df = df.drop(['name'],axis = 1)
   df = df.groupby('id', as_index=False).first()
   
