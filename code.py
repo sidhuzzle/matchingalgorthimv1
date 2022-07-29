@@ -197,15 +197,15 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   #df_name = pd.DataFrame(df_name.to_records())
   df = pd.merge(df, df_name, left_on='id',right_on='id',suffixes=('', '_x'),how = 'inner')
   df = df.loc[:,~df.columns.duplicated()]
-  #limitPer = len(df) * .80
+  limitPer = len(df) * .70
   #df = df.dropna(thresh=limitPer, axis=1)
   df = df.fillna(0)
   cols = list(df.columns.values) #Make a list of all of the columns in the df
   cols.pop(cols.index('Weight')) #Remove b from list
   cols.pop(cols.index('city score'))
-  cols.pop(cols.index('degree score')) #Remove b from list
+  #cols.pop(cols.index('degree score')) #Remove b from list
   cols.pop(cols.index('subject score'))
-  cols.pop(cols.index('year score')) #Remove b from list
+  #cols.pop(cols.index('year score')) #Remove b from list
   cols.pop(cols.index('matching score')) #Remove x from list
   df = df[cols+['Weight','city_name','city score','subject score','year score','matching score']]
   
