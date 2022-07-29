@@ -194,7 +194,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   df_name =  df_touchpoints.pivot(index=['idx','id'], columns='type', values='name').sort_index(level=1).reset_index().rename_axis(None, axis=1)
   df_name = df_name.set_index(['id', df_name.groupby('id').cumcount()])['Topic'].unstack().add_prefix('Topic').reset_index()
   #df_name = pd.DataFrame(df_name.to_records())
-  df = pd.merge(df, df_name, left_on='id',right_on='id',suffixes=('', '_x'),how = 'left')
+  df = pd.merge(df, df_name, left_on='id',right_on='id',suffixes=('', '_x'),how = 'inner')
   df = df.loc[:,~df.columns.duplicated()]
   
   #df = df.drop(['name'],axis = 1)
