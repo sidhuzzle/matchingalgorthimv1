@@ -192,7 +192,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   
   #df = df.groupby(['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','year score','value']).sum()
   df_matches = df.groupby('id', as_index=False).first()
-  df_matches = df_touchpoints[['id','matching score']].copy()
+  df_matches = df[['id','matching score']].copy()
   
   df_touchpoints['idx'] = df.groupby(['id','type']).cumcount()
   df_name =  df_touchpoints.pivot(index=['idx','id'], columns='type', values='name').sort_index(level=1).reset_index().rename_axis(None, axis=1)
