@@ -200,7 +200,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   df_name = pd.DataFrame(df_name.to_records())
   df = pd.merge(df, df_name, left_on='id',right_on='id',suffixes=('', '_x'),how = 'inner')
   df = df.loc[:,~df.columns.duplicated()]
-  a = len(df) * .60
+  a = len(df) * .70
   df = df.dropna(thresh=a,axis = 1)
   
   #df = pd.merge(df, df_matches, left_on='id',right_on='id',suffixes=('', '_x'),how = 'inner')
@@ -212,6 +212,8 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   cols.pop(cols.index('matching score')) #Remove b from list
    #Remove x from list
   df = df[cols+['matching score']] 
+  
+  df = df.drop(['index'],axis = 1)
   
   ##df = df.loc[:,~df.columns.duplicated()]
   df = df.sort_values(by='matching score',ascending=False)
