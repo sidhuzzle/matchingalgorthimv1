@@ -190,7 +190,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   df['matching score'] = df[col_list].sum(axis=1)
   #df = df.groupby(['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','year score','value']).sum()
   #df = df.groupby('id', as_index=False).first()
-  df = df.set_index(['id', df.groupby('id','touchpointable_id','type','kind','title','creatable_for_name','city_name','value','matching score').cumcount()])['name'].unstack().add_prefix('name').reset_index()
+  df = df.set_index(['id', df.groupby('id','type','kind','title','creatable_for_name','city_name','value','matching score').cumcount()])['name'].unstack().add_prefix('name').reset_index()
   #df = df.sort_values(by='matching score',ascending=False)
   return df
   
