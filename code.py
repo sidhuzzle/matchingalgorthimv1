@@ -192,8 +192,10 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   #df = df.groupby('id', as_index=False).first()
   df_name = df.set_index(['id', df.groupby('id').cumcount()])['name'].unstack().add_prefix('name').reset_index()
   
+  df = pd.merge(df, df_name, left_on='id',right_on='id',suffixes=('', '_x'),how = 'left')
+  df = df.loc[:,~df.columns.duplicated()]
   #df = df.sort_values(by='matching score',ascending=False)
-  return df_name
+  return df
   
   
 Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
