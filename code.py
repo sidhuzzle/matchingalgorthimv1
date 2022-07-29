@@ -198,7 +198,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   df = df.loc[:,~df.columns.duplicated()]
   df = df.set_index(['id', df.groupby('id').cumcount()])['Topic'].unstack().add_prefix('Topic').reset_index()
   #df = df.drop(['name'],axis = 1)
-  df = df.groupby('id', as_index=False).first()
+  #df = df.groupby('id', as_index=False).first()
   
   #df = df.loc[:,~df.columns.duplicated()]
   df = df.sort_values(by='matching score',ascending=False)
