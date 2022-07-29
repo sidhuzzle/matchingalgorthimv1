@@ -199,8 +199,15 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   limitPer = len(df) * .60
   df = df.dropna(thresh=limitPer, axis=1)
   df = df.fillna(0)
-  df = df.reindex(columns=sorted(df.columns))
-  df['matching score'] = df[col_list].sum(axis=1)
+  cols = list(df.columns.values) #Make a list of all of the columns in the df
+  cols.pop(cols.index('Weight')) #Remove b from list
+  cols.pop(cols.index('city score'))
+  cols.pop(cols.index('degree score')) #Remove b from list
+  cols.pop(cols.index('subject score'))
+  cols.pop(cols.index('year score')) #Remove b from list
+  cols.pop(cols.index('matching score')) #Remove x from list
+  df = df[cols+['Weight','city_name','city score','degree score','subject score','year score','matching score']]
+  
   #df = df.drop(['name'],axis = 1)
   df = df.groupby('id', as_index=False).first()
   
@@ -233,12 +240,15 @@ if st.button("Submit",key = "eight"):
     st.write(df)
     
   if len(df['value'].unique()) == 1:
-    group_0 = df.groupby(df.touchpointable_type)
-    df_Events = group_0.get_group("Event")
-    group_1 = df.groupby(df.touchpointable_type)
-    df_Internship = group_1.get_group("Internship")
-    group_2 = df.groupby(df.touchpointable_type)
-    df_Job = group_2.get_group("Job")
+    if "Event" in df['touchpointable_type'].unique():
+      group_0 = df.groupby(df.touchpointable_type)
+      df_Events = group_0.get_group("Event")
+    if "Internship" in df['touchpointable_type'].unique():
+      group_1 = df.groupby(df.touchpointable_type)
+      df_Internship = group_1.get_group("Internship")
+    if "Job" in df['touchpointable_type'].unique():
+      group_2 = df.groupby(df.touchpointable_type)
+      df_Job = group_2.get_group("Job")
     if 'Foundation' in Degree:
       if 'First Year' in Year:
         n = 7
