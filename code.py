@@ -194,7 +194,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   df_name = df.drop(['name'],axis = 1)
   df = pd.merge(df, df_name, left_on='id',right_on='id',suffixes=('', '_x'),how = 'left')
   df = df.loc[:,~df.columns.duplicated()]
-  df = df.drop(['name'])
+  
   df = df.groupby('id', as_index=False).first()
   
   #df = df.loc[:,~df.columns.duplicated()]
