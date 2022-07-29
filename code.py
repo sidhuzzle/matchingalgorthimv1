@@ -189,9 +189,9 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   #df = df_T.set_index(['id', df.groupby('id').cumcount()])['name'].unstack().add_prefix('name').reset_index()
   
   
-  df_matches = df.groupby('id', as_index=False).first()
+  #df_matches = df.groupby('id', as_index=False).first()
   #df = df.groupby(['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','year score','value']).sum()
-  df_matches = df[['id','matching score']].copy()
+  #df_matches = df[['id','matching score']].copy()
   
   
   df_touchpoints['idx'] = df.groupby(['id','type']).cumcount()
@@ -207,11 +207,11 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   #df = df.loc[:,~df.columns.duplicated()]
   
   #df = df.drop(['name'],axis = 1)
-  #df = df.groupby('id', as_index=False).first()
-  #cols = list(df.columns.values) #Make a list of all of the columns in the df
-  #cols.pop(cols.index('matching score')) #Remove b from list
+  df = df.groupby('id', as_index=False).first()
+  cols = list(df.columns.values) #Make a list of all of the columns in the df
+  cols.pop(cols.index('matching score')) #Remove b from list
    #Remove x from list
-  #df = df[cols+['matching score']] 
+  df = df[cols+['matching score']] 
   
   ##df = df.loc[:,~df.columns.duplicated()]
   df = df.sort_values(by='matching score',ascending=False)
