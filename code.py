@@ -190,8 +190,8 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   df['matching score'] = df[col_list].sum(axis=1)
   #df = df.groupby(['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','year score','value']).sum()
  
-  df_name['idx'] = df.groupby(['id','type']).cumcount()
-  df_name = pivot_table(df_name, values='name', index=['idx','id'],columns=['type'],aggfunc=np.sum)
+  df['idx'] = df.groupby(['id','type']).cumcount()
+  df_name = pivot_table(df, values='name', index=['idx','id'],columns=['type'],aggfunc=np.sum)
   df_name = pd.DataFrame(df_name.to_records())
   df = pd.merge(df, df_name, left_on='id',right_on='id',suffixes=('', '_x'),how = 'left')
   df = df.loc[:,~df.columns.duplicated()]
