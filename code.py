@@ -189,8 +189,9 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   #df = df_T.set_index(['id', df.groupby('id').cumcount()])['name'].unstack().add_prefix('name').reset_index()
   
   
-  
+  df_matches = df.groupby('id', as_index=False).first()
   #df = df.groupby(['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','year score','value']).sum()
+  df_matches = df[['id','matching score']].copy()
   
   
   df_touchpoints['idx'] = df.groupby(['id','type']).cumcount()
@@ -199,7 +200,11 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   #df_name = pd.DataFrame(df_name.to_records())
   df = pd.merge(df, df_name, left_on='id',right_on='id',suffixes=('', '_x'),how = 'inner')
   df = df.loc[:,~df.columns.duplicated()]
-    
+  a = len(df) * .60
+  df = df.dropna(axis=0, thresh=a, how="any")
+  
+  df = pd.merge(df, df_matches, left_on='id',right_on='id',suffixes=('', '_x'),how = 'inner')
+  df = df.loc[:,~df.columns.duplicated()]
   
   #df = df.drop(['name'],axis = 1)
   df = df.groupby('id', as_index=False).first()
