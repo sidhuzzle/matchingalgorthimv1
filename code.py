@@ -194,15 +194,15 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   df_name =  df_touchpoints.pivot(index=['idx','id'], columns='type', values='name').sort_index(level=1).reset_index().rename_axis(None, axis=1)
   df_name = df_name.set_index(['id', df_name.groupby('id').cumcount()])['Topic'].unstack().add_prefix('Topic').reset_index()
   #df_name = pd.DataFrame(df_name.to_records())
-  df = pd.merge(df, df_name, left_on='id',right_on='id',suffixes=('', '_x'),how = 'right')
+  df = pd.merge(df, df_name, left_on='id',right_on='id',suffixes=('', '_x'),how = 'inner')
   df = df.loc[:,~df.columns.duplicated()]
-  limitPer = len(df) * .60
+  limitPer = len(df) * .70
   df = df.dropna(thresh=limitPer, axis=1)
   df = df.fillna(0)
   cols = list(df.columns.values) #Make a list of all of the columns in the df
   cols.pop(cols.index('Weight')) #Remove b from list
   cols.pop(cols.index('city score'))
-  #cols.pop(cols.index('degree score')) #Remove b from list
+  cols.pop(cols.index('degree score')) #Remove b from list
   cols.pop(cols.index('subject score'))
   cols.pop(cols.index('year score')) #Remove b from list
   cols.pop(cols.index('matching score')) #Remove x from list
