@@ -199,7 +199,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   
   #df = df.loc[:,~df.columns.duplicated()]
   df = df.sort_values(by='matching score',ascending=False)
-  return df
+  return df_name
   
   
 Goals =  st.multiselect('Enter the goals',df_goals['title'].unique(),key = "one")
