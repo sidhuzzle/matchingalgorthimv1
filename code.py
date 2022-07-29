@@ -206,7 +206,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   df  = pd.merge(df, df_matches, left_on='id',right_on='id',suffixes=('', '_x'),how = 'inner')
   df = df.loc[:,~df.columns.duplicated()]
   #df = df.drop(['name'],axis = 1)
-  df = df.groupby('id', as_index=False).first()
+  #df = df.groupby('id', as_index=False).first()
   
   #df = df.loc[:,~df.columns.duplicated()]
   df = df.sort_values(by='matching score',ascending=False)
@@ -237,15 +237,12 @@ if st.button("Submit",key = "eight"):
     st.write(df)
     
   if len(df['value'].unique()) == 1:
-    if "Event" in df['touchpointable_type'].unique():
-      group_0 = df.groupby(df.touchpointable_type)
-      df_Events = group_0.get_group("Event")
-    if "Internship" in df['touchpointable_type'].unique():
-      group_1 = df.groupby(df.touchpointable_type)
-      df_Internship = group_1.get_group("Internship")
-    if "Job" in df['touchpointable_type'].unique():
-      group_2 = df.groupby(df.touchpointable_type)
-      df_Job = group_2.get_group("Job")
+    group_0 = df.groupby(df.touchpointable_type)
+    df_Events = group_0.get_group("Event")
+    group_1 = df.groupby(df.touchpointable_type)
+    df_Internship = group_1.get_group("Internship")
+    group_2 = df.groupby(df.touchpointable_type)
+    df_Job = group_2.get_group("Job")
     if 'Foundation' in Degree:
       if 'First Year' in Year:
         n = 7
