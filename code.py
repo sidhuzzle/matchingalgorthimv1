@@ -202,11 +202,11 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   cols = list(df.columns.values) #Make a list of all of the columns in the df
   cols.pop(cols.index('Weight')) #Remove b from list
   cols.pop(cols.index('city score'))
-  cols.pop(cols.index('degree score')) #Remove b from list
+  #cols.pop(cols.index('degree score')) #Remove b from list
   cols.pop(cols.index('subject score'))
   cols.pop(cols.index('year score')) #Remove b from list
   cols.pop(cols.index('matching score')) #Remove x from list
-  df = df[cols+['Weight','city_name','city score','degree score','subject score','year score','matching score']]
+  df = df[cols+['Weight','city_name','city score','subject score','year score','matching score']]
   
   #df = df.drop(['name'],axis = 1)
   df = df.groupby('id', as_index=False).first()
