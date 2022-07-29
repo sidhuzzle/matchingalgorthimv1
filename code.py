@@ -253,11 +253,11 @@ if st.button("Submit",key = "eight"):
       if  "Second Year" in Year:
         n_1 = 3
         n_1 = round(len(df_Events)*(n_1/10))
-        df_Events = df_Events.head(n)
+        df_Events = df_Events.head(n_1)
         
         n_2 = 6
         n_2 = round(len(df_Internship)*(n_2/10))
-        df_Internship = df_Internship.head(n)
+        df_Internship = df_Internship.head(n_2)
         
         n = 1
         n = round(len(df_Job)*(n/10))
