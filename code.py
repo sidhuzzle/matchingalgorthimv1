@@ -196,7 +196,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   #df_name = pd.DataFrame(df_name.to_records())
   df = pd.merge(df, df_name, left_on='id',right_on='id',suffixes=('', '_x'),how = 'right')
   df = df.loc[:,~df.columns.duplicated()]
-  df = df.dropna(thresh=len(df['id'], axis=1)
+  df = df.dropna(thresh=len(df['id'], axis=1))
   #df = df.drop(['name'],axis = 1)
   df = df.groupby('id', as_index=False).first()
   
