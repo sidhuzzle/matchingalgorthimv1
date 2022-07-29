@@ -192,7 +192,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
  
   df['idx'] = df.groupby(['id', 'name']).cumcount()
   df_name = df.pivot_table(index=['idx','id'], columns='type', values='name').sort_index(level=1).reset_index().rename_axis(None, axis=1)
-  df_name = df_name.as.data.frame.matrix(df_name)
+  df_name = pd.DataFrame(df_name.unstack()).transpose()
   df = pd.merge(df, df_name, left_on='id',right_on='id',suffixes=('', '_x'),how = 'left')
   df = df.loc[:,~df.columns.duplicated()]
   #df = df.drop(['name'],axis = 1)
