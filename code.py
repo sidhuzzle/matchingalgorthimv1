@@ -240,10 +240,13 @@ if st.button("Submit",key = "eight"):
       n = df_1['value'].iloc[0]
       n = round(len(df_1)*(n/10))
       df = df_1.head(n)
-    #l = round(len(df)*(12/100))
-    #df = df.head(l)
-      id = df['touchpointable_id'].to_list()
-      st.write(len(df))
+      if len(df) == 1:
+        df = df.head(1)
+      else:
+        n = round(len(df)*(12/100))
+        df = df.head(l)
+        id = df['touchpointable_id'].to_list()
+        st.write(len(df))
     
   if len(df['value'].unique()) == 1:
     group_0 = df.groupby(df.touchpointable_type)
