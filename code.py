@@ -245,13 +245,13 @@ if st.button("Submit",key = "eight"):
       id = df['touchpointable_id'].to_list()
       st.write(len(df))
     
-  #if len(df['value'].unique()) == 1:
-    #group_0 = df.groupby(df.touchpointable_type)
-    #df_Events = group_0.get_group("Event")
-    #group_1 = df.groupby(df.touchpointable_type)
-    #df_Internship = group_1.get_group("Internship")
-    #group_2 = df.groupby(df.touchpointable_type)
-    #df_Job = group_2.get_group("Job")
+  if len(df['value'].unique()) == 1:
+    group_0 = df.groupby(df.touchpointable_type)
+    df_Events = group_0.get_group("Event")
+    group_1 = df.groupby(df.touchpointable_type)
+    df_Internship = group_1.get_group("Internship")
+    group_2 = df.groupby(df.touchpointable_type)
+    df_Job = group_2.get_group("Job")
     #if 'Foundation' in Degree:
       #if 'First Year' in Year:
         #n = 8
@@ -374,6 +374,6 @@ if st.button("Submit",key = "eight"):
         #df =  pd.concat([df_Job,df_Internship])
         #df =  pd.concat([df,df_Events])
         #id = df['touchpointable_id'].to_list()
-    #st.write(df_Events)
-    #st.write(df_Internship)
-    #st.write(df_Job)
+  st.write(len(df_Events))
+  st.write(len(df_Internship))
+  st.write(len(df_Job))
