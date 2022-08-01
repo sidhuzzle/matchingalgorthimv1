@@ -271,20 +271,28 @@ if st.button("Submit",key = "eight"):
         n = 7
         #n = round(len(df_Internship)*(n/10))
         df_Internship = df_Internship.head(n)
+        
+        st.write(df_Events)
+        st.write(df_Internship)
         #df =  pd.concat([df_Events,df_Internship])
     if "Bachelor's" == Degree:
       if  "Second Year" == Year:
-        l = 4
+        n = 4
         #n = round(len(df_Events)*(n/10))
         df_Events = df_Events.head(l)
         
-        l = 7
+        n = 7
         #n = round(len(df_Internship)*(n/10))
         df_Internship = df_Internship.head(l)
         
-        l = 1
+        n = 1
         #n = round(len(df_Job)*(n/10))
-        df_Job = df_Job.head(l)
+        df_Job = df_Job.head(n)
+        
+        st.write(df_Events)
+        st.write(df_Internship)
+        st.write(df_Job)
+        
         
         #df =  pd.concat([df_Events,df_Internship])
         #df =  pd.concat([df,df_Job])
@@ -304,6 +312,9 @@ if st.button("Submit",key = "eight"):
         df_Job = df_Job.head(n)
         #df =  pd.concat([df_Job,df_Internship])
         #df =  pd.concat([df,df_Events])
+        st.write(df_Events)
+        st.write(df_Internship)
+        st.write(df_Job)
     if "Bachelor's" in Degree:
       if  "Third Year" in Year:
         n = 2
@@ -317,6 +328,9 @@ if st.button("Submit",key = "eight"):
         df_Job = df_Job.head(n)
         #df =  pd.concat([df_Job,df_Internship])
         #df =  pd.concat([df,df_Events])
+        st.write(df_Events)
+        st.write(df_Internship)
+        st.write(df_Job)
     if "Bachelor's (Integrated Master's)" in Degree:
       if  "First" in Year:
         n = 6
@@ -326,6 +340,10 @@ if st.button("Submit",key = "eight"):
         #n = round(len(df_Internship)*(n/10))
         df_Internship = df_Internship.head(n)
         #df =  pd.concat([df_Events,df_Internship])
+        
+        st.write(df_Events)
+        st.write(df_Internship)
+        
     if "Bachelor's (Integrated Master's)" in Degree:
       if  "Second Year" in Year:
         n = 5
@@ -335,6 +353,9 @@ if st.button("Submit",key = "eight"):
         #n = round(len(df_Internship)*(n/10))
         df_Internship = df_Internship.head(n)
         #df =  pd.concat([df_Events,df_Internship])
+        st.write(df_Events)
+        st.write(df_Internship)
+        
 
     if "Bachelor's (Integrated Master's)" in Degree:
       if  "Third Year" in Year:
@@ -349,6 +370,9 @@ if st.button("Submit",key = "eight"):
         df_Job = df_Job.head(n)
         #df =  pd.concat([df_Job,df_Internship])
         #df =  pd.concat([df,df_Events])
+        st.write(df_Events)
+        st.write(df_Internship)
+        st.write(df_Job)
     if "Bachelor's (Integrated Master's)" in Degree:
       if  "Final Year" in Year:
         n = 2
@@ -360,6 +384,10 @@ if st.button("Submit",key = "eight"):
         n = 7
         #n = round(len(df_Job)*(n/10))
         df_Job = df_Job.head(n)
+        
+        st.write(df_Events)
+        st.write(df_Internship)
+        st.write(df_Job)
         #df =  pd.concat([df_Job,df_Internship])
         #df =  pd.concat([df,df_Events])
     
@@ -370,10 +398,14 @@ if st.button("Submit",key = "eight"):
         n = 4
         #n = round(len(df_Internship)*(n/10))
         df_Internship = df_Internship.head(n)
-        #n = 6 
+        n = 6 
         #n = round(len(df_Job)*(n/10))
         df_Job = df_Job.head(n)
+        
+        st.write(df_Events)
+        st.write(df_Internship)
+        st.write(df_Job)
         #df =  pd.concat([df_Job,df_Internship])
         #df =  pd.concat([df,df_Events])
-        id = df['touchpointable_id'].to_list()
+        #id = df['touchpointable_id'].to_list()
   
