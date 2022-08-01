@@ -200,7 +200,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   df_name = pd.DataFrame(df_name.to_records())
   df = pd.merge(df, df_name, left_on='id',right_on='id',suffixes=('', '_x'),how = 'inner')
   df = df.loc[:,~df.columns.duplicated()]
-  a = len(df) * .70
+  a = len(df) * .50
   df = df.dropna(thresh=a,axis = 1)
   
   #df = pd.merge(df, df_matches, left_on='id',right_on='id',suffixes=('', '_x'),how = 'inner')
@@ -244,9 +244,9 @@ if st.button("Submit",key = "eight"):
         df = df.head(1)
       else:
         n = round(len(df)*(12/100))
-        df = df.head(l)
-        id = df['touchpointable_id'].to_list()
-        st.write(len(df))
+        df = df.head(n)
+      id = df['touchpointable_id'].to_list()
+      st.write(len(df))
     
   if len(df['value'].unique()) == 1:
     group_0 = df.groupby(df.touchpointable_type)
