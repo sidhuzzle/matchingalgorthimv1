@@ -252,7 +252,7 @@ if st.button("Submit",key = "eight"):
     df_Internship = group_1.get_group("Internship")
     group_2 = df.groupby(df.touchpointable_type)
     df_Job = group_2.get_group("Job")
-    if 'Foundation' in Degree and if 'First Year' in Year:
+    if Degree == 'Foundation' and if Year == 'First Year':
         n = 8
         #n = round(len(df_Events)*(n/10))
         df_Events = df_Events.head(n)
