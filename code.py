@@ -302,17 +302,17 @@ if st.button("Submit",key = "eight"):
         df_Job = df_Job.head(n)
         #df =  pd.concat([df_Job,df_Internship])
         #df =  pd.concat([df,df_Events])
-    if "Bachelor's" in Degree:
-      if  "Third Year" in Year:
-        n = 2
+    #if "Bachelor's" in Degree:
+      #if  "Third Year" in Year:
+        #n = 2
         #n = round(len(df_Events)*(n/10))
-        df_Events = df_Events.head(n)
-        n = 3
+        #df_Events = df_Events.head(n)
+        #n = 3
         #n = round(len(df_Internship)*(n/10))
-        df_Internship = df_Internship.head(n)
-        n = 7
+        #df_Internship = df_Internship.head(n)
+        #n = 7
         #n = round(len(df_Job)*(n/10))
-        df_Job = df_Job.head(n)
+        #df_Job = df_Job.head(n)
         #df =  pd.concat([df_Job,df_Internship])
         #df =  pd.concat([df,df_Events])
     if "Bachelor's (Integrated Master's)" in Degree:
