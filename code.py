@@ -270,19 +270,19 @@ if st.button("Submit",key = "eight"):
         #n = round(len(df_Internship)*(n/10))
         df_Internship = df_Internship.head(n)
         #df =  pd.concat([df_Events,df_Internship])
-    if "Bachelor's" in Degree:
-      if  "Second Year" in Year:
-        n = 4
+    #if "Bachelor's" in Degree:
+      #if  "Second Year" in Year:
+        #n = 4
         #n = round(len(df_Events)*(n/10))
-        df_Events = df_Events.head(n)
+        #df_Events = df_Events.head(n)
         
-        n = 7
+        #n = 7
         #n = round(len(df_Internship)*(n/10))
-        df_Internship = df_Internship.head(n)
+        #df_Internship = df_Internship.head(n)
         
-        n = 1
+        #n = 1
         #n = round(len(df_Job)*(n/10))
-        df_Job = df_Job.head(n)
+        #df_Job = df_Job.head(n)
         
         #df =  pd.concat([df_Events,df_Internship])
         #df =  pd.concat([df,df_Job])
