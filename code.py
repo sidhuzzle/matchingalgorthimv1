@@ -391,7 +391,8 @@ if st.button("Submit",key = "eight"):
         #df =  pd.concat([df_Job,df_Internship])
         #df =  pd.concat([df,df_Events])
     
-    else:
+    if "Master's" in Degree:
+      
         n = 2
         #n = round(len(df_Events)*(n/10))
         df_Events = df_Events.head(n)
@@ -402,9 +403,9 @@ if st.button("Submit",key = "eight"):
         #n = round(len(df_Job)*(n/10))
         df_Job = df_Job.head(n)
         
-        #st.write(df_Events)
-        #st.write(df_Internship)
-        #st.write(df_Job)
+        st.write(df_Events)
+        st.write(df_Internship)
+        st.write(df_Job)
         #df =  pd.concat([df_Job,df_Internship])
         #df =  pd.concat([df,df_Events])
         #id = df['touchpointable_id'].to_list()
