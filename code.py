@@ -275,8 +275,8 @@ if st.button("Submit",key = "eight"):
         st.write(df_Events)
         st.write(df_Internship)
         #df =  pd.concat([df_Events,df_Internship])
-    if "Bachelor's" == Degree:
-      if  "Second Year" == Year:
+    if "Bachelor's" in Degree:
+      if  "Second Year" in Year:
         n = 4
         #n = round(len(df_Events)*(n/10))
         df_Events = df_Events.head(n)
