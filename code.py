@@ -361,16 +361,16 @@ if st.button("Submit",key = "eight"):
         #df =  pd.concat([df_Job,df_Internship])
         #df =  pd.concat([df,df_Events])
     
-    else:
-        n = 2
+    #else:
+        #n = 2
         #n = round(len(df_Events)*(n/10))
-        df_Events = df_Events.head(n)
-        n = 4
+        #df_Events = df_Events.head(n)
+        #n = 4
         #n = round(len(df_Internship)*(n/10))
-        df_Internship = df_Internship.head(n)
-        n = 6 
+        #df_Internship = df_Internship.head(n)
+        #n = 6 
         #n = round(len(df_Job)*(n/10))
-        df_Job = df_Job.head(n)
+        #df_Job = df_Job.head(n)
         #df =  pd.concat([df_Job,df_Internship])
         #df =  pd.concat([df,df_Events])
         id = df['touchpointable_id'].to_list()
