@@ -246,7 +246,7 @@ if st.button("Submit",key = "eight"):
       df.append(df_1)
     #l = list(filter(lambda x: x != 0, l))
     total = sum(l)
-    df_2 = pd.DataFrame(df_2)
+    #df_2 = pd.DataFrame(df_2)
     #total = sum(l)
     df_2 = pd.concat(df)
     st.write(df_2)
