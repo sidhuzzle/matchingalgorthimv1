@@ -245,9 +245,9 @@ if st.button("Submit",key = "eight"):
       #df = df_1.head(n)
       l.append(n)
     
-    l = sum(l)
-      
-    st.write(l)
+      l = sum(l)
+    #n = round(n*100/l)*(12/100) 
+      st.write(l)
     
   else:
     group_0 = df.groupby(df.touchpointable_type)
