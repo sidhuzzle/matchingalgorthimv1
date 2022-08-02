@@ -253,7 +253,7 @@ if st.button("Submit",key = "eight"):
         df = df_1.head(n)
         l .append(n)
       
-      
+      n = round(n * 12/100)
       st.write(n)
       #total = sum(l)
       
