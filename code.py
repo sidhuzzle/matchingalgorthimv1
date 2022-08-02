@@ -239,9 +239,8 @@ if st.button("Submit",key = "eight"):
     l =[]
     for group,df_1 in kind:
       df_1 = pd.DataFrame(df_1)
-     
-    n = df_1['value'].iloc[0]
-    n = round(len(df_1)*(n/10))
+      n = df_1['value'].iloc[0]
+      n = round(len(df_1)*(n/10))
       #df = df_1.head(n)
     #l.append(n)
       
@@ -254,7 +253,7 @@ if st.button("Submit",key = "eight"):
     #for x in range(0,len(l)):
       #n = round(l[x]*100/total * 12/100)
       #df = df_1.head(n)
-    st.write(n)
+      st.write(n)
     
   else:
     group_0 = df.groupby(df.touchpointable_type)
