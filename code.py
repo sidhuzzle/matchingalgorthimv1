@@ -245,7 +245,7 @@ if st.button("Submit",key = "eight"):
       n = round(len(df_1)*(n/10))
       #df = df_1.head(n)
       l.append(n)
-      l = l.pop()
+      #l = l.pop()
       #l = list(filter(lambda x: x != 0, l))
       #total = sum(l)
       #tota = list(total)
