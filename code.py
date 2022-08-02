@@ -237,6 +237,7 @@ if st.button("Submit",key = "eight"):
     
     kind = df.groupby("kind")
     l = [0]
+    total = 0
     for group,df_1 in kind:
       df_1 = pd.DataFrame(df_1)
       
