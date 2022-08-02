@@ -244,10 +244,10 @@ if st.button("Submit",key = "eight"):
       l.append(n)
      
     #l = list(filter(lambda x: x != 0, l))
-    #total = sum(l) #total = sum(l)
+    total = sum(l) #total = sum(l)
     
     #for x in range(0,len(l)):
-      #n = round(l[x]*100/total * 12/100)
+    n = round(n*100/total * 12/100)
     
      
     
@@ -256,7 +256,7 @@ if st.button("Submit",key = "eight"):
         
         #l = l.pop()
       
-    st.write(l)
+    st.write(n)
       #total = sum(l)
       
         
