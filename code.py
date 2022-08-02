@@ -247,7 +247,7 @@ if st.button("Submit",key = "eight"):
       l.append(n)
       for x in range(0,len(l)):
         total = total + l[x]
-        n = round(int(l[x])*100/l)*(12/100) 
+        n = round(n*100/l)*(12/100) 
         st.write(n)
     
   else:
