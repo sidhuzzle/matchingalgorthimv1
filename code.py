@@ -251,16 +251,7 @@ if st.button("Submit",key = "eight"):
       for x,y in kind:
         y = pd.DataFrame(y)
         df = y.head(n)
-        
-    
-     
-    
-      #l = max(len(elem) for elem in l) 
-        #l = list(l)
-        
-        #l = l.pop()
-      
-      st.write(df)
+        st.write(df)
       #total = sum(l)
       
         
