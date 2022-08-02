@@ -242,15 +242,15 @@ if st.button("Submit",key = "eight"):
     for group,df_1 in kind:
       df_1 = pd.DataFrame(df_1)
       n = df_1['value'].iloc[0]
-      n = round(len(df_1)*(n/10))
-      if n >= 1:
+      n = len(df_1)*(n/10)
+      if n >=0.5:
         n = 1
         
         df = df_1.head(n)
         
         
       else:
-        #n = round(n)
+        n = round(n)
         
         df = df_1.head(n)
         
