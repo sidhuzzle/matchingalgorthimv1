@@ -242,8 +242,8 @@ if st.button("Submit",key = "eight"):
       
       n = df_1['value'].iloc[0]
       n = round(len(df_1)*(n/10))
-      df = df_1.head(n)
-      l = l.append(n)
+      #df = df_1.head(n)
+    l.append(n)
       #df = df.append(df_1)
     st.write(l)
     
