@@ -238,7 +238,7 @@ if st.button("Submit",key = "eight"):
     kind = df.groupby("kind")
     for group,df_1 in kind:
       df_1 = pd.DataFrame(df_1)
-      l = []
+      df = []
       if len(df_1) == 1:
         df_1 = df_1.head(1)
         df = append(df_1,ignore_index = True)
@@ -248,7 +248,9 @@ if st.button("Submit",key = "eight"):
         
         df_1 = df_1.head(n)
         
-        df = append(df_1,ignore_index = True)
+        for df in df_1:
+          df = append(df,ignore_index = True)
+        
         
         
         
