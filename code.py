@@ -237,7 +237,7 @@ if st.button("Submit",key = "eight"):
     
     kind = df.groupby(["kind","value"])
     
-    
+    l = []
     for group,df_1 in kind:
       df_1 = pd.DataFrame(df_1)
       n = df_1['value'].iloc[0]
