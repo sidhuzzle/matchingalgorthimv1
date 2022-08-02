@@ -260,7 +260,7 @@ if st.button("Submit",key = "eight"):
         
         #l = l.pop()
       
-      st.write(n)
+      st.write(df)
       #total = sum(l)
       
         
