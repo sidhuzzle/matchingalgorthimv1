@@ -257,7 +257,7 @@ if st.button("Submit",key = "eight"):
       n = round(n*100/total * 12/100)
       df = df_2.head(n)
       df = df.sort_values(by='matching score',ascending=False)
-    st.write(df)
+      st.write(df)
       #total = sum(l)
       
         
