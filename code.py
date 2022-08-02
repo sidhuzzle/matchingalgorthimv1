@@ -237,17 +237,17 @@ if st.button("Submit",key = "eight"):
     
     kind = df.groupby(["kind","value"])
     l =[]
-    df = []
+    
     for group,df_1 in kind:
       df_1 = pd.DataFrame(df_1)
       n = df_1['value'].iloc[0]
       n = round(len(df_1)*(n/10))
-      df_1 = df_1.head(n) 
+      #df_1 = df_1.head(n) 
       #st.write(n)
-      df.append(df_1)
+      l.extend(n)
     #l = sum(l)
     
-      st.write(df)
+      st.write(l)
       #total = sum(l)
       
         
