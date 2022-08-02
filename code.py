@@ -241,13 +241,14 @@ if st.button("Submit",key = "eight"):
       l = []
       if len(df_1) == 1:
         df_1 = df_1.head(1)
+        df = append(df_1,ignore_index = True)
       else:
         n = df_1['value'].iloc[0]
         n = round(len(df_1)*(n/10))
         
         df_1 = df_1.head(n)
         
-      df = append(df_1,ignore_index = True)
+        df = append(df_1,ignore_index = True)
         
         
         
