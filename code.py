@@ -236,10 +236,10 @@ if st.button("Submit",key = "eight"):
   if len(df['value'].unique()) > 1:
     
     kind = df.groupby("kind")
-    l = []
+    l = [0]
     for group,df_1 in kind:
       df_1 = pd.DataFrame(df_1)
-      df = []
+      
       n = df_1['value'].iloc[0]
       n = round(len(df_1)*(n/10))
       df = df_1.head(n)
