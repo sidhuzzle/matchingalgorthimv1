@@ -241,13 +241,14 @@ if st.button("Submit",key = "eight"):
     for group,df_1 in kind:
       df_1 = pd.DataFrame(df_1)
       n = df_1['value'].iloc[0]
-      n = round(len(df_1)*(n/10))
-      #df_1 = df_1.head(n) 
-      #st.write(n)
-      l.insert(0,n)
-    #l = sum(l)
-    
-      st.write(l)
+      n = len(df_1)*(n/10)
+      if n <= 0.5:
+        df = df_1.head(n)
+      else:
+        n = round(n)
+        
+        df = df_1.head(n)
+      st.write(df)
       #total = sum(l)
       
         
