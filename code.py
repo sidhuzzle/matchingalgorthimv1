@@ -249,7 +249,7 @@ if st.button("Submit",key = "eight"):
         df_1 = df_1.head(n)
         
         #for df in df_1:
-        df = df.append(df_1,ignore_index = True)
+        df = df.append([df_1],ignore_index = True)
         
         
         
