@@ -244,7 +244,7 @@ if st.button("Submit",key = "eight"):
       n = round(len(df_1)*(n/10))
       #df_1 = df_1.head(n) 
       #st.write(n)
-      l.extend(n)
+      l.insert(n)
     #l = sum(l)
     
       st.write(l)
