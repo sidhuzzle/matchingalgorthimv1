@@ -254,8 +254,8 @@ if st.button("Submit",key = "eight"):
         df = df_1.head(n)
         
         n +=n
-      l .append(n)
-      l = max(len(elem) for elem in l) 
+      l.append(n)
+      #l = max(len(elem) for elem in l) 
         #l = list(l)
         
         #l = l.pop()
