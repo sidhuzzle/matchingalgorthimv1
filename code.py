@@ -243,9 +243,9 @@ if st.button("Submit",key = "eight"):
       n = df_1['value'].iloc[0]
       n = round(len(df_1)*(n/10))
       #df = df_1.head(n)
-    l.append(n)
+      l.append(n)
       #df = df.append(df_1)
-    st.write(l)
+      st.write(l)
     
   else:
     group_0 = df.groupby(df.touchpointable_type)
