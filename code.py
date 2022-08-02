@@ -258,7 +258,7 @@ if st.button("Submit",key = "eight"):
         
      
       #id = df['touchpointable_id'].to_list()
-      st.write(df)
+          st.write(df)
     
   if len(df['value'].unique()) == 1:
     group_0 = df.groupby(df.touchpointable_type)
