@@ -232,17 +232,18 @@ Year = st.selectbox('Enter the year',year,key = 'seven')
 if st.button("Submit",key = "eight"):
   
   
-  matching_algo(Goals,Interest,weight,University,Degree,Subject,Year)
+  df = matching_algo(Goals,Interest,weight,University,Degree,Subject,Year)
   if len(df['value'].unique()) > 1:
     
-    kind = df.groupby(["kind","value"]),as_index=False)
-    #for group,df_1 in kind:
-      #df_1 = pd.DataFrame(df_1)
-      
-      #n = df_1['value'].iloc[0]
-      #n = round(len(df_1)*(n/10))
+    kind = df.groupby(["kind","value"])
+    l =[]
+    for group,df_1 in kind:
+      df_1 = pd.DataFrame(df_1)
+     
+    n = df_1['value'].iloc[0]
+    n = round(len(df_1)*(n/10))
       #df = df_1.head(n)
-      #l.append(n)
+    #l.append(n)
       
       #l = list(l)
       #l = l.pop(-1)
@@ -253,7 +254,7 @@ if st.button("Submit",key = "eight"):
     #for x in range(0,len(l)):
       #n = round(l[x]*100/total * 12/100)
       #df = df_1.head(n)
-    st.write(kind)
+    st.write(n)
     
   else:
     group_0 = df.groupby(df.touchpointable_type)
