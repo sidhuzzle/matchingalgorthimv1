@@ -247,7 +247,7 @@ if st.button("Submit",key = "eight"):
       l.append(n)
       
       l = list(l)
-      l = l.pop(-1)
+      #l = l.pop(-1)
       #l = list(filter(lambda x: x != 0, l))
       #total = sum(l)
       #tota = list(total)
