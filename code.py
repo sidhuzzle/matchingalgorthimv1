@@ -234,10 +234,11 @@ if st.button("Submit",key = "eight"):
   
   df = matching_algo(Goals,Interest,weight,University,Degree,Subject,Year)
   if len(df['value'].unique()) > 1:
-    l = []
+    
     kind = df.groupby("kind")
     for group,df_1 in kind:
       df_1 = pd.DataFrame(df_1)
+      l = []
       if len(df_1) == 1:
         df = df_1.head(1)
       else:
@@ -247,7 +248,7 @@ if st.button("Submit",key = "eight"):
         l = l.append(n)
      
       #id = df['touchpointable_id'].to_list()
-      st.write(l)
+        st.write(l)
     
   if len(df['value'].unique()) == 1:
     group_0 = df.groupby(df.touchpointable_type)
