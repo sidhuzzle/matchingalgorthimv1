@@ -237,23 +237,26 @@ if st.button("Submit",key = "eight"):
     
     kind = df.groupby(["kind","value"])
     l = []
-    df = []
+    df_K = []
     for group,df_1 in kind:
       df_1 = pd.DataFrame(df_1)
       n = df_1['value'].iloc[0]
       n = round(len(df_1)*(n/10))
       l.append(n)
-      df.append(df_1)
+      df_K.append(df_1)
     #l = list(filter(lambda x: x != 0, l))
     total = sum(l)
     #df_2 = pd.DataFrame(df_2)
-    #total = sum(l)
-    df_2 = pd.concat(df)
-    st.write(df_2)
-    #for x in range(0,len(l)):
-      #n = round(l[x]*100/total * 12/100)
-      #df = df_2.head(n)
-      #st.write(df)
+    total = sum(l)
+    df_2 = pd.concat(df_K)
+    kind_2 = df_2.groupby(["kind","value"])
+    for x,y in kind_2:
+      y = pd.DataFrame(df_y)
+      n = df_1['value'].iloc[0]
+      n = round(len(df_1)*(n/10))
+      n = round(n*100/total * 12/100)
+      df = df_2.head(n)
+      st.write(df)
       #total = sum(l)
       
         
