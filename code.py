@@ -238,8 +238,8 @@ if st.button("Submit",key = "eight"):
     for group,df_1 in kind:
       df_1 = pd.DataFrame(df_1)
       n = df_1['value'].iloc[0]
-      #n = round(len(df_1)*(n/10))
-      #n += n
+      n = round(len(df_1)*(n/10))
+      n =+ n
       #id = df['touchpointable_id'].to_list()
       st.write(n)
     
