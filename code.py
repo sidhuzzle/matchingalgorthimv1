@@ -248,6 +248,7 @@ if st.button("Submit",key = "eight"):
     total = sum(l)
     df_2 = pd.DataFrame(df_2)
     #total = sum(l)
+    df_2 = pd.concat(df_2)
     st.write(df_2)
     #for x in range(0,len(l)):
       #n = round(l[x]*100/total * 12/100)
