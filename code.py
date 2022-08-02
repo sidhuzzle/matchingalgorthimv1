@@ -236,20 +236,14 @@ if st.button("Submit",key = "eight"):
   if len(df['value'].unique()) > 1:
     
     kind = df.groupby("kind")
+    df = []
     for group,df_1 in kind:
       df_1 = pd.DataFrame(df_1)
       df = []
-      if len(df_1) == 1:
-        df_1 = df_1.head(1)
-        df = df.append(df_1)
-      else:
-        n = df_1['value'].iloc[0]
-        n = round(len(df_1)*(n/10))
-        
-        df_1 = df_1.head(n)
-        
-        #for df in df_1:
-        df = df.append(df_1)
+      n = df_1['value'].iloc[0]
+      n = round(len(df_1)*(n/10))
+      df_1 = df_1.head(n)
+      df = df.append(df_1)
         
         
         
@@ -258,7 +252,7 @@ if st.button("Submit",key = "eight"):
         
      
       #id = df['touchpointable_id'].to_list()
-        st.write(df)
+      st.write(df)
     
   if len(df['value'].unique()) == 1:
     group_0 = df.groupby(df.touchpointable_type)
