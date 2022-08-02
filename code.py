@@ -232,7 +232,7 @@ Year = st.selectbox('Enter the year',year,key = 'seven')
 if st.button("Submit",key = "eight"):
   
   
-  df = matching_algo(Goals,Interest,weight,University,Degree,Subject,Year)
+  matching_algo(Goals,Interest,weight,University,Degree,Subject,Year)
   if len(df['value'].unique()) > 1:
     
     kind = df.groupby(["kind","value"]),as_index=False)
