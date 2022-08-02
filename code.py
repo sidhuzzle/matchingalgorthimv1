@@ -248,7 +248,7 @@ if st.button("Submit",key = "eight"):
     
     for x in range(0,len(l)):
       n = round(l[x]*100/total * 12/100)
-      df = y.head(n)
+      df = df_1.head(n)
       st.write(df)
       #total = sum(l)
       
