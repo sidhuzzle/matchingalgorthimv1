@@ -254,7 +254,7 @@ if st.button("Submit",key = "eight"):
         l .append(n)
       
       
-      st.write(l)
+      st.write(n)
       #total = sum(l)
       
         
