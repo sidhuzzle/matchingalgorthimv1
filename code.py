@@ -236,9 +236,6 @@ if st.button("Submit",key = "eight"):
   if len(df['value'].unique()) > 1:
     
     kind = df.groupby(["kind","value"])
-    
-    l = []
-    i =[]
     for group,df_1 in kind:
       df_1 = pd.DataFrame(df_1)
       n = df_1['value'].iloc[0]
@@ -260,7 +257,7 @@ if st.button("Submit",key = "eight"):
         
         #l = l.pop()
       
-      st.write(df)
+        st.write(df)
       #total = sum(l)
       
         
