@@ -243,11 +243,11 @@ if st.button("Submit",key = "eight"):
       n = round(len(df_1)*(n/10))
       l.append(n)
      
-    l = list(filter(lambda x: x != 0, l))
-    total = sum(l) #total = sum(l)
+    #l = list(filter(lambda x: x != 0, l))
+    #total = sum(l) #total = sum(l)
     
-    for x in range(0,len(l)):
-      n = round(l[x]*100/total * 12/100)
+    #for x in range(0,len(l)):
+      #n = round(l[x]*100/total * 12/100)
     
      
     
@@ -256,7 +256,7 @@ if st.button("Submit",key = "eight"):
         
         #l = l.pop()
       
-      st.write(n)
+    st.write(l)
       #total = sum(l)
       
         
