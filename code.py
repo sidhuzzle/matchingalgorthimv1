@@ -243,7 +243,7 @@ if st.button("Submit",key = "eight"):
       n = df_1['value'].iloc[0]
       n = round(len(df_1)*(n/10))
       l.append(n)
-      df_2.append(df_1)
+      df_2 = df_2.append(df_1, ignore_index=True)
     #l = list(filter(lambda x: x != 0, l))
     total = sum(l) #total = sum(l)
     
