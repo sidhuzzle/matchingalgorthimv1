@@ -248,6 +248,10 @@ if st.button("Submit",key = "eight"):
     
     for x in range(0,len(l)):
       n = round(l[x]*100/total * 12/100)
+      for x,y in kind:
+        y = pd.DataFrame(y)
+        df = y.head(n)
+        
     
      
     
