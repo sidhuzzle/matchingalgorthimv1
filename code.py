@@ -236,6 +236,7 @@ if st.button("Submit",key = "eight"):
   if len(df['value'].unique()) > 1:
     
     kind = df.groupby(["kind","value"])
+    l = []
     for group,df_1 in kind:
       df_1 = pd.DataFrame(df_1)
       n = df_1['value'].iloc[0]
@@ -245,13 +246,14 @@ if st.button("Submit",key = "eight"):
         
         df = df_1.head(n)
         
+        n += n
         
       else:
         n = round(n)
         
         df = df_1.head(n)
         
-        
+        n +=n
         #l .append(n)
         #l = list(l)
         
