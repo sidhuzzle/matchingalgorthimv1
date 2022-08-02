@@ -242,19 +242,11 @@ if st.button("Submit",key = "eight"):
       df = []
       n = df_1['value'].iloc[0]
       n = round(len(df_1)*(n/10))
-      df_1 = df_1.head(n)
-      df = df.append(df_1)
-        
-        
-        
-        
-        
-        
-     
-      #id = df['touchpointable_id'].to_list()
+      df = df_1.head(n)
+      #df = df.append(df_1)
       st.write(df)
     
-  if len(df['value'].unique()) == 1:
+  else:
     group_0 = df.groupby(df.touchpointable_type)
     df_Events = group_0.get_group("Event")
     group_1 = df.groupby(df.touchpointable_type)
