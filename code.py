@@ -243,6 +243,7 @@ if st.button("Submit",key = "eight"):
       n = df_1['value'].iloc[0]
       n = len(df_1)*(n/10)
       if n <= 0.5:
+        n = 1
         df = df_1.head(n)
       else:
         n = round(n)
