@@ -240,9 +240,9 @@ if st.button("Submit",key = "eight"):
       st.write(df)
     st.write(l)
     total = sum(l)
-    df_2 = pd.concat(df_K)
-    kind_2 = df_2.groupby(["kind","value"])
-    for x,y in kind_2:
+    #df_2 = pd.concat(df_K)
+    #kind_2 = df_2.groupby(["kind","value"])
+    for x,y in kind:
       y = pd.DataFrame(y)
       n = y['value'].iloc[0]
       n = round(len(y)*(n/10))
