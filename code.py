@@ -237,7 +237,7 @@ if st.button("Submit",key = "eight"):
       df = df_1.head(n)
       l.append(n)
       df_K.append(df_1)
-    st.write(df)
+      st.write(df)
     st.write(l)
     
     #total = sum(l)
