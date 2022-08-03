@@ -248,9 +248,9 @@ if st.button("Submit",key = "eight"):
       n = round(len(y)*(n/10))
       n = round(n*100/total * 12/100)
       st.write(n)
-      #df = df_2.head(n)
-      #df = df.sort_values(by='matching score',ascending=False)
-      #st.write(df)
+      df = df_2.head(n)
+      df = df.sort_values(by='matching score',ascending=False)
+      st.write(df)
      
   else:
     group_0 = df.groupby(df.touchpointable_type)
