@@ -237,8 +237,6 @@ if st.button("Submit",key = "eight"):
       df = df_1.head(n)
       l.append(n)
       df_K.append(df_1)
-      st.write(df)
-    st.write(l)
     total = sum(l)
     df_2 = pd.concat(df_K)
     kind_2 = df_2.groupby(["kind","value"])
@@ -247,7 +245,7 @@ if st.button("Submit",key = "eight"):
       n = y['value'].iloc[0]
       n = round(len(y)*(n/10))
       n = round(n*100/total * 12/100)
-      st.write(n)
+      
       df = y.head(n)
       df = df.sort_values(by='matching score',ascending=False)
       st.write(df)
