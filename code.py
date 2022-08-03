@@ -234,9 +234,11 @@ if st.button("Submit",key = "eight"):
       df_1 = pd.DataFrame(df_1)
       n = df_1['value'].iloc[0]
       n = round(len(df_1)*(n/10))
+      df = df_1.head(n)
       l.append(n)
       df_K.append(df_1)
-      st.write(n)
+    st.write(df)
+    st.write(l)
     
     #total = sum(l)
     
