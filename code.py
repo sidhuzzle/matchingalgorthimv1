@@ -93,7 +93,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
 
     df_I =  pd.merge(df_T, df_interest, left_on='name',right_on='Interest',suffixes=('', '_x'),how = 'inner')
     df_I = df_I.loc[:,~df_I.columns.duplicated()]
-    #df_I = df_I.groupby('id', as_index=False).first()
+   
     
     
     col_list = df_I['name'].unique()
@@ -184,14 +184,7 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   col_list = ['Weight','city score','degree score','subject score','year score']
   df['matching score'] = df[col_list].sum(axis = 1)
   df = df.drop(['Weight','city score','degree score','subject score','year score'],axis = 1)
-  #group_4 = df.groupby(df.type)
-  #df_T = group_4.get_group('Topic')
-  #df = df_T.set_index(['id', df.groupby('id').cumcount()])['name'].unstack().add_prefix('name').reset_index()
   
-  
-  #df_matches = df.groupby('id', as_index=False).first()
-  #df = df.groupby(['id','touchpointable_id','type','touchpointable_type','kind','title','name','creatable_for_name','Weight','city_name','city score','degree score','subject score','year score','value']).sum()
-  #df_matches = df[['id','matching score']].copy()
   
   
   df_touchpoints['idx'] = df.groupby(['id','type']).cumcount()
@@ -203,19 +196,18 @@ def matching_algo(Goals,Interest,weight,University,Degree,Subject,Year):
   a = len(df) * .50
   df = df.dropna(thresh=a,axis = 1)
   
-  #df = pd.merge(df, df_matches, left_on='id',right_on='id',suffixes=('', '_x'),how = 'inner')
-  #df = df.loc[:,~df.columns.duplicated()]
   
-  #df = df.drop(['name'],axis = 1)
+  
+  
   df = df.groupby('id', as_index=False).first()
   cols = list(df.columns.values) #Make a list of all of the columns in the df
   cols.pop(cols.index('matching score')) #Remove b from list
-   #Remove x from list
+   
   df = df[cols+['matching score']] 
   
   df = df.drop(['index'],axis = 1)
   
-  ##df = df.loc[:,~df.columns.duplicated()]
+  
   df = df.sort_values(by='matching score',ascending=False)
   return df
   
@@ -244,9 +236,9 @@ if st.button("Submit",key = "eight"):
       n = round(len(df_1)*(n/10))
       l.append(n)
       df_K.append(df_1)
-    #l = list(filter(lambda x: x != 0, l))
+    
     total = sum(l)
-    #df_2 = pd.DataFrame(df_2)
+    
     total = sum(l)
     df_2 = pd.concat(df_K)
     kind_2 = df_2.groupby(["kind","value"])
@@ -257,21 +249,8 @@ if st.button("Submit",key = "eight"):
       n = round(n*100/total * 12/100)
       df = df_2.head(n)
       df = df.sort_values(by='matching score',ascending=False)
-      st.write(df)
-      #total = sum(l)
-      
-        
-      #l = list(l)
-      #l = l.pop(-1)
-      #l = list(filter(lambda x: x != 0, l))
-      #total = sum(l)
-      #tota = list(total)
-      
-    #for x in range(0,len(l)):
-      #n = round(l[x]*100/total * 12/100)
-    
-        
-    
+      st.write(total)
+     
   else:
     group_0 = df.groupby(df.touchpointable_type)
     df_Events = group_0.get_group("Event")
